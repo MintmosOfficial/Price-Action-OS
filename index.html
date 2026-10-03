@@ -2492,16 +2492,24 @@ updateProgress();
   const ENDPOINT='/api/spark';   // secure backend proxy — the Gemini key lives only on the server
   const sleep=ms=>new Promise(r=>setTimeout(r,ms));
   const fatal=msg=>Object.assign(new Error(msg),{fatal:true});
-  async function ask(contents){
-    let r,j;
-    try{ r=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents})}); j=await r.json().catch(()=>({})); }
+  async function ask(contents,onText){
+    let r;
+    try{ r=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents})}); }
     catch(e){ throw fatal('request blocked (network / CORS / sandbox)'); }
-    if(r.ok){
-      const c=j.candidates&&j.candidates[0], txt=((c&&c.content&&c.content.parts)||[]).filter(p=>!p.thought).map(p=>p.text||'').join('').trim();
-      if(txt) return txt;
-      throw new Error(j.promptFeedback&&j.promptFeedback.blockReason?'blocked by safety filter':'empty reply'+(c&&c.finishReason?' ('+c.finishReason+')':''));
+    if(!r.ok){ const j=await r.json().catch(()=>({})); throw new Error((j.error&&j.error.message)||('HTTP '+r.status)); }
+    const rd=r.body.getReader(), dec=new TextDecoder(); let buf='', full='';
+    for(;;){                                              // read the server-sent stream chunk by chunk
+      const {done,value}=await rd.read(); if(done) break;
+      buf+=dec.decode(value,{stream:true}); let k;
+      while((k=buf.indexOf('\n\n'))>=0){
+        const line=buf.slice(0,k).trim(); buf=buf.slice(k+2); if(line.indexOf('data:')!==0) continue;
+        let ev; try{ ev=JSON.parse(line.slice(5)); }catch(e){ continue; }
+        if(ev.error) throw new Error(ev.error);
+        if(ev.t){ full+=ev.t; if(onText) onText(full); }
+      }
     }
-    throw new Error((j.error&&j.error.message)||('HTTP '+r.status));
+    if(!full.trim()) throw new Error('empty reply');
+    return full.trim();
   }
   async function diagnose(){
     try{ await fetch('/api/spark',{method:'GET'}); }
@@ -2525,17 +2533,22 @@ updateProgress();
     S.busy=true; S.status=PHASES[0]; S.hold=0; let i=0;
     S.timer=setInterval(()=>{ if(Date.now()<S.hold) return; S.status=PHASES[++i%PHASES.length]; upd(); },1800);
     const fab=$('#aiFab'); if(fab) fab.classList.add('busy'); renderAll();
+    let msg=null, tm=0; S.streaming=false;
     try{
       const pre=ctx.length?'Use the following reference material from the Price Action OS to answer.\n\n'+ctx.map(x=>`=== ${x.label} ===\n${x.text}`).join('\n\n')+'\n\n=== QUESTION ===\n':'';
       const parts=[{text:pre+text}]; if(img) parts.push({inlineData:{mimeType:'image/jpeg',data:img.b64}});
-      const out=await ask(histFor(c).concat([{role:'user',parts}]));
-      c.msgs.push({role:'model',text:out}); c.ts=Date.now();
+      const out=await ask(histFor(c).concat([{role:'user',parts}]),full=>{
+        if(!msg){ msg={role:'model',text:''}; c.msgs.push(msg); S.streaming=true; }   // first words arrived → swap "thinking" for the live answer
+        msg.text=full; if(!tm) tm=setTimeout(()=>{ tm=0; renderAll(); },60);
+      });
+      clearTimeout(tm); if(msg) msg.text=out; else c.msgs.push({role:'model',text:out}); c.ts=Date.now();
     }catch(e){
-      let t='Spark could not get a reply.\n'+e.message;
-      if(/blocked \(network/.test(e.message||'')) t+='\n\n'+await diagnose();
+      clearTimeout(tm); if(msg){ const k=c.msgs.indexOf(msg); if(k>=0) c.msgs.splice(k,1); }   // drop a half-finished answer so Retry starts clean
+      console.error('Spark error:',e);   // details stay in the browser console only
+      const t='Spark is Busy';
       S.err={text:t,retry:()=>run(c,ctx,img,text)};
     }
-    clearInterval(S.timer); S.busy=false; if(fab) fab.classList.remove('busy'); save(); renderAll();
+    clearInterval(S.timer); S.busy=false; S.streaming=false; if(fab) fab.classList.remove('busy'); save(); renderAll();
   }
   const upd=()=>$$('.sp-think-txt').forEach(e=>e.textContent=S.status);
 
@@ -2546,7 +2559,7 @@ updateProgress();
     else h=c.msgs.map((m,i)=>m.role==='user'
       ? `<div class="sp-m me">${m.thumb?`<img class="sp-thumb" src="${m.thumb}" alt="attached image">`:''}${m.ctx&&m.ctx.length?`<div class="sp-tags">${m.ctx.map(l=>`<span>${esc(l)}</span>`).join('')}</div>`:''}${esc(m.text).replace(/\n/g,'<br>')}</div>`
       : `<div class="sp-m bot">${fmt(m.text)}<div class="sp-act"><button data-copy="${i}">Copy answer</button></div></div>`).join('');
-    if(S.busy) h+=`<div class="sp-think">${SVG}<span class="sp-think-txt">${esc(S.status)}</span></div>`;
+    if(S.busy&&!S.streaming) h+=`<div class="sp-think">${SVG}<span class="sp-think-txt">${esc(S.status)}</span></div>`;
     if(S.err) h+=`<div class="sp-m bot err" style="white-space:pre-wrap">${esc(S.err.text)}${S.err.retry?'<div class="sp-act"><button data-retry>Try again</button></div>':''}</div>`;
     v.msgs.innerHTML=h; v.msgs.scrollTop=v.msgs.scrollHeight;
   }
