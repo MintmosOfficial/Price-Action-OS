@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>
+/* ═════════ SUPABASE INITIALIZATION ═════════ */
+const SUPABASE_URL = "https://hspehyvkaylcgouweice.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhzcGVoeXZrYXlsY2dvdXdlaWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA5NzQ1MTUsImV4cCI6MjEwNjU1MDUxNX0.JMvsE-9KyC06YV0ns9fmNVMi5I9VdWiRbqinFQaN3E8";
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Price Action Operating System — Institutional Execution Framework</title>
@@ -541,6 +547,26 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Crect%20width='24'%20height='24'%20rx='5'%20fill='%23000'/%3E%3Cpath%20fill='%23fff'%20d='M12.00%200.40%20L13.25%205.60%20L12.00%209.30%20L11.05%206.00ZM20.20%203.80%20L17.41%208.36%20L13.91%2010.09%20L15.57%207.09ZM23.60%2012.00%20L18.40%2013.25%20L14.70%2012.00%20L18.00%2011.05ZM20.20%2020.20%20L15.64%2017.41%20L13.91%2013.91%20L16.91%2015.57ZM12.00%2023.60%20L10.75%2018.40%20L12.00%2014.70%20L12.95%2018.00ZM3.80%2020.20%20L6.59%2015.64%20L10.09%2013.91%20L8.43%2016.91ZM0.40%2012.00%20L5.60%2010.75%20L9.30%2012.00%20L6.00%2012.95ZM3.80%203.80%20L8.36%206.59%20L10.09%2010.09%20L7.09%208.43ZM14.83%205.16%20L14.57%207.76%20L13.03%209.51%20L13.32%207.24ZM18.84%209.17%20L16.81%2010.82%20L14.49%2010.97%20L16.30%209.57ZM18.84%2014.83%20L16.24%2014.57%20L14.49%2013.03%20L16.76%2013.32ZM14.83%2018.84%20L13.18%2016.81%20L13.03%2014.49%20L14.43%2016.30ZM9.17%2018.84%20L9.43%2016.24%20L10.97%2014.49%20L10.68%2016.76ZM5.16%2014.83%20L7.19%2013.18%20L9.51%2013.03%20L7.70%2014.43ZM5.16%209.17%20L7.76%209.43%20L9.51%2010.97%20L7.24%2010.68ZM9.17%205.16%20L10.82%207.19%20L10.97%209.51%20L9.57%207.70Z'/%3E%3C/svg%3E">
 </head>
 <body>
+<div id="authGate" role="dialog" aria-modal="true" aria-label="Sign in">
+  <div class="ag-card">
+    <div class="ag-logo">MINTMOS.</div>
+    <h2 id="agTitle">Create your account</h2>
+    <p id="agSub">Sign up to save your progress and notes across every device.</p>
+    <input id="agName" type="text" placeholder="How should we call you?" autocomplete="name">
+    <input id="agEmail" type="email" placeholder="Enter your email" autocomplete="email">
+    <div class="ag-pw"><input id="agPass" type="password" placeholder="Enter your password" autocomplete="new-password"><button id="agEye" type="button" aria-label="Show or hide password">👁</button></div>
+    <div class="ag-row">
+      <label class="ag-toggle" id="agNewsRow"><input type="checkbox" id="agNews" checked><span class="ag-sw"></span>Subscribe to our newsletter.</label>
+      <a id="agForgot">Forgot password?</a>
+    </div>
+    <button id="agSubmit" type="button">Sign Up</button>
+    <div id="agMsg" role="status"></div>
+    <div id="agGoogleWrap"><div class="ag-div"></div><button id="agGoogle" type="button"><svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20H24v8h11.3C33.7 33.1 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 8 3l5.7-5.7C34 6.1 29.3 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.7-.4-4z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.1 8 3l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35 26.7 36 24 36c-5.3 0-9.7-3.4-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.7-.4-4z"/></svg><span id="agGoogleTxt">Sign up with Google</span></button></div>
+    <div class="ag-switch" id="agSwWrap"><span id="agSwText">Already have an account?</span> <a id="agSw">Sign In</a></div>
+    <p class="ag-legal" id="agLegal">By registering, you agree to our <a href="#terms" onclick="openLegal('terms');return false">Terms of Service</a> and <a href="#privacy" onclick="openLegal('privacy');return false">Privacy Policy</a></p>
+    <p class="ag-copy">© 2026 Mintmos. All rights reserved.</p>
+  </div>
+</div>
 
 <!-- ═══════════════ TOP NAV / TABS ═══════════════ -->
 <header class="topnav">
@@ -559,7 +585,8 @@
       <button class="tab-btn" data-tab="faq" onclick="showTab('faq',this)">FAQ</button>
       <button class="tab-btn" data-tab="spark" onclick="showTab('spark',this)">Spark</button>
     </nav>
-    <button class="nav-cta" onclick="goToStart()">Let's Do it Bro →</button>
+    <div class="nav-acct"><span id="syncState"></span><button id="signOutBtn" type="button">Sign out</button></div>
+    <button class="nav-cta" onclick="goToStart()">Discover →</button>
   </div>
 </header>
 
@@ -588,7 +615,7 @@
 
   <div class="hero-cta-wrap">
       <button class="cta-enjoy" onclick="goToStart()">
-        Let's Do it Bro <span class="arrow">→</span>
+        Discover <span class="arrow">→</span>
       </button>
       <p class="cta-note">You're in. Lifetime access — no indicators, no noise, just price.</p>
     </div>
@@ -1058,7 +1085,7 @@
     <h2>Built for <em>Serious</em> Execution</h2>
     <p class="lede">No patterns to memorize. No indicators to add. A clean structural framework, precise entry logic, and the psychological architecture to follow it consistently.</p>
     <button class="cta-enjoy" onclick="goToStart()">
-      Let's Do it Bro <span class="arrow">→</span>
+      Discover <span class="arrow">→</span>
     </button>
     <p class="tp-label tracking-widest text-[11px] font-mono text-zinc-500 uppercase footer-stats">8 Modules · 6 Bonuses · 3 Rule-Based Setups · Lifetime Access</p>
   </div>
@@ -1100,6 +1127,7 @@
     <a class="social-link" href="mailto:raoabannn@gmail.com" onclick="openContactModal(event)"><img src="data:image/png;base64,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" alt="Mintmos"> Contact Admin</a>
   </div>
 
+  <div class="legal-links"><a href="#terms" onclick="openLegal('terms');return false">Terms of Service</a><span>·</span><a href="#privacy" onclick="openLegal('privacy');return false">Privacy Policy</a></div>
   <p class="tp-label tracking-widest text-[11px] font-mono text-zinc-500 uppercase made-by">A MINTMOS PRODUCT</p>
 </footer>
 
@@ -1987,6 +2015,7 @@ function calcRisk() {
 }
 
 function setActiveTab(id) {
+  document.body.classList.toggle('spark-only', id === 'spark');
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === id));
   document.querySelectorAll('.tab-pane').forEach(p => p.classList.toggle('active', p.id === 'tab-' + id));
 }
@@ -2206,22 +2235,113 @@ updateProgress();
     #spHistBtn{display:block}
   }
   @media (max-width:640px){#aiFab span{display:none}#aiFab{padding:13px}}
+
+  /* ── SPARK TAB: AI is the only thing on the page ── */
+  body.spark-only .hero, body.spark-only .proof-bar, body.spark-only .footer-cta,
+  body.spark-only .bottom-hero, body.spark-only .site-footer{display:none}
+  body.spark-only #tab-spark .band{padding-top:40px;padding-bottom:40px}
+  body.spark-only .sp-shell{height:calc(100vh - 230px);min-height:520px;margin-top:24px}
+
+  /* ── READER TOOLS ── */
+  .rd-left{display:flex;align-items:center;gap:12px;min-width:0}
+  .rd-timer{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:12px;color:#a1a1aa;border:1px solid #27272a;border-radius:999px;padding:3px 4px 3px 10px}
+  .rd-timer b{font-weight:500;color:#fff;letter-spacing:.06em;min-width:42px}
+  .rd-timer button{background:none;border:0;color:#d4d4d8;cursor:pointer;font-size:12px;padding:3px 7px;border-radius:999px}
+  .rd-timer button:hover{background:#fff;color:#000}
+  .rd-timer.run{border-color:#39ff14}.rd-timer.run b{color:#39ff14}
+  .rd-hl{background:rgba(57,255,20,.8);color:#000;border-radius:3px;padding:0 2px}
+  #readerModal.hl-on #rdContent{cursor:text}
+  #readerModal.hl-on .rd-hl{cursor:pointer;outline:1px dashed #000}
+  .rd-panel{position:fixed;top:57px;right:0;bottom:0;width:360px;z-index:4;background:#09090b;border-left:1px solid #18181b;display:flex;flex-direction:column;
+    transform:translateX(100%);transition:transform .3s ease}
+  .rd-panel.open{transform:none}
+  .rd-panel h3{margin:0;padding:16px 18px;font:500 11px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:#a1a1aa;border-bottom:1px solid #18181b;display:flex;justify-content:space-between;align-items:center}
+  .rd-panel h3 small{color:#39ff14;letter-spacing:.1em;opacity:0;transition:opacity .3s}.rd-panel h3 small.on{opacity:1}
+  #rdNoteTa{flex:1;resize:none;background:transparent;border:0;outline:0;color:#e4e4e7;font:15px/1.7 inherit;padding:18px}
+  .rd-sheet{overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:12px}
+  .rd-sheet .setup-card{padding:16px;border-radius:14px}.rd-sheet .setup-card:hover{transform:none}
+  #readerModal.panel-open #rdScroll{margin-right:360px}
+  @media (max-width:900px){.rd-panel{width:100%}#readerModal.panel-open #rdScroll{margin-right:0}}
+  @media (max-width:640px){.rd-bar{display:flex;flex-wrap:wrap}.rd-tools{order:3;width:100%;overflow-x:auto;white-space:nowrap}.rd-close{margin-left:auto}}
+  /* ── AUTH GATE ── */
+  body.locked{overflow:hidden}
+  #authGate{position:fixed;inset:0;z-index:20000;display:flex;align-items:center;justify-content:center;padding:20px;
+    background:radial-gradient(ellipse at 50% 20%,rgba(57,255,20,.07),transparent 60%),repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0 1px,transparent 1px 90px),rgba(0,0,0,.62);
+    -webkit-backdrop-filter:blur(26px) saturate(.7);backdrop-filter:blur(26px) saturate(.7)}
+  .ag-card{width:100%;max-width:400px;background:rgba(9,9,11,.82);border:1px solid #27272a;border-radius:20px;padding:34px 30px;box-shadow:0 30px 90px rgba(0,0,0,.8);text-align:center}
+  .ag-logo{font:600 13px var(--mono);letter-spacing:.3em;color:#fff;margin-bottom:22px}
+  .ag-card h2{margin:0 0 8px;font-size:24px;font-weight:500;color:#fff;letter-spacing:-.03em}
+  .ag-card p{margin:0 0 22px;font-size:13.5px;line-height:1.6;color:#a1a1aa}
+  .ag-card input{width:100%;margin-bottom:10px;background:#000;border:1px solid #27272a;border-radius:10px;padding:13px 14px;color:#fff;font-size:14px;outline:0}
+  .ag-card input:focus{border-color:#71717a}
+  #agSubmit{width:100%;margin-top:6px;background:#fff;color:#000;border:0;border-radius:10px;padding:13px;font-weight:600;font-size:14px;cursor:pointer}
+  #agSubmit:disabled{opacity:.5;cursor:wait}
+  #agMsg{min-height:20px;margin-top:14px;font-size:12.5px;line-height:1.5;color:#f87171}#agMsg.ok{color:#4ade80}
+  .ag-switch{margin-top:10px;font-size:12.5px;color:#71717a}.ag-switch a{color:#fff;cursor:pointer;text-decoration:underline}
+  .nav-acct{display:flex;align-items:center;gap:10px;margin-right:10px}
+  .nav-acct #syncState{font:11px var(--mono);color:#4ade80;letter-spacing:.06em}
+  .nav-acct button{font:11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#a1a1aa;background:none;border:1px solid #27272a;border-radius:8px;padding:6px 10px;cursor:pointer}
+  .nav-acct button:hover{color:#fff;border-color:#52525b}
+  @media (max-width:900px){.nav-acct #syncState{display:none}}
+  .ag-card{max-width:430px;padding:38px 34px 26px}
+  .ag-card input[type=text],.ag-card input[type=email],.ag-card input[type=password]{height:50px;margin-bottom:12px;background:#111113;border-color:#1f1f23;font-size:15px}
+  .ag-pw{position:relative}.ag-pw input{padding-right:46px}
+  #agEye{position:absolute;right:6px;top:4px;height:42px;width:38px;background:none;border:0;color:#71717a;cursor:pointer;font-size:15px}
+  .ag-row{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:6px 0 16px;text-align:left}
+  .ag-toggle{display:flex;align-items:center;gap:10px;font-size:14px;color:#e4e4e7;cursor:pointer}
+  .ag-toggle input{display:none}
+  .ag-sw{position:relative;width:40px;height:22px;border-radius:999px;background:#27272a;flex-shrink:0;transition:background .2s}
+  .ag-sw::after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .2s}
+  .ag-toggle input:checked+.ag-sw{background:#22c55e}.ag-toggle input:checked+.ag-sw::after{transform:translateX(18px)}
+  #agForgot{font-size:12.5px;color:#a1a1aa;cursor:pointer;text-decoration:underline;white-space:nowrap}
+  #agSubmit{height:52px;font-size:15px;margin-top:0}
+  .ag-div{height:1px;background:#27272a;margin:18px 6px}
+  #agGoogle{width:100%;height:50px;display:flex;align-items:center;justify-content:center;gap:10px;background:#111113;color:#fff;border:1px solid #1f1f23;border-radius:10px;font-size:14.5px;font-weight:500;cursor:pointer}
+  #agGoogle:hover{border-color:#52525b}
+  .ag-switch{margin-top:18px;font-size:14px}.ag-switch a{font-weight:600;text-decoration:none}
+  .ag-card p.ag-legal{margin:22px 0 4px;font-size:12px;color:#71717a}.ag-legal a{color:#a1a1aa;text-decoration:underline}
+  .ag-card p.ag-copy{margin:0;font-size:11.5px;color:#52525b}
+  /* ── LEGAL PAGES ── */
+  .legal-links{display:flex;justify-content:center;gap:12px;margin:0 0 14px;font:11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#52525b}
+  .legal-links a{color:#a1a1aa;text-decoration:none}.legal-links a:hover{color:#fff}
+  #legalModal{position:fixed;inset:0;z-index:20100;display:none;flex-direction:column;background:#000}
+  #legalModal.open{display:flex}
+  body.legal-open #askSpark{z-index:20300}body.legal-open #aiDrawer{z-index:20250}
+  .lg-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 24px;border-bottom:1px solid #18181b;background:rgba(0,0,0,.92)}
+  .lg-tabs{display:flex;gap:8px;flex-wrap:wrap}
+  .lg-body{flex:1;overflow-y:auto;padding:56px 24px 120px}
+  #lgContent{max-width:46rem;margin:0 auto;font-size:16px;line-height:1.75;color:#d4d4d8}
+  #lgContent h1{font-size:2.2rem;line-height:1.15;font-weight:600;letter-spacing:-.035em;color:#fff;margin:0 0 .6em}
+  #lgContent h2{font-size:1.2rem;font-weight:600;color:#fff;margin:2.2em 0 .6em;letter-spacing:-.02em}
+  #lgContent h3{font:500 12px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#a1a1aa;margin:1.8em 0 .6em}
+  #lgContent p{margin:0 0 1em}#lgContent ul{margin:0 0 1.2em;padding-left:1.3em}#lgContent li{margin:.25em 0}
+  #lgContent b{color:#fff;font-weight:600}#lgContent code{font-family:var(--mono);font-size:.85em;background:#111113;border:1px solid #27272a;border-radius:5px;padding:1px 6px}
+  #lgContent a{color:#fff;text-decoration:underline}
+  @media (max-width:640px){.lg-bar{padding:10px 14px}.lg-body{padding:36px 18px 100px}#lgContent h1{font-size:1.8rem}}
 </style>
 
 <!-- Reading Mode modal -->
 <div id="readerModal" role="dialog" aria-modal="true" aria-label="Module reader">
   <div class="rd-bar">
-    <div class="rd-kicker-bar" id="rdBarLabel">Reading Mode</div>
+    <div class="rd-left"><div class="rd-kicker-bar" id="rdBarLabel">Reading Mode</div>
+      <div class="rd-timer" id="rdTimer" title="25-minute focus session"><span>⏱</span><b id="rdTime">25:00</b><button id="rdTimerGo" aria-label="Start or pause timer">▶</button><button id="rdTimerReset" aria-label="Reset timer">↺</button></div></div>
     <div class="rd-tools">
       <button class="rd-btn" id="rdMinus" aria-label="Decrease font size">A−</button>
       <button class="rd-btn" id="rdPlus" aria-label="Increase font size">A+</button>
       <button class="rd-btn" id="rdFocus" aria-pressed="false">Focus Mode</button>
+      <button class="rd-btn" id="rdHl" aria-pressed="false" title="Select text to highlight it. Click a highlight to remove it.">🖍 Highlight</button>
+      <button class="rd-btn" id="rdListen" aria-pressed="false">🔊 Listen</button>
+      <button class="rd-btn" id="rdNotesBtn" aria-pressed="false">📝 Notes</button>
+      <button class="rd-btn" id="rdSheetBtn" aria-pressed="false">📊 Setups</button>
     </div>
     <button class="rd-btn rd-close" id="rdClose">Close Reader ×</button>
     <div class="rd-progress" id="rdProgress"></div>
   </div>
   <div class="rd-mask top"></div><div class="rd-mask bot"></div>
   <div id="rdScroll"><article id="rdContent"></article><div class="rd-nav" id="rdNav"></div></div>
+  <aside class="rd-panel" id="rdNotes" inert aria-label="Study notes"><h3><span id="rdNoteTitle">Study Notes</span><small id="rdNoteSaved">Saved ✓</small></h3>
+    <textarea id="rdNoteTa" placeholder="Type your chart observations here… saved automatically on this device."></textarea></aside>
+  <aside class="rd-panel" id="rdSheet" inert aria-label="Setup cheatsheet"><h3><span>Setup Cheatsheet</span></h3><div class="rd-sheet" id="rdSheetBody"></div></aside>
 </div>
 
 <!-- Mintmos Spark -->
@@ -2264,6 +2384,7 @@ updateProgress();
       (i>0?`<button class="rd-btn" data-go="${i-1}">← Module ${modules[i-1].num}</button>`:'<span></span>')+
       (i<modules.length-1?`<button class="rd-btn" data-go="${i+1}">Module ${modules[i+1].num} →</button>`:'<span></span>');
     scroll.style.scrollBehavior='auto'; scroll.scrollTop=0; scroll.style.scrollBehavior='';
+    stopSpeech(); loadNotes(); applyHighlights();
     update();
   }
   function update(){
@@ -2288,7 +2409,71 @@ updateProgress();
     setTimeout(()=>{modal.classList.remove('open');},250);
     if(opener&&opener.focus) opener.focus();
   }
-  $('rdClose').onclick=close;
+
+  /* ---- Study tools: notes, highlighter, listen, timer, cheatsheet ---- */
+  const store={get:k=>{try{return localStorage.getItem(k)}catch(e){return null}},set:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}}};
+  const mkey=()=>'m'+(modules[current]&&modules[current].num);
+  // panels
+  const panels={notes:[$('rdNotes'),$('rdNotesBtn')],sheet:[$('rdSheet'),$('rdSheetBtn')]};
+  function togglePanel(name){
+    const was=panels[name][0].classList.contains('open');
+    Object.keys(panels).forEach(k=>{const [p,b]=panels[k], on=(k===name&&!was); p.classList.toggle('open',on); p.inert=!on; b.setAttribute('aria-pressed',on);});
+    modal.classList.toggle('panel-open',!was);
+    if(!was&&name==='notes') $('rdNoteTa').focus();
+  }
+  $('rdNotesBtn').onclick=()=>togglePanel('notes'); $('rdSheetBtn').onclick=()=>togglePanel('sheet');
+  try{ $('rdSheetBody').innerHTML=setupCards.map(c=>`<div class="setup-card"><div class="setup-emoji">${c.emoji}</div><div class="setup-name">${c.name}</div>`+
+    [['Condition',c.condition],['Entry Signal',c.entry],['Stop Loss',c.sl]].map(r=>`<div class="setup-row"><div class="setup-row-label">${r[0]}</div><div class="setup-row-val">${r[1]}</div></div>`).join('')+
+    `<div class="setup-row"><div class="setup-row-label">Min R:R</div><div class="setup-row-val setup-rr">${c.rr}</div></div></div>`).join(''); }catch(e){}
+  // notes (auto-saved per module)
+  let nt; const ta=$('rdNoteTa');
+  function loadNotes(){ ta.value=store.get('paos_notes_'+mkey())||''; $('rdNoteTitle').textContent='Notes · Module '+modules[current].num; }
+  ta.addEventListener('input',()=>{ clearTimeout(nt); nt=setTimeout(()=>{ store.set('paos_notes_'+mkey(),ta.value); const s=$('rdNoteSaved'); s.classList.add('on'); setTimeout(()=>s.classList.remove('on'),1200); },300); });
+  // highlighter (saved as text offsets per module)
+  const hlKey=()=>'paos_hl_'+mkey(), getHL=()=>{try{return JSON.parse(store.get(hlKey())||'[]')}catch(e){return[]}};
+  function wrap(a,b){
+    const w=document.createTreeWalker(content,NodeFilter.SHOW_TEXT), nodes=[]; let pos=0, n;
+    while(n=w.nextNode()){ const L=n.nodeValue.length; if(pos<b&&pos+L>a&&!n.parentNode.closest('.rd-hl')) nodes.push([n,Math.max(a-pos,0),Math.min(b-pos,L)]); pos+=L; }
+    nodes.forEach(([n,s0,e0])=>{ const r=document.createRange(); r.setStart(n,s0); r.setEnd(n,e0); const m=document.createElement('mark'); m.className='rd-hl'; m.dataset.id=a+'-'+b; r.surroundContents(m); });
+  }
+  function applyHighlights(){ getHL().forEach(h=>{try{wrap(h[0],h[1])}catch(e){}}); }
+  function addHighlight(){
+    if(!modal.classList.contains('hl-on')) return;
+    const sel=getSelection(); if(!sel.rangeCount||sel.isCollapsed) return; const r=sel.getRangeAt(0);
+    if(!content.contains(r.commonAncestorContainer)) return;
+    const pre=document.createRange(); pre.selectNodeContents(content); pre.setEnd(r.startContainer,r.startOffset);
+    const a=pre.toString().length, b=a+r.toString().length; if(b<=a) return;
+    sel.removeAllRanges(); wrap(a,b); const l=getHL(); l.push([a,b]); store.set(hlKey(),JSON.stringify(l));
+  }
+  content.addEventListener('mouseup',()=>setTimeout(addHighlight,0)); content.addEventListener('touchend',()=>setTimeout(addHighlight,200));
+  content.addEventListener('click',e=>{ const m=e.target.closest('.rd-hl'); if(!m||!modal.classList.contains('hl-on')) return;
+    const id=m.dataset.id; content.querySelectorAll('.rd-hl').forEach(x=>{ if(x.dataset.id===id) x.replaceWith(...x.childNodes); }); content.normalize();
+    store.set(hlKey(),JSON.stringify(getHL().filter(h=>h[0]+'-'+h[1]!==id))); });
+  $('rdHl').onclick=function(){ const on=!modal.classList.contains('hl-on'); modal.classList.toggle('hl-on',on); this.setAttribute('aria-pressed',on); };
+  // text-to-speech
+  const tts=window.speechSynthesis, listenBtn=$('rdListen');
+  function stopSpeech(){ if(tts) tts.cancel(); listenBtn.setAttribute('aria-pressed','false'); listenBtn.textContent='🔊 Listen'; }
+  listenBtn.onclick=function(){
+    if(!tts){ alert('Your browser does not support audio mode.'); return; }
+    if(this.getAttribute('aria-pressed')==='true'){ stopSpeech(); return; }
+    const strip=h=>{const d=document.createElement('div'); d.innerHTML=h||''; return d.textContent.trim();}, m=modules[current];
+    const text=[m.title,strip(m.intro)].concat(m.lessons.map(l=>l.t+'. '+strip(l.body))).join('. ');
+    const chunks=text.match(/[^.!?]+[.!?]*/g)||[text], parts=[]; let buf='';
+    chunks.forEach(c=>{ if((buf+c).length>200){ if(buf) parts.push(buf); buf=c; } else buf+=c; }); if(buf) parts.push(buf);
+    const vs=tts.getVoices().filter(v=>/^en/i.test(v.lang)), v=vs.find(v=>/natural|neural|online/i.test(v.name))||vs.find(v=>/google|samantha|daniel/i.test(v.name))||vs[0];
+    tts.cancel();
+    parts.forEach((p,i)=>{ const u=new SpeechSynthesisUtterance(p.trim()); if(v) u.voice=v; u.rate=.98; if(i===parts.length-1) u.onend=stopSpeech; tts.speak(u); });
+    this.setAttribute('aria-pressed','true'); this.textContent='⏹ Stop';
+  };
+  // focus timer (25 min)
+  const T0=25*60; let left=T0, tick=null;
+  const showT=()=>{ $('rdTime').textContent=String(Math.floor(left/60)).padStart(2,'0')+':'+String(left%60).padStart(2,'0'); };
+  function stopT(){ clearInterval(tick); tick=null; $('rdTimer').classList.remove('run'); $('rdTimerGo').textContent='▶'; }
+  $('rdTimerGo').onclick=()=>{ if(tick){ stopT(); return; } if(left<=0) left=T0;
+    $('rdTimer').classList.add('run'); $('rdTimerGo').textContent='⏸';
+    tick=setInterval(()=>{ left--; showT(); if(left<=0){ stopT(); $('rdTime').textContent='Done ✓'; } },1000); showT(); };
+  $('rdTimerReset').onclick=()=>{ stopT(); left=T0; showT(); };
+  $('rdClose').onclick=()=>{stopSpeech();close();};
   $('rdPlus').onclick=()=>{size=Math.min(34,size+2);applySize();update();};
   $('rdMinus').onclick=()=>{size=Math.max(14,size-2);applySize();update();};
   $('rdFocus').onclick=function(){
@@ -2300,8 +2485,8 @@ updateProgress();
   window.addEventListener('resize',update);
   document.addEventListener('keydown',e=>{
     if(!modal.classList.contains('open')) return;
-    if(e.key==='Escape') close();
-    if(e.key==='Tab'){ const f=[...modal.querySelectorAll('button')].filter(b=>b.offsetParent); if(!f.length) return;
+    if(e.key==='Escape'){stopSpeech();close();}
+    if(e.key==='Tab'){ const f=[...modal.querySelectorAll('button,textarea')].filter(b=>b.offsetParent&&!b.closest('[inert]')); if(!f.length) return;
       const a=f[0], z=f[f.length-1];
       if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus();} else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus();} }
   });
@@ -2317,7 +2502,6 @@ updateProgress();
 
 /* ═════════ MINTMOS SPARK — shared chat engine (floating drawer + Spark section) ═════════ */
 (function(){
-  const GEMINI_MODELS = ["gemini-3.8-flash", "gemini-3.7-flash", "gemini-3.6-flash", "gemini-flash-latest"];   // tried in order
   const LS='paos_spark_chats_v1';
   const $=(s,r)=>(r||document).querySelector(s), $$=(s,r)=>[...(r||document).querySelectorAll(s)];
   const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
@@ -2352,29 +2536,20 @@ updateProgress();
     res({b64:sc(1280).split(',')[1],thumb:sc(120)}); }; im.src=fr.result; }; fr.readAsDataURL(file); }); }
   function attachFile(f){ if(!f||!/^image\//.test(f.type)) return; loadImg(f).then(i=>{S.img=i;renderCtx();}).catch(()=>{S.err={text:'Could not read that image.'};renderAll();}); }
 
-  /* ---- Gemini call: retries when busy, falls back through models ---- */
+  /* ---- Gemini call: single direct request (model is fixed server-side) ---- */
   const ENDPOINT='/api/spark';   // secure backend proxy — the Gemini key lives only on the server
   const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-  const isBusy=(st,msg)=>st===503||st===500||st===504||st===429||/high demand|overloaded|unavailable|try again later/i.test(msg||'');
   const fatal=msg=>Object.assign(new Error(msg),{fatal:true});
-  async function ask(contents,onStatus){
-    const errs=[]; let allBusy=true;
-    for(let mi=0;mi<GEMINI_MODELS.length;mi++){
-      const m=GEMINI_MODELS[mi];
-      for(let at=0;at<2;at++){
-        let r,j;
-        try{ r=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:m,contents})}); j=await r.json().catch(()=>({})); }
-        catch(e){ errs.push(m+': request blocked (network / CORS / sandbox)'); throw fatal(errs.join('\n')); }
-        if(r.ok){ const c=j.candidates&&j.candidates[0], txt=((c&&c.content&&c.content.parts)||[]).filter(p=>!p.thought).map(p=>p.text||'').join('').trim();
-          if(txt) return txt; errs.push(m+': '+(j.promptFeedback&&j.promptFeedback.blockReason?'blocked by safety filter':'empty reply'+(c&&c.finishReason?' ('+c.finishReason+')':''))); allBusy=false; break; }
-        const msg=(j.error&&j.error.message)||('HTTP '+r.status);
-        if(r.status===401||r.status===403||/api key/i.test(msg)){ errs.push(m+': '+msg); throw fatal(errs.join('\n')); }
-        if(isBusy(r.status,msg)){ errs.push(m+': busy'); if(at===0){ onStatus('Google is busy — retrying…'); await sleep(1500); continue; } break; }
-        errs.push(m+': '+msg); allBusy=false; break;
-      }
-      if(mi<GEMINI_MODELS.length-1) onStatus('Trying another model…');
+  async function ask(contents){
+    let r,j;
+    try{ r=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents})}); j=await r.json().catch(()=>({})); }
+    catch(e){ throw fatal('request blocked (network / CORS / sandbox)'); }
+    if(r.ok){
+      const c=j.candidates&&j.candidates[0], txt=((c&&c.content&&c.content.parts)||[]).filter(p=>!p.thought).map(p=>p.text||'').join('').trim();
+      if(txt) return txt;
+      throw new Error(j.promptFeedback&&j.promptFeedback.blockReason?'blocked by safety filter':'empty reply'+(c&&c.finishReason?' ('+c.finishReason+')':''));
     }
-    const err=new Error(errs.join('\n')); err.busy=allBusy; throw err;
+    throw new Error((j.error&&j.error.message)||('HTTP '+r.status));
   }
   async function diagnose(){
     try{ await fetch('/api/spark',{method:'GET'}); }
@@ -2401,10 +2576,10 @@ updateProgress();
     try{
       const pre=ctx.length?'Use the following reference material from the Price Action OS to answer.\n\n'+ctx.map(x=>`=== ${x.label} ===\n${x.text}`).join('\n\n')+'\n\n=== QUESTION ===\n':'';
       const parts=[{text:pre+text}]; if(img) parts.push({inlineData:{mimeType:'image/jpeg',data:img.b64}});
-      const out=await ask(histFor(c).concat([{role:'user',parts}]),st=>{S.status=st;S.hold=Date.now()+2500;upd();});
+      const out=await ask(histFor(c).concat([{role:'user',parts}]));
       c.msgs.push({role:'model',text:out}); c.ts=Date.now();
     }catch(e){
-      let t=e.busy?"Google's Gemini servers are overloaded right now. This is temporary and not a problem with this site — press Try again in a moment.":'Spark could not reach Gemini.\n'+e.message;
+      let t='Spark could not get a reply.\n'+e.message;
       if(/blocked \(network/.test(e.message||'')) t+='\n\n'+await diagnose();
       S.err={text:t,retry:()=>run(c,ctx,img,text)};
     }
@@ -2470,15 +2645,16 @@ updateProgress();
     if(d){ e.stopPropagation(); S.chats=S.chats.filter(c=>c.id!==d.dataset.del); if(S.active===d.dataset.del) S.active=null; if(!cur()) newChat(); save(); renderAll(); }
     else if(it){ S.active=it.dataset.id; S.err=null; save(); renderAll(); $('#spSide').classList.remove('show'); } };
   new MutationObserver(syncFab).observe(pane,{attributes:true,attributeFilter:['class']});
-  document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&drawer.classList.contains('open')&&!$('#readerModal').classList.contains('open')) closeDrawer(); });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&drawer.classList.contains('open')&&!$('#readerModal').classList.contains('open')){ closeDrawer(); e.preventDefault(); } });
   if(!cur()) newChat(); else renderAll();
   syncFab();
 
   /* used by the "Ask Spark" selection button */
   window.sparkAsk=function(sel){
-    if(!pane.classList.contains('active')) openDrawer();
+    const lg=document.body.dataset.legal||'';
+    if(lg||!pane.classList.contains('active')) openDrawer();
     if(S.busy){ S.err={text:'Spark is still answering — try again in a moment.'}; renderAll(); return; }
-    send('Explain this from the Price Action OS:\n\n\u201c'+sel+'\u201d');
+    send((lg?'Explain this passage from the MINTMOS '+lg+' in plain language (a general explanation, not legal advice):':'Explain this from the Price Action OS:')+'\n\n\u201c'+sel+'\u201d');
   };
 })();
 
@@ -2488,11 +2664,12 @@ updateProgress();
   const coarse=window.matchMedia&&matchMedia('(pointer:coarse)').matches;
   function hide(){ if(pressing) return; btn.style.display='none'; text=''; }
   function check(){
+    if(document.body.classList.contains('locked')) return hide();   // never on the sign-in / sign-up gate
     const ae=document.activeElement; if(ae&&/^(INPUT|TEXTAREA|SELECT)$/.test(ae.tagName)) return hide();
     const sel=window.getSelection(); if(!sel||!sel.rangeCount||sel.isCollapsed) return hide();
     const t=sel.toString().replace(/\s+/g,' ').trim(); if(t.length<3) return hide();
     const n=sel.anchorNode&&(sel.anchorNode.nodeType===1?sel.anchorNode:sel.anchorNode.parentElement);
-    if(n&&n.closest&&n.closest('#aiDrawer,#askSpark,.rd-bar,.sp-chat')) return hide();
+    if(n&&n.closest&&n.closest('#aiDrawer,#askSpark,.rd-bar,.lg-bar,#authGate,.sp-chat')) return hide();
     const rect=sel.getRangeAt(0).getBoundingClientRect(); if(!rect.width&&!rect.height) return hide();
     text=t.slice(0,1200);
     btn.style.display='flex'; const bw=btn.offsetWidth, bh=btn.offsetHeight;
@@ -2511,5 +2688,641 @@ updateProgress();
 })();
 </script>
 
+
+<div id="legalModal" role="dialog" aria-modal="true" aria-label="Legal">
+  <div class="lg-bar"><div class="lg-tabs"><button class="rd-btn" id="lgTabTerms" type="button">Terms of Service</button><button class="rd-btn" id="lgTabPrivacy" type="button">Privacy Policy</button></div><button class="rd-btn rd-close" id="lgClose" type="button">Close ×</button></div>
+  <div class="lg-body" id="lgBody"><article id="lgContent"></article></div>
+</div>
+<script type="text/plain" id="legalTermsSrc">
+# Terms of Service
+
+**Effective Date:** {{DATE}}
+
+These Terms of Service (“Terms”) govern your access to and use of the MINTMOS Price Action Operating System (“Price Action OS,” the “Product”), together with any related website, account, digital materials, AI features, community access, and supplementary resources provided by MINTMOS (“MINTMOS,” “we,” “us,” or “our”).
+
+By creating an account, purchasing, accessing, or using Price Action OS, you agree to these Terms.
+
+If you do not agree with these Terms, do not purchase or use the Product.
+
+## 1. The Product
+
+Price Action OS is a digital educational product designed to provide a structured framework for studying price action, market structure, liquidity, trading execution, risk management, and trader psychology.
+
+The Product may include:
+
+* Educational modules and lessons
+* Trading frameworks and methodologies
+* Checklists
+* Risk-management tools and calculators
+* Study tools
+* Digital bonus materials
+* Linked third-party resources
+* Community access
+* Mintmos Spark and other Product features
+
+The Product is provided for educational and informational purposes.
+
+## 2. Educational and Trading Disclaimer
+
+**Price Action OS is educational material. It is not financial, investment, legal, tax, accounting, or personalized trading advice.**
+
+MINTMOS does not act as your financial adviser, broker, portfolio manager, investment adviser, or fiduciary.
+
+Nothing contained in Price Action OS constitutes a recommendation to buy, sell, hold, or trade any financial instrument.
+
+Trading and investing involve substantial risk. You may lose some or all of the money you trade or invest.
+
+Past performance, examples, hypothetical scenarios, educational examples, or statements contained within the Product do not guarantee future results.
+
+You are solely responsible for your own financial decisions, risk management, and trading activity.
+
+Before making financial decisions, you should consider obtaining advice from an appropriately qualified professional who understands your circumstances.
+
+## 3. No Guarantee of Results
+
+MINTMOS does not guarantee:
+
+* Profits
+* Income
+* Trading success
+* A particular win rate
+* A particular return
+* A particular level of performance
+* Employment or business results
+* That any strategy or framework will work in your specific circumstances
+
+Individual results vary based on numerous factors outside our control, including market conditions, execution, capital, experience, discipline, risk tolerance, fees, liquidity, and other circumstances.
+
+## 4. Eligibility and Accounts
+
+Certain areas of Price Action OS require an account.
+
+You agree to provide accurate information when creating your account and to keep your account information reasonably current.
+
+You are responsible for maintaining the confidentiality of your login credentials and for activity occurring through your account.
+
+You must not:
+
+* Share your account credentials with another person
+* Allow unauthorized individuals to use your account
+* Attempt to bypass authentication or access controls
+* Create accounts for fraudulent purposes
+* Attempt to gain unauthorized access to another user's account
+
+MINTMOS may suspend or terminate accounts involved in unauthorized access, abuse, fraud, or material violations of these Terms.
+
+## 5. Account Synchronization
+
+Price Action OS may synchronize certain Product-related progress and settings with your authenticated account.
+
+This functionality is intended to allow supported progress and study information to be available across devices.
+
+Synchronization may depend on internet connectivity, third-party infrastructure, browser settings, and other technical factors.
+
+MINTMOS does not guarantee that every locally stored item or piece of Product data will always synchronize successfully.
+
+## 6. Mintmos Spark
+
+Price Action OS includes an AI-assisted feature called Mintmos Spark.
+
+Spark is provided as an educational assistance tool and may generate inaccurate, incomplete, outdated, or inappropriate responses.
+
+AI-generated responses should not be treated as authoritative financial advice or as a substitute for your own judgment or professional advice.
+
+You are responsible for reviewing and independently evaluating information generated by Spark.
+
+When using Spark, you must not submit confidential, highly sensitive, unlawful, or third-party personal information that you do not have permission to provide.
+
+MINTMOS may modify, suspend, limit, or discontinue Spark or other AI functionality at any time.
+
+## 7. Digital Access
+
+Price Action OS is delivered digitally.
+
+Access may require:
+
+* An internet connection
+* A compatible browser or device
+* A valid Product account
+* Proper authentication
+* Availability of supporting third-party services
+
+“Lifetime access,” where advertised, means continued access for the lifetime of the Product or service as operated by MINTMOS, subject to these Terms and reasonable technical or business limitations.
+
+It does not mean that every feature, third-party service, external link, or specific technology will remain available forever.
+
+## 8. Updates and Changes
+
+We may update, improve, modify, replace, or remove portions of Price Action OS from time to time.
+
+This may include:
+
+* Educational material
+* Tools
+* Interfaces
+* Bonus materials
+* AI features
+* Community functionality
+* External resources
+
+Where the Product is described as receiving lifetime updates, those updates are provided at MINTMOS's discretion and do not guarantee the indefinite availability of every individual feature.
+
+## 9. Payments
+
+Purchases may be processed through a third-party payment platform.
+
+The payment provider may collect and process payment information according to its own terms and privacy policy.
+
+MINTMOS generally does not need to receive or store your complete payment-card number in order to provide access to Price Action OS.
+
+Any taxes, fees, currency-conversion charges, or payment-provider charges applicable to your purchase may depend on the payment provider and your location.
+
+## 10. Refunds
+
+Refunds are handled according to the refund policy applicable to your purchase.
+
+Price Action OS comes with a 14-day action guarantee that applies from the date of purchase. To use it, work through the first three modules and use the interactive checklist and risk calculator for at least a week. If the framework genuinely isn't clearer or more actionable than what you were using before, you may request a refund within that 14-day window.
+
+If your purchase is eligible for a refund, contact:
+
+**{{EMAIL}}**
+
+Refund requests may require reasonable information necessary to identify the transaction.
+
+## 11. Intellectual Property
+
+Price Action OS and its contents are owned by or licensed to MINTMOS and are protected by applicable intellectual-property laws.
+
+This includes, where applicable:
+
+* Text
+* Lessons
+* Frameworks
+* Graphics
+* Interface design
+* Branding
+* Logos
+* Videos
+* Audio
+* PDFs
+* Checklists
+* Templates
+* Calculators
+* Software and code
+* AI feature interfaces
+* Other Product materials
+
+Your purchase gives you a **limited, personal, non-exclusive, non-transferable license to access and use the Product for your own educational purposes.**
+
+It does not transfer ownership of the Product or its intellectual property to you.
+
+## 12. Prohibited Use
+
+You may not, without written permission from MINTMOS:
+
+* Resell Price Action OS
+* Redistribute Product materials
+* Upload Product materials to public websites
+* Share paid access with other people
+* Copy substantial portions of the Product for another commercial product
+* Repackage the Product as your own
+* Remove ownership or copyright notices
+* Circumvent access controls
+* Reverse engineer the Product for unauthorized commercial purposes
+* Use automated systems to scrape or reproduce substantial portions of the Product
+* Sell, sublicense, or transfer your Product access
+
+You may use the Product for your own personal learning and legitimate study.
+
+## 13. Third-Party Resources and Community
+
+Price Action OS may link to or provide access to third-party services such as Discord and Notion.
+
+Your use of those services is also subject to the third party's own terms and policies.
+
+MINTMOS does not guarantee the availability, accuracy, security, or continued operation of third-party services.
+
+Community access may be subject to additional community rules.
+
+MINTMOS may remove or restrict community access for conduct that violates these Terms or applicable community rules.
+
+## 14. Acceptable Conduct
+
+You agree not to use the Product to:
+
+* Break applicable laws
+* Attempt unauthorized access
+* Attack or disrupt the Product
+* Introduce malicious code
+* Abuse Product infrastructure
+* Circumvent access restrictions
+* Impersonate MINTMOS or another user
+* Infringe another person's intellectual-property rights
+* Abuse third-party services connected to the Product
+
+## 15. Availability and Technical Issues
+
+We aim to keep Price Action OS available and functional, but we do not guarantee uninterrupted or error-free operation.
+
+Access may occasionally be affected by:
+
+* Maintenance
+* Hosting problems
+* Authentication outages
+* Internet connectivity
+* Browser issues
+* Third-party service outages
+* Security incidents
+* Software bugs
+* Changes to external services
+
+We may temporarily restrict access when reasonably necessary for maintenance, security, or technical reasons.
+
+## 16. Limitation of Liability
+
+To the maximum extent permitted by applicable law, MINTMOS and its owners, operators, contractors, and service providers will not be liable for indirect, incidental, special, consequential, or similar losses arising from your use of or inability to use the Product.
+
+This includes, where legally permitted, losses relating to:
+
+* Trading or investment decisions
+* Lost profits
+* Lost revenue
+* Loss of data
+* Business interruption
+* Unauthorized access
+* Reliance on educational material
+* AI-generated information
+* Third-party services
+
+Nothing in these Terms excludes or limits liability that cannot legally be excluded or limited under applicable law.
+
+## 17. Indemnification
+
+To the extent permitted by applicable law, you agree to be responsible for claims, losses, liabilities, damages, and reasonable expenses arising from your unlawful use of the Product, your violation of these Terms, or your infringement of another person's rights.
+
+## 18. Suspension or Termination
+
+We may suspend or terminate your access if you materially violate these Terms, engage in fraud or abuse, attempt unauthorized access, or otherwise misuse the Product.
+
+If your access is terminated because of a material violation of these Terms, you may lose access to the Product and related community features.
+
+Sections concerning intellectual property, disclaimers, limitations of liability, indemnification, disputes, and provisions that by their nature should survive termination will continue to apply.
+
+## 19. Changes to These Terms
+
+We may update these Terms when necessary.
+
+Updated Terms will become effective on the date stated at the beginning of the revised Terms.
+
+Your continued use of Price Action OS after the effective date of updated Terms constitutes acceptance of the updated Terms to the extent permitted by applicable law.
+
+## 20. Governing Law
+
+These Terms are governed by the laws of:
+
+**{{LAW}}**
+
+Any dispute will be handled by the courts or dispute-resolution mechanisms having jurisdiction under the applicable law.
+
+## 21. Entire Agreement
+
+These Terms, together with any applicable purchase terms, refund policy, and other policies expressly incorporated into them, constitute the agreement between you and MINTMOS regarding your use of Price Action OS.
+
+If any provision is found to be unenforceable, the remaining provisions will continue to apply to the extent permitted by law.
+
+## 22. Contact
+
+Questions regarding these Terms should be sent to:
+
+**MINTMOS**
+**{{NAME}}**
+**{{ADDRESS}}**
+**{{EMAIL}}**
+
+**Last Updated:** {{DATE}}
+</script>
+<script type="text/plain" id="legalPrivacySrc">
+# Privacy Policy
+
+**Effective Date:** {{DATE}}
+
+MINTMOS (“MINTMOS,” “we,” “us,” or “our”) respects your privacy. This Privacy Policy explains how we collect, use, store, and share information when you create an account, access the Price Action Operating System (“Price Action OS,” the “Product”), use our website or interact with features provided through the Product.
+
+By using Price Action OS or creating an account, you acknowledge that you have read this Privacy Policy.
+
+## 1. Information We Collect
+
+Depending on how you use Price Action OS, we may collect the following information.
+
+### Account Information
+
+When you create an account, we may collect:
+
+* Your name or preferred name
+* Your email address
+* Your password, which is handled through our authentication provider
+* Account authentication information
+* Information associated with a Google account if you choose Google sign-in
+* Your newsletter subscription preference
+
+The Product currently supports email/password authentication and Google authentication.
+
+### Product Usage and Progress
+
+Price Action OS allows you to save progress and study-related information across devices.
+
+Depending on the features you use, this may include:
+
+* Module and lesson progress
+* Checklist completion
+* Execution workflow progress
+* Risk-calculator or study-related settings
+* Reading preferences
+* Notes and other Product-related settings
+* Timestamps associated with synchronization
+
+Some Product information is stored locally in your browser. Certain progress information associated with authenticated users may also be synchronized with your account.
+
+### Mintmos Spark
+
+Price Action OS includes an AI-assisted feature called **Mintmos Spark**.
+
+When you use Spark, information you choose to submit may be processed through our backend service. This can include:
+
+* Your questions or prompts
+* Course sections or modules you choose to attach as context
+* Images or chart screenshots you choose to upload
+* Relevant conversation context required to generate a response
+
+The Product sends these requests to our `/api/spark` backend, which processes the request using an AI service.
+
+Do not submit passwords, payment-card information, government identification numbers, or other highly sensitive personal information through Spark.
+
+### Newsletter Information
+
+If you choose to subscribe to the MINTMOS newsletter, your newsletter preference and relevant contact information may be used to send you communications from MINTMOS.
+
+You may unsubscribe from marketing communications where an unsubscribe mechanism is provided.
+
+## 2. How We Use Information
+
+We may use information to:
+
+* Create and maintain your account
+* Authenticate your identity and keep your account secure
+* Provide access to Price Action OS
+* Save and synchronize your Product progress
+* Provide password-reset functionality
+* Provide Mintmos Spark
+* Respond to support requests
+* Send newsletters or marketing communications where you have subscribed
+* Maintain, troubleshoot, secure, and improve the Product
+* Detect misuse, fraud, unauthorized access, or violations of our Terms
+* Comply with applicable legal obligations
+
+We do not need your information to provide financial or trading advice because Price Action OS is an educational product rather than a personalized financial-advisory service.
+
+## 3. Service Providers
+
+We may use third-party service providers to operate portions of Price Action OS.
+
+The current Product implementation uses or connects with services including:
+
+* **Supabase** for authentication and account-related functionality
+* **Google** where Google authentication is used
+* **Our AI backend / AI service provider** to operate Mintmos Spark
+* **Discord** for the optional community experience
+* **Notion** for certain linked resources
+* Other infrastructure, hosting, security, or technical service providers necessary to operate the Product
+
+These providers may process information according to their own privacy policies and the services they provide to us.
+
+We do not control the privacy practices of third-party platforms.
+
+## 4. Local Storage and Similar Technologies
+
+Price Action OS uses browser storage technologies such as `localStorage`.
+
+These technologies may store Product-related information on your device, including preferences, progress, checklists, and other functionality required by the Product.
+
+Authenticated Product progress may be synchronized with your account so that certain information can be restored when you use the Product on another device.
+
+Browser storage can be cleared through your browser settings, although clearing it may remove locally stored Product information that has not been synchronized.
+
+## 5. How We Protect Information
+
+We use reasonable technical and organizational measures intended to protect information from unauthorized access, alteration, disclosure, or destruction.
+
+However, no website, application, database, or internet transmission can be guaranteed to be completely secure.
+
+You are responsible for keeping your account credentials confidential and should use a strong, unique password.
+
+## 6. Data Retention
+
+We retain information for as long as reasonably necessary to:
+
+* Provide the Product and maintain your account
+* Maintain legitimate business and security records
+* Provide support
+* Comply with legal or accounting obligations
+* Resolve disputes
+* Enforce our agreements
+
+Retention periods may vary depending on the type of information and the reason it is retained.
+
+## 7. Your Choices and Requests
+
+Depending on applicable law, you may have rights regarding your personal information, which may include requesting access to, correction of, or deletion of certain information.
+
+You may also:
+
+* Stop using the Product
+* Request assistance with your account
+* Request removal of certain personal information where applicable
+* Unsubscribe from marketing communications
+* Clear locally stored browser data
+
+To submit a privacy-related request, contact:
+
+**{{EMAIL}}**
+
+We may need to verify your identity before completing certain requests.
+
+## 8. Children's Privacy
+
+Price Action OS is not intended to knowingly collect personal information from children in violation of applicable law.
+
+If you are under the applicable age of digital consent or contractual capacity in your jurisdiction, you should use the Product only with the involvement or permission of a parent or legal guardian where required.
+
+If you believe a child has provided personal information to us improperly, contact us at **{{EMAIL}}**.
+
+## 9. Third-Party Links
+
+Price Action OS contains links to third-party websites and services, including community platforms and external resources.
+
+We are not responsible for the privacy practices, security, content, or policies of third-party websites.
+
+You should review the privacy policy of any third-party service before providing information to it.
+
+## 10. International Processing
+
+Because MINTMOS and its service providers may operate using infrastructure located in different countries, your information may be processed or stored outside your country of residence.
+
+Where applicable, we will take reasonable steps required by applicable law regarding such transfers.
+
+## 11. Changes to This Privacy Policy
+
+We may update this Privacy Policy from time to time to reflect changes to the Product, our practices, technology, or applicable legal requirements.
+
+When we make material changes, we may provide notice through the Product or another appropriate method.
+
+The updated Privacy Policy will become effective on the date stated at the beginning of the revised policy.
+
+## 12. Contact
+
+For questions, concerns, or privacy requests, contact:
+
+**MINTMOS**
+**{{NAME}}**
+**{{ADDRESS}}**
+**{{EMAIL}}**
+
+**Last Updated:** {{DATE}}
+</script>
+<script>
+/* ═════════ LEGAL PAGES — edit these values to update both documents ═════════ */
+(function(){
+  const LEGAL={
+    date:'October 3, 2026',            // effective / last-updated date
+    email:'raoabannn@gmail.com',       // support + privacy-request email
+    name:'MINTMOS',                    // legal business name
+    address:'',                        // business address / country (line is hidden while empty)
+    law:''                             // governing law, e.g. 'Pakistan' (generic wording is used while empty)
+  };
+  const $=id=>document.getElementById(id), modal=$('legalModal'), box=$('lgContent');
+  const SRC={terms:$('legalTermsSrc').textContent,privacy:$('legalPrivacySrc').textContent};
+  const esc=t=>t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const inl=t=>esc(t).replace(/[\w.+-]+@[\w-]+\.[\w.]*\w/g,'<a href="mailto:$&">$&</a>').replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/`(.+?)`/g,'<code>$1</code>');
+  function fill(t){
+    const v={DATE:LEGAL.date,EMAIL:LEGAL.email,NAME:LEGAL.name,ADDRESS:LEGAL.address,LAW:LEGAL.law||'the jurisdiction in which MINTMOS is established'};
+    const lines=t.replace(/\{\{(\w+)\}\}/g,(m,k)=>v[k]||'').split('\n').filter(l=>l.trim()!=='****');
+    return lines.filter((l,i)=>!(l.trim()&&l===lines[i-1])).join('\n');
+  }
+  function md(t){
+    let out='',p=[],ul=false; const fp=()=>{ if(p.length) out+='<p>'+p.map(inl).join('<br>')+'</p>'; p=[]; }, fu=()=>{ if(ul) out+='</ul>'; ul=false; };
+    fill(t).split('\n').forEach(l=>{ let m;
+      if(!l.trim()){ fp(); fu(); }
+      else if(m=l.match(/^(#{1,3}) (.*)/)){ fp(); fu(); out+=`<h${m[1].length}>${inl(m[2])}</h${m[1].length}>`; }
+      else if(m=l.match(/^\* (.*)/)){ fp(); if(!ul){ out+='<ul>'; ul=true; } out+='<li>'+inl(m[1])+'</li>'; }
+      else { fu(); p.push(l); } });
+    fp(); fu(); return out;
+  }
+  let opener=null;
+  window.openLegal=function(k){
+    if(!SRC[k]) k='terms'; if(!modal.classList.contains('open')) opener=document.activeElement;
+    box.innerHTML=md(SRC[k]); $('lgBody').scrollTop=0; modal.classList.add('open'); document.body.classList.add('legal-open'); document.body.dataset.legal=(k==='terms'?'Terms of Service':'Privacy Policy'); document.documentElement.style.overflow='hidden';
+    $('lgTabTerms').setAttribute('aria-pressed',k==='terms'); $('lgTabPrivacy').setAttribute('aria-pressed',k==='privacy');
+    document.title=(k==='terms'?'Terms of Service':'Privacy Policy')+' · MINTMOS';
+  };
+  function close(){ modal.classList.remove('open'); document.body.classList.remove('legal-open'); delete document.body.dataset.legal; document.documentElement.style.overflow=document.body.classList.contains('locked')?'hidden':'';
+    if(/^#(terms|privacy)$/.test(location.hash)) history.replaceState(null,'',location.pathname+location.search); if(opener&&opener.focus) opener.focus(); }
+  $('lgClose').onclick=close; $('lgTabTerms').onclick=()=>openLegal('terms'); $('lgTabPrivacy').onclick=()=>openLegal('privacy');
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&!e.defaultPrevented&&modal.classList.contains('open')) close(); });
+  const route=()=>{ const m=location.hash.match(/^#(terms|privacy)$/); if(m) openLegal(m[1]); };
+  window.addEventListener('hashchange',route); route();
+})();
+</script>
+
+<script>
+/* ═════════ AUTH GATE + CLOUD PROGRESS SYNC (Supabase) ═════════ */
+(function(){
+  const $=id=>document.getElementById(id), gate=$('authGate'), msg=$('agMsg');
+  const PFX='paos_', SKIP=['paos_spark_chats_v1'], UID_KEY='mm_uid';
+  const syncable=k=>String(k).startsWith(PFX)&&!SKIP.includes(k);
+  const note=(t,ok)=>{msg.textContent=t||'';msg.className=ok?'ok':'';};
+  const setLocked=on=>{
+    document.body.classList.toggle('locked',on); gate.style.display=on?'flex':'none';
+    [...document.body.children].forEach(el=>{ if(el!==gate&&el.id!=='legalModal'&&!/^(SCRIPT|STYLE|SVG)$/i.test(el.tagName)) on?el.setAttribute('inert',''):el.removeAttribute('inert'); });
+  };
+  setLocked(true);
+  if(!window.supabase){ note('Could not load the sign-in service. Check your connection and refresh.'); return; }
+  const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+  let user=null, hydrating=false, timer=null, mode='up', resetting=/type=recovery/.test(location.hash), who='';
+
+  /* --- checkbox persistence (Execution Workflow, panel checklists, roadmap) --- */
+  const q=sel=>[...document.querySelectorAll(sel)], idx=l=>l.map((e,i)=>e.classList.contains('checked')?i:-1).filter(i=>i>=0);
+  const sets={w:'.workflow-step',p:'.panel-check-item',r:'.check-box:not(.panel-check-item .check-box)'};
+  function saveChecks(){ const o={}; for(const k in sets) o[k]=idx(q(sets[k])); localStorage.setItem('paos_checks',JSON.stringify(o)); }
+  function restoreChecks(){
+    let o; try{o=JSON.parse(localStorage.getItem('paos_checks')||'null');}catch(e){} if(!o) return;
+    for(const k in sets){ const els=q(sets[k]), on=new Set(o[k]||[]);
+      els.forEach((e,i)=>{ const c=on.has(i); e.classList.toggle('checked',c); const b=k==='p'?e.querySelector('.check-box'):(k==='r'?e:null); if(b) b.textContent=c?'✓':''; }); }
+    try{ checkedCount=(o.w||[]).length; updateProgress(); }catch(e){}
+  }
+  document.addEventListener('click',e=>{ if(user&&e.target.closest('.workflow-step,.panel-check-item,.check-box')) setTimeout(saveChecks,0); });
+
+  /* --- cloud sync: every paos_* localStorage write is mirrored to user_metadata --- */
+  const snapshot=()=>{const o={}; Object.keys(localStorage).filter(syncable).forEach(k=>o[k]=localStorage.getItem(k)); return o;};
+  const state=t=>{$('syncState').textContent=(who?who+' · ':'')+(t||'');};
+  async function pushNow(){ clearTimeout(timer); timer=null; if(!user||hydrating) return;
+    state('☁ Saving…'); const {error}=await sb.auth.updateUser({data:{progress:snapshot(),progress_at:Date.now()}}); state(error?'☁ Sync failed':'☁ Saved'); }
+  const push=()=>{ if(!user||hydrating) return; clearTimeout(timer); timer=setTimeout(pushNow,1500); };
+  const _set=Storage.prototype.setItem, _rem=Storage.prototype.removeItem;
+  Storage.prototype.setItem=function(k){ _set.apply(this,arguments); if(this===localStorage&&syncable(k)) push(); };
+  Storage.prototype.removeItem=function(k){ _rem.apply(this,arguments); if(this===localStorage&&syncable(k)) push(); };
+
+  async function onUser(u){
+    if(resetting) return;
+    if(!u){ user=null; setLocked(true); return; }
+    if(user&&user.id===u.id){ user=u; return; }
+    hydrating=true; user=u; _set.call(localStorage,'mm_member','1'); const md=u.user_metadata||{}; who=md.full_name||md.name||(u.email||'').split('@')[0];
+    if(localStorage.getItem(UID_KEY)&&localStorage.getItem(UID_KEY)!==u.id) Object.keys(localStorage).filter(syncable).forEach(k=>_rem.call(localStorage,k)); // another student used this browser
+    _set.call(localStorage,UID_KEY,u.id);
+    const cloud=(u.user_metadata&&u.user_metadata.progress)||{}; let localOnly=false;
+    for(const k in cloud) if(syncable(k)&&localStorage.getItem(k)!==cloud[k]) _set.call(localStorage,k,cloud[k]);
+    Object.keys(localStorage).filter(syncable).forEach(k=>{ if(!(k in cloud)) localOnly=true; });
+    restoreChecks(); hydrating=false; setLocked(false); state('☁ Synced');
+    if(localOnly) push();
+  }
+  sb.auth.onAuthStateChange((ev,session)=>{ if(ev==='PASSWORD_RECOVERY'){ resetting=true; setMode('reset'); setLocked(true); return; } if(ev==='INITIAL_SESSION'||ev==='SIGNED_IN'||ev==='SIGNED_OUT') setTimeout(()=>onUser(session&&session.user),0); });
+
+  /* --- gate UI --- */
+  const show=(id,on)=>{$(id).style.display=on?'':'none';}, busy=on=>{$('agSubmit').disabled=on;}, back=location.origin+location.pathname;
+  function setMode(m){ mode=m; const up=m==='up', rs=m==='reset';
+    show('agName',up); show('agNewsRow',up); show('agForgot',m==='in'); show('agEmail',!rs); show('agGoogleWrap',!rs); show('agSwWrap',!rs); show('agLegal',up);
+    $('agTitle').textContent=rs?'Set a new password':up?'Create your account':'Welcome back';
+    $('agSub').textContent=rs?'Choose a new password for your account.':up?'Sign up to save your progress and notes across every device.':'Sign in to unlock the Price Action Operating System.';
+    $('agSubmit').textContent=rs?'Update password':up?'Sign Up':'Sign In';
+    $('agGoogleTxt').textContent=up?'Sign up with Google':'Sign in with Google';
+    $('agSwText').textContent=up?'Already have an account?':"Don't have an account?"; $('agSw').textContent=up?'Sign In':'Sign Up';
+    $('agPass').autocomplete=up||rs?'new-password':'current-password'; note(''); }
+  $('agSw').onclick=()=>setMode(mode==='in'?'up':'in');
+  $('agEye').onclick=()=>{ const p=$('agPass'); p.type=p.type==='password'?'text':'password'; };
+  async function submit(){
+    const email=$('agEmail').value.trim(), password=$('agPass').value, name=$('agName').value.trim();
+    if(mode==='reset'){
+      if(password.length<6){ note('Use at least 6 characters.'); return; }
+      busy(true); const {error}=await sb.auth.updateUser({password}); busy(false);
+      if(error){ note(error.message); return; }
+      resetting=false; history.replaceState(null,'',location.pathname); const {data}=await sb.auth.getUser(); onUser(data.user); return; }
+    if(!email||password.length<6){ note('Enter a valid email and a password of at least 6 characters.'); return; }
+    if(mode==='up'&&!name){ note('Tell us what to call you.'); return; }
+    busy(true); note('');
+    const {data,error}=mode==='up'
+      ?await sb.auth.signUp({email,password,options:{emailRedirectTo:back,data:{full_name:name,newsletter:$('agNews').checked}}})
+      :await sb.auth.signInWithPassword({email,password});
+    busy(false);
+    if(error){ note(error.message); return; }
+    if(mode==='up'&&!data.session) note('Account created. Check your email to confirm it, then sign in.',true);
+  }
+  $('agSubmit').onclick=submit; gate.addEventListener('keydown',e=>{ if(e.key==='Enter') submit(); });
+  $('agGoogle').onclick=async()=>{ const {error}=await sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:back}}); if(error) note(error.message); };
+  $('agForgot').onclick=async()=>{ const email=$('agEmail').value.trim(); if(!email){ note('Enter your email above first.'); return; }
+    const {error}=await sb.auth.resetPasswordForEmail(email,{redirectTo:back}); error?note(error.message):note('Password reset link sent. Check your inbox.',true); };
+  setMode(resetting?'reset':(localStorage.getItem('mm_member')?'in':'up'));
+  $('signOutBtn').onclick=async()=>{ await pushNow(); await sb.auth.signOut();
+    Object.keys(localStorage).filter(syncable).forEach(k=>_rem.call(localStorage,k)); _rem.call(localStorage,UID_KEY); location.reload(); };
+})();
+</script>
 </body>
 </html>
