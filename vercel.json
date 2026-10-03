@@ -1,5 +1,7 @@
 {
   "functions": {
-    "api/spark.js": { "maxDuration": 30 }
+    "api/spark.js": {
+      "maxDuration": 60
+    }
   }
 }
