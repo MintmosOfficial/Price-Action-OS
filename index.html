@@ -1,12 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="mm-boot">
 <head>
+<style>
+/* critical: login gate + legal pages (kept in <head> so nothing flashes unstyled) */
+html.mm-boot body>*:not(#legalModal){visibility:hidden}
+/* dark, slim scrollbars everywhere (no light-grey arrows) */
+html{color-scheme:dark}
+*{scrollbar-width:thin;scrollbar-color:#3f3f46 transparent}
+*::-webkit-scrollbar{width:8px;height:8px}
+*::-webkit-scrollbar-track,*::-webkit-scrollbar-corner{background:transparent}
+*::-webkit-scrollbar-thumb{background:#3f3f46;border-radius:999px}
+*::-webkit-scrollbar-thumb:hover{background:#52525b}
+*::-webkit-scrollbar-button{display:none;width:0;height:0}
+.rd-tools{scrollbar-width:none}.rd-tools::-webkit-scrollbar{display:none}
+  /* ── LEGAL PAGES ── */
+  .legal-links{display:flex;justify-content:center;gap:12px;margin:0 0 14px;font:11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#52525b}
+  .legal-links a{color:#a1a1aa;text-decoration:none}.legal-links a:hover{color:#fff}
+  #legalModal{position:fixed;inset:0;z-index:20100;display:none;flex-direction:column;background:#000}
+  #legalModal.open{display:flex}
+  body.legal-open #askSpark{z-index:20300}body.legal-open #aiDrawer{z-index:20250}
+  .lg-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 24px;border-bottom:1px solid #18181b;background:rgba(0,0,0,.92)}
+  .lg-tabs{display:flex;gap:8px;flex-wrap:wrap}
+  .lg-body{flex:1;overflow-y:auto;padding:56px 24px 120px}
+  #lgContent{max-width:46rem;margin:0 auto;font-size:16px;line-height:1.75;color:#d4d4d8}
+  #lgContent h1{font-size:2.2rem;line-height:1.15;font-weight:600;letter-spacing:-.035em;color:#fff;margin:0 0 .6em}
+  #lgContent h2{font-size:1.2rem;font-weight:600;color:#fff;margin:2.2em 0 .6em;letter-spacing:-.02em}
+  #lgContent h3{font:500 12px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#a1a1aa;margin:1.8em 0 .6em}
+  #lgContent p{margin:0 0 1em}#lgContent ul{margin:0 0 1.2em;padding-left:1.3em}#lgContent li{margin:.25em 0}
+  #lgContent b{color:#fff;font-weight:600}#lgContent code{font-family:var(--mono);font-size:.85em;background:#111113;border:1px solid #27272a;border-radius:5px;padding:1px 6px}
+  #lgContent a{color:#fff;text-decoration:underline}
+  @media (max-width:640px){.lg-bar{padding:10px 14px}.lg-body{padding:36px 18px 100px}#lgContent h1{font-size:1.8rem}}
+</style>
 <script>
-/* ═════════ SUPABASE INITIALIZATION ═════════ */
-const SUPABASE_URL = "https://hspehyvkaylcgouweice.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhzcGVoeXZrYXlsY2dvdXdlaWNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA5NzQ1MTUsImV4cCI6MjEwNjU1MDUxNX0.JMvsE-9KyC06YV0ns9fmNVMi5I9VdWiRbqinFQaN3E8";
+(function(){var d=document.documentElement,go=function(){requestAnimationFrame(function(){requestAnimationFrame(function(){d.classList.remove('mm-boot')})})};
+document.readyState==='loading'?document.addEventListener('DOMContentLoaded',go):go(); setTimeout(function(){d.classList.remove('mm-boot')},3000);})();
 </script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Price Action Operating System — Institutional Execution Framework</title>
@@ -547,27 +576,6 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Crect%20width='24'%20height='24'%20rx='5'%20fill='%23000'/%3E%3Cpath%20fill='%23fff'%20d='M12.00%200.40%20L13.25%205.60%20L12.00%209.30%20L11.05%206.00ZM20.20%203.80%20L17.41%208.36%20L13.91%2010.09%20L15.57%207.09ZM23.60%2012.00%20L18.40%2013.25%20L14.70%2012.00%20L18.00%2011.05ZM20.20%2020.20%20L15.64%2017.41%20L13.91%2013.91%20L16.91%2015.57ZM12.00%2023.60%20L10.75%2018.40%20L12.00%2014.70%20L12.95%2018.00ZM3.80%2020.20%20L6.59%2015.64%20L10.09%2013.91%20L8.43%2016.91ZM0.40%2012.00%20L5.60%2010.75%20L9.30%2012.00%20L6.00%2012.95ZM3.80%203.80%20L8.36%206.59%20L10.09%2010.09%20L7.09%208.43ZM14.83%205.16%20L14.57%207.76%20L13.03%209.51%20L13.32%207.24ZM18.84%209.17%20L16.81%2010.82%20L14.49%2010.97%20L16.30%209.57ZM18.84%2014.83%20L16.24%2014.57%20L14.49%2013.03%20L16.76%2013.32ZM14.83%2018.84%20L13.18%2016.81%20L13.03%2014.49%20L14.43%2016.30ZM9.17%2018.84%20L9.43%2016.24%20L10.97%2014.49%20L10.68%2016.76ZM5.16%2014.83%20L7.19%2013.18%20L9.51%2013.03%20L7.70%2014.43ZM5.16%209.17%20L7.76%209.43%20L9.51%2010.97%20L7.24%2010.68ZM9.17%205.16%20L10.82%207.19%20L10.97%209.51%20L9.57%207.70Z'/%3E%3C/svg%3E">
 </head>
 <body>
-<div id="authGate" role="dialog" aria-modal="true" aria-label="Sign in">
-  <div class="ag-card">
-    <div class="ag-logo">MINTMOS.</div>
-    <h2 id="agTitle">Create your account</h2>
-    <p id="agSub">Sign up to save your progress and notes across every device.</p>
-    <input id="agName" type="text" placeholder="How should we call you?" autocomplete="name">
-    <input id="agEmail" type="email" placeholder="Enter your email" autocomplete="email">
-    <div class="ag-pw"><input id="agPass" type="password" placeholder="Enter your password" autocomplete="new-password"><button id="agEye" type="button" aria-label="Show or hide password">👁</button></div>
-    <div class="ag-row">
-      <label class="ag-toggle" id="agNewsRow"><input type="checkbox" id="agNews" checked><span class="ag-sw"></span>Subscribe to our newsletter.</label>
-      <a id="agForgot">Forgot password?</a>
-    </div>
-    <button id="agSubmit" type="button">Sign Up</button>
-    <div id="agMsg" role="status"></div>
-    <div id="agGoogleWrap"><div class="ag-div"></div><button id="agGoogle" type="button"><svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20H24v8h11.3C33.7 33.1 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 8 3l5.7-5.7C34 6.1 29.3 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.7-.4-4z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.1 8 3l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35 26.7 36 24 36c-5.3 0-9.7-3.4-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.7-.4-4z"/></svg><span id="agGoogleTxt">Sign up with Google</span></button></div>
-    <div class="ag-switch" id="agSwWrap"><span id="agSwText">Already have an account?</span> <a id="agSw">Sign In</a></div>
-    <p class="ag-legal" id="agLegal">By registering, you agree to our <a href="#terms" onclick="openLegal('terms');return false">Terms of Service</a> and <a href="#privacy" onclick="openLegal('privacy');return false">Privacy Policy</a></p>
-    <p class="ag-copy">© 2026 Mintmos. All rights reserved.</p>
-  </div>
-</div>
-
 <!-- ═══════════════ TOP NAV / TABS ═══════════════ -->
 <header class="topnav">
   <div class="topnav-inner">
@@ -585,7 +593,6 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
       <button class="tab-btn" data-tab="faq" onclick="showTab('faq',this)">FAQ</button>
       <button class="tab-btn" data-tab="spark" onclick="showTab('spark',this)">Spark</button>
     </nav>
-    <div class="nav-acct"><span id="syncState"></span><button id="signOutBtn" type="button">Sign out</button></div>
     <button class="nav-cta" onclick="goToStart()">Discover →</button>
   </div>
 </header>
@@ -2263,61 +2270,6 @@ updateProgress();
   #readerModal.panel-open #rdScroll{margin-right:360px}
   @media (max-width:900px){.rd-panel{width:100%}#readerModal.panel-open #rdScroll{margin-right:0}}
   @media (max-width:640px){.rd-bar{display:flex;flex-wrap:wrap}.rd-tools{order:3;width:100%;overflow-x:auto;white-space:nowrap}.rd-close{margin-left:auto}}
-  /* ── AUTH GATE ── */
-  body.locked{overflow:hidden}
-  #authGate{position:fixed;inset:0;z-index:20000;display:flex;align-items:center;justify-content:center;padding:20px;
-    background:radial-gradient(ellipse at 50% 20%,rgba(57,255,20,.07),transparent 60%),repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0 1px,transparent 1px 90px),rgba(0,0,0,.62);
-    -webkit-backdrop-filter:blur(26px) saturate(.7);backdrop-filter:blur(26px) saturate(.7)}
-  .ag-card{width:100%;max-width:400px;background:rgba(9,9,11,.82);border:1px solid #27272a;border-radius:20px;padding:34px 30px;box-shadow:0 30px 90px rgba(0,0,0,.8);text-align:center}
-  .ag-logo{font:600 13px var(--mono);letter-spacing:.3em;color:#fff;margin-bottom:22px}
-  .ag-card h2{margin:0 0 8px;font-size:24px;font-weight:500;color:#fff;letter-spacing:-.03em}
-  .ag-card p{margin:0 0 22px;font-size:13.5px;line-height:1.6;color:#a1a1aa}
-  .ag-card input{width:100%;margin-bottom:10px;background:#000;border:1px solid #27272a;border-radius:10px;padding:13px 14px;color:#fff;font-size:14px;outline:0}
-  .ag-card input:focus{border-color:#71717a}
-  #agSubmit{width:100%;margin-top:6px;background:#fff;color:#000;border:0;border-radius:10px;padding:13px;font-weight:600;font-size:14px;cursor:pointer}
-  #agSubmit:disabled{opacity:.5;cursor:wait}
-  #agMsg{min-height:20px;margin-top:14px;font-size:12.5px;line-height:1.5;color:#f87171}#agMsg.ok{color:#4ade80}
-  .ag-switch{margin-top:10px;font-size:12.5px;color:#71717a}.ag-switch a{color:#fff;cursor:pointer;text-decoration:underline}
-  .nav-acct{display:flex;align-items:center;gap:10px;margin-right:10px}
-  .nav-acct #syncState{font:11px var(--mono);color:#4ade80;letter-spacing:.06em}
-  .nav-acct button{font:11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#a1a1aa;background:none;border:1px solid #27272a;border-radius:8px;padding:6px 10px;cursor:pointer}
-  .nav-acct button:hover{color:#fff;border-color:#52525b}
-  @media (max-width:900px){.nav-acct #syncState{display:none}}
-  .ag-card{max-width:430px;padding:38px 34px 26px}
-  .ag-card input[type=text],.ag-card input[type=email],.ag-card input[type=password]{height:50px;margin-bottom:12px;background:#111113;border-color:#1f1f23;font-size:15px}
-  .ag-pw{position:relative}.ag-pw input{padding-right:46px}
-  #agEye{position:absolute;right:6px;top:4px;height:42px;width:38px;background:none;border:0;color:#71717a;cursor:pointer;font-size:15px}
-  .ag-row{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:6px 0 16px;text-align:left}
-  .ag-toggle{display:flex;align-items:center;gap:10px;font-size:14px;color:#e4e4e7;cursor:pointer}
-  .ag-toggle input{display:none}
-  .ag-sw{position:relative;width:40px;height:22px;border-radius:999px;background:#27272a;flex-shrink:0;transition:background .2s}
-  .ag-sw::after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .2s}
-  .ag-toggle input:checked+.ag-sw{background:#22c55e}.ag-toggle input:checked+.ag-sw::after{transform:translateX(18px)}
-  #agForgot{font-size:12.5px;color:#a1a1aa;cursor:pointer;text-decoration:underline;white-space:nowrap}
-  #agSubmit{height:52px;font-size:15px;margin-top:0}
-  .ag-div{height:1px;background:#27272a;margin:18px 6px}
-  #agGoogle{width:100%;height:50px;display:flex;align-items:center;justify-content:center;gap:10px;background:#111113;color:#fff;border:1px solid #1f1f23;border-radius:10px;font-size:14.5px;font-weight:500;cursor:pointer}
-  #agGoogle:hover{border-color:#52525b}
-  .ag-switch{margin-top:18px;font-size:14px}.ag-switch a{font-weight:600;text-decoration:none}
-  .ag-card p.ag-legal{margin:22px 0 4px;font-size:12px;color:#71717a}.ag-legal a{color:#a1a1aa;text-decoration:underline}
-  .ag-card p.ag-copy{margin:0;font-size:11.5px;color:#52525b}
-  /* ── LEGAL PAGES ── */
-  .legal-links{display:flex;justify-content:center;gap:12px;margin:0 0 14px;font:11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#52525b}
-  .legal-links a{color:#a1a1aa;text-decoration:none}.legal-links a:hover{color:#fff}
-  #legalModal{position:fixed;inset:0;z-index:20100;display:none;flex-direction:column;background:#000}
-  #legalModal.open{display:flex}
-  body.legal-open #askSpark{z-index:20300}body.legal-open #aiDrawer{z-index:20250}
-  .lg-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 24px;border-bottom:1px solid #18181b;background:rgba(0,0,0,.92)}
-  .lg-tabs{display:flex;gap:8px;flex-wrap:wrap}
-  .lg-body{flex:1;overflow-y:auto;padding:56px 24px 120px}
-  #lgContent{max-width:46rem;margin:0 auto;font-size:16px;line-height:1.75;color:#d4d4d8}
-  #lgContent h1{font-size:2.2rem;line-height:1.15;font-weight:600;letter-spacing:-.035em;color:#fff;margin:0 0 .6em}
-  #lgContent h2{font-size:1.2rem;font-weight:600;color:#fff;margin:2.2em 0 .6em;letter-spacing:-.02em}
-  #lgContent h3{font:500 12px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#a1a1aa;margin:1.8em 0 .6em}
-  #lgContent p{margin:0 0 1em}#lgContent ul{margin:0 0 1.2em;padding-left:1.3em}#lgContent li{margin:.25em 0}
-  #lgContent b{color:#fff;font-weight:600}#lgContent code{font-family:var(--mono);font-size:.85em;background:#111113;border:1px solid #27272a;border-radius:5px;padding:1px 6px}
-  #lgContent a{color:#fff;text-decoration:underline}
-  @media (max-width:640px){.lg-bar{padding:10px 14px}.lg-body{padding:36px 18px 100px}#lgContent h1{font-size:1.8rem}}
 </style>
 
 <!-- Reading Mode modal -->
@@ -2664,12 +2616,11 @@ updateProgress();
   const coarse=window.matchMedia&&matchMedia('(pointer:coarse)').matches;
   function hide(){ if(pressing) return; btn.style.display='none'; text=''; }
   function check(){
-    if(document.body.classList.contains('locked')) return hide();   // never on the sign-in / sign-up gate
     const ae=document.activeElement; if(ae&&/^(INPUT|TEXTAREA|SELECT)$/.test(ae.tagName)) return hide();
     const sel=window.getSelection(); if(!sel||!sel.rangeCount||sel.isCollapsed) return hide();
     const t=sel.toString().replace(/\s+/g,' ').trim(); if(t.length<3) return hide();
     const n=sel.anchorNode&&(sel.anchorNode.nodeType===1?sel.anchorNode:sel.anchorNode.parentElement);
-    if(n&&n.closest&&n.closest('#aiDrawer,#askSpark,.rd-bar,.lg-bar,#authGate,.sp-chat')) return hide();
+    if(n&&n.closest&&n.closest('#aiDrawer,#askSpark,.rd-bar,.lg-bar,.sp-chat')) return hide();
     const rect=sel.getRangeAt(0).getBoundingClientRect(); if(!rect.width&&!rect.height) return hide();
     text=t.slice(0,1200);
     btn.style.display='flex'; const bw=btn.offsetWidth, bh=btn.offsetHeight;
@@ -3224,7 +3175,7 @@ For questions, concerns, or privacy requests, contact:
     $('lgTabTerms').setAttribute('aria-pressed',k==='terms'); $('lgTabPrivacy').setAttribute('aria-pressed',k==='privacy');
     document.title=(k==='terms'?'Terms of Service':'Privacy Policy')+' · MINTMOS';
   };
-  function close(){ modal.classList.remove('open'); document.body.classList.remove('legal-open'); delete document.body.dataset.legal; document.documentElement.style.overflow=document.body.classList.contains('locked')?'hidden':'';
+  function close(){ modal.classList.remove('open'); document.body.classList.remove('legal-open'); delete document.body.dataset.legal; document.documentElement.style.overflow='';
     if(/^#(terms|privacy)$/.test(location.hash)) history.replaceState(null,'',location.pathname+location.search); if(opener&&opener.focus) opener.focus(); }
   $('lgClose').onclick=close; $('lgTabTerms').onclick=()=>openLegal('terms'); $('lgTabPrivacy').onclick=()=>openLegal('privacy');
   document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&!e.defaultPrevented&&modal.classList.contains('open')) close(); });
@@ -3233,96 +3184,6 @@ For questions, concerns, or privacy requests, contact:
 })();
 </script>
 
-<script>
-/* ═════════ AUTH GATE + CLOUD PROGRESS SYNC (Supabase) ═════════ */
-(function(){
-  const $=id=>document.getElementById(id), gate=$('authGate'), msg=$('agMsg');
-  const PFX='paos_', SKIP=['paos_spark_chats_v1'], UID_KEY='mm_uid';
-  const syncable=k=>String(k).startsWith(PFX)&&!SKIP.includes(k);
-  const note=(t,ok)=>{msg.textContent=t||'';msg.className=ok?'ok':'';};
-  const setLocked=on=>{
-    document.body.classList.toggle('locked',on); gate.style.display=on?'flex':'none';
-    [...document.body.children].forEach(el=>{ if(el!==gate&&el.id!=='legalModal'&&!/^(SCRIPT|STYLE|SVG)$/i.test(el.tagName)) on?el.setAttribute('inert',''):el.removeAttribute('inert'); });
-  };
-  setLocked(true);
-  if(!window.supabase){ note('Could not load the sign-in service. Check your connection and refresh.'); return; }
-  const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
-  let user=null, hydrating=false, timer=null, mode='up', resetting=/type=recovery/.test(location.hash), who='';
 
-  /* --- checkbox persistence (Execution Workflow, panel checklists, roadmap) --- */
-  const q=sel=>[...document.querySelectorAll(sel)], idx=l=>l.map((e,i)=>e.classList.contains('checked')?i:-1).filter(i=>i>=0);
-  const sets={w:'.workflow-step',p:'.panel-check-item',r:'.check-box:not(.panel-check-item .check-box)'};
-  function saveChecks(){ const o={}; for(const k in sets) o[k]=idx(q(sets[k])); localStorage.setItem('paos_checks',JSON.stringify(o)); }
-  function restoreChecks(){
-    let o; try{o=JSON.parse(localStorage.getItem('paos_checks')||'null');}catch(e){} if(!o) return;
-    for(const k in sets){ const els=q(sets[k]), on=new Set(o[k]||[]);
-      els.forEach((e,i)=>{ const c=on.has(i); e.classList.toggle('checked',c); const b=k==='p'?e.querySelector('.check-box'):(k==='r'?e:null); if(b) b.textContent=c?'✓':''; }); }
-    try{ checkedCount=(o.w||[]).length; updateProgress(); }catch(e){}
-  }
-  document.addEventListener('click',e=>{ if(user&&e.target.closest('.workflow-step,.panel-check-item,.check-box')) setTimeout(saveChecks,0); });
-
-  /* --- cloud sync: every paos_* localStorage write is mirrored to user_metadata --- */
-  const snapshot=()=>{const o={}; Object.keys(localStorage).filter(syncable).forEach(k=>o[k]=localStorage.getItem(k)); return o;};
-  const state=t=>{$('syncState').textContent=(who?who+' · ':'')+(t||'');};
-  async function pushNow(){ clearTimeout(timer); timer=null; if(!user||hydrating) return;
-    state('☁ Saving…'); const {error}=await sb.auth.updateUser({data:{progress:snapshot(),progress_at:Date.now()}}); state(error?'☁ Sync failed':'☁ Saved'); }
-  const push=()=>{ if(!user||hydrating) return; clearTimeout(timer); timer=setTimeout(pushNow,1500); };
-  const _set=Storage.prototype.setItem, _rem=Storage.prototype.removeItem;
-  Storage.prototype.setItem=function(k){ _set.apply(this,arguments); if(this===localStorage&&syncable(k)) push(); };
-  Storage.prototype.removeItem=function(k){ _rem.apply(this,arguments); if(this===localStorage&&syncable(k)) push(); };
-
-  async function onUser(u){
-    if(resetting) return;
-    if(!u){ user=null; setLocked(true); return; }
-    if(user&&user.id===u.id){ user=u; return; }
-    hydrating=true; user=u; _set.call(localStorage,'mm_member','1'); const md=u.user_metadata||{}; who=md.full_name||md.name||(u.email||'').split('@')[0];
-    if(localStorage.getItem(UID_KEY)&&localStorage.getItem(UID_KEY)!==u.id) Object.keys(localStorage).filter(syncable).forEach(k=>_rem.call(localStorage,k)); // another student used this browser
-    _set.call(localStorage,UID_KEY,u.id);
-    const cloud=(u.user_metadata&&u.user_metadata.progress)||{}; let localOnly=false;
-    for(const k in cloud) if(syncable(k)&&localStorage.getItem(k)!==cloud[k]) _set.call(localStorage,k,cloud[k]);
-    Object.keys(localStorage).filter(syncable).forEach(k=>{ if(!(k in cloud)) localOnly=true; });
-    restoreChecks(); hydrating=false; setLocked(false); state('☁ Synced');
-    if(localOnly) push();
-  }
-  sb.auth.onAuthStateChange((ev,session)=>{ if(ev==='PASSWORD_RECOVERY'){ resetting=true; setMode('reset'); setLocked(true); return; } if(ev==='INITIAL_SESSION'||ev==='SIGNED_IN'||ev==='SIGNED_OUT') setTimeout(()=>onUser(session&&session.user),0); });
-
-  /* --- gate UI --- */
-  const show=(id,on)=>{$(id).style.display=on?'':'none';}, busy=on=>{$('agSubmit').disabled=on;}, back=location.origin+location.pathname;
-  function setMode(m){ mode=m; const up=m==='up', rs=m==='reset';
-    show('agName',up); show('agNewsRow',up); show('agForgot',m==='in'); show('agEmail',!rs); show('agGoogleWrap',!rs); show('agSwWrap',!rs); show('agLegal',up);
-    $('agTitle').textContent=rs?'Set a new password':up?'Create your account':'Welcome back';
-    $('agSub').textContent=rs?'Choose a new password for your account.':up?'Sign up to save your progress and notes across every device.':'Sign in to unlock the Price Action Operating System.';
-    $('agSubmit').textContent=rs?'Update password':up?'Sign Up':'Sign In';
-    $('agGoogleTxt').textContent=up?'Sign up with Google':'Sign in with Google';
-    $('agSwText').textContent=up?'Already have an account?':"Don't have an account?"; $('agSw').textContent=up?'Sign In':'Sign Up';
-    $('agPass').autocomplete=up||rs?'new-password':'current-password'; note(''); }
-  $('agSw').onclick=()=>setMode(mode==='in'?'up':'in');
-  $('agEye').onclick=()=>{ const p=$('agPass'); p.type=p.type==='password'?'text':'password'; };
-  async function submit(){
-    const email=$('agEmail').value.trim(), password=$('agPass').value, name=$('agName').value.trim();
-    if(mode==='reset'){
-      if(password.length<6){ note('Use at least 6 characters.'); return; }
-      busy(true); const {error}=await sb.auth.updateUser({password}); busy(false);
-      if(error){ note(error.message); return; }
-      resetting=false; history.replaceState(null,'',location.pathname); const {data}=await sb.auth.getUser(); onUser(data.user); return; }
-    if(!email||password.length<6){ note('Enter a valid email and a password of at least 6 characters.'); return; }
-    if(mode==='up'&&!name){ note('Tell us what to call you.'); return; }
-    busy(true); note('');
-    const {data,error}=mode==='up'
-      ?await sb.auth.signUp({email,password,options:{emailRedirectTo:back,data:{full_name:name,newsletter:$('agNews').checked}}})
-      :await sb.auth.signInWithPassword({email,password});
-    busy(false);
-    if(error){ note(error.message); return; }
-    if(mode==='up'&&!data.session) note('Account created. Check your email to confirm it, then sign in.',true);
-  }
-  $('agSubmit').onclick=submit; gate.addEventListener('keydown',e=>{ if(e.key==='Enter') submit(); });
-  $('agGoogle').onclick=async()=>{ const {error}=await sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:back}}); if(error) note(error.message); };
-  $('agForgot').onclick=async()=>{ const email=$('agEmail').value.trim(); if(!email){ note('Enter your email above first.'); return; }
-    const {error}=await sb.auth.resetPasswordForEmail(email,{redirectTo:back}); error?note(error.message):note('Password reset link sent. Check your inbox.',true); };
-  setMode(resetting?'reset':(localStorage.getItem('mm_member')?'in':'up'));
-  $('signOutBtn').onclick=async()=>{ await pushNow(); await sb.auth.signOut();
-    Object.keys(localStorage).filter(syncable).forEach(k=>_rem.call(localStorage,k)); _rem.call(localStorage,UID_KEY); location.reload(); };
-})();
-</script>
 </body>
 </html>
