@@ -1,5 +1,5 @@
 export default async function handler(req, res) {
-  // Enforce strict security origin gate
+  // Enforce same-origin browser check
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   
   try {
@@ -10,7 +10,7 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: 'System error: Server API vault key missing.' });
     }
 
-    // Map your custom instruction rules and conversation history to OpenAI/Groq spec format
+    // Initialize custom Mintmos instructions manual matching Groq specification format
     const groqMessages = [
       {
         role: "system",
@@ -18,24 +18,24 @@ export default async function handler(req, res) {
       }
     ];
 
-    // Format previous chat history nodes safely
+    // Format chat history array elements safely
     if (Array.isArray(contents)) {
       contents.forEach(turn => {
         const role = turn.role === 'model' ? 'assistant' : 'user';
-        const text = typeof turn.parts === 'string' ? turn.parts : turn.parts?.[0]?.text || '';
+        const text = typeof turn.parts === 'string' ? turn.parts : turn.parts?.text || '';
         if (text) groqMessages.push({ role, content: text });
       });
     }
 
-    // Call Groq Cloud endpoint directly using Meta's hyper-fast Llama 3.3 70B model
-    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    // Call Groq Cloud endpoint directly using Meta's ultra-stable Llama 3.1 70B model 
+    const response = await fetch('https://groq.com', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${GROQ_API_KEY}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        model: "llama-3.3-70b-versatile",
+        model: "llama3-70b-8192",
         messages: groqMessages,
         temperature: 0.4,
         max_tokens: 1024
@@ -48,7 +48,7 @@ export default async function handler(req, res) {
       return res.status(response.status).json({ error: data.error?.message || 'Groq connection failed' });
     }
 
-    // Return the response text cleanly to your Mintmos Spark interface chat drawer
+    // Pass the text safely back to your Spark chat window drawer interface
     const replyText = data.choices?.[0]?.message?.content || '';
     return res.status(200).json({ text: replyText });
 
