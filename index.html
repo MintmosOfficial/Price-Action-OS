@@ -572,10 +572,13 @@ document.readyState==='loading'?document.addEventListener('DOMContentLoaded',go)
     *, *::before, *::after { animation: none !important; transition: none !important; }
   }
 
+
+
 </style>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Crect%20width='24'%20height='24'%20rx='5'%20fill='%23000'/%3E%3Cpath%20fill='%23fff'%20d='M12.00%200.40%20L13.25%205.60%20L12.00%209.30%20L11.05%206.00ZM20.20%203.80%20L17.41%208.36%20L13.91%2010.09%20L15.57%207.09ZM23.60%2012.00%20L18.40%2013.25%20L14.70%2012.00%20L18.00%2011.05ZM20.20%2020.20%20L15.64%2017.41%20L13.91%2013.91%20L16.91%2015.57ZM12.00%2023.60%20L10.75%2018.40%20L12.00%2014.70%20L12.95%2018.00ZM3.80%2020.20%20L6.59%2015.64%20L10.09%2013.91%20L8.43%2016.91ZM0.40%2012.00%20L5.60%2010.75%20L9.30%2012.00%20L6.00%2012.95ZM3.80%203.80%20L8.36%206.59%20L10.09%2010.09%20L7.09%208.43ZM14.83%205.16%20L14.57%207.76%20L13.03%209.51%20L13.32%207.24ZM18.84%209.17%20L16.81%2010.82%20L14.49%2010.97%20L16.30%209.57ZM18.84%2014.83%20L16.24%2014.57%20L14.49%2013.03%20L16.76%2013.32ZM14.83%2018.84%20L13.18%2016.81%20L13.03%2014.49%20L14.43%2016.30ZM9.17%2018.84%20L9.43%2016.24%20L10.97%2014.49%20L10.68%2016.76ZM5.16%2014.83%20L7.19%2013.18%20L9.51%2013.03%20L7.70%2014.43ZM5.16%209.17%20L7.76%209.43%20L9.51%2010.97%20L7.24%2010.68ZM9.17%205.16%20L10.82%207.19%20L10.97%209.51%20L9.57%207.70Z'/%3E%3C/svg%3E">
 </head>
 <body>
+
 <!-- ═══════════════ TOP NAV / TABS ═══════════════ -->
 <header class="topnav">
   <div class="topnav-inner">
@@ -2489,39 +2492,45 @@ updateProgress();
   function attachFile(f){ if(!f||!/^image\//.test(f.type)) return; loadImg(f).then(i=>{S.img=i;renderCtx();}).catch(()=>{S.err={text:'Could not read that image.'};renderAll();}); }
 
   /* ---- Gemini call: single direct request (model is fixed server-side) ---- */
-  const ENDPOINT='/api/spark';   // secure backend proxy — the Gemini key lives only on the server
-  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  const ENDPOINT='/api/spark';
   const fatal=msg=>Object.assign(new Error(msg),{fatal:true});
-  async function ask(contents,onText){
+  async function ask(messages,onText){
     let r;
-    try{ r=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents})}); }
-    catch(e){ throw fatal('request blocked (network / CORS / sandbox)'); }
-    if(!r.ok){ const j=await r.json().catch(()=>({})); throw new Error((j.error&&j.error.message)||('HTTP '+r.status)); }
-    const rd=r.body.getReader(), dec=new TextDecoder(); let buf='', full='';
-    for(;;){                                              // read the server-sent stream chunk by chunk
-      const {done,value}=await rd.read(); if(done) break;
-      buf+=dec.decode(value,{stream:true}); let k;
-      while((k=buf.indexOf('\n\n'))>=0){
-        const line=buf.slice(0,k).trim(); buf=buf.slice(k+2); if(line.indexOf('data:')!==0) continue;
-        let ev; try{ ev=JSON.parse(line.slice(5)); }catch(e){ continue; }
-        if(ev.error) throw new Error(ev.error);
-        if(ev.t){ full+=ev.t; if(onText) onText(full); }
+    try{
+      r=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({messages})});
+    }catch(e){ throw fatal('network'); }
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    let out='';
+    const ct=r.headers.get('content-type')||'';
+    if(ct.indexOf('text/event-stream')>=0){
+      const rd=r.body.getReader(), dec=new TextDecoder(); let buf='';
+      for(;;){
+        const {done,value}=await rd.read(); if(done) break;
+        buf+=dec.decode(value,{stream:true}); let k;
+        while((k=buf.indexOf('\n\n'))>=0){
+          const line=buf.slice(0,k).trim(); buf=buf.slice(k+2);
+          if(line.indexOf('data:')!==0) continue;
+          const d=line.slice(5).trim(); if(d==='[DONE]') continue;
+          try{ const ev=JSON.parse(d);
+            const t=ev.t||(ev.choices&&ev.choices[0]&&ev.choices[0].delta&&ev.choices[0].delta.content)||'';
+            if(t){ out+=t; if(onText) onText(out); } }catch(e){}
+        }
       }
+    }else{
+      const j=await r.json();
+      out=j.reply||j.text||(j.choices&&j.choices[0]&&j.choices[0].message&&j.choices[0].message.content)||'';
+      if(onText&&out) onText(out);
     }
-    if(!full.trim()) throw new Error('empty reply');
-    return full.trim();
-  }
-  async function diagnose(){
-    try{ await fetch('/api/spark',{method:'GET'}); }
-    catch(e){ return 'Diagnosis: this page cannot reach the Spark server (/api/spark). You may be offline, or the file is opened locally instead of from your deployed site.'; }
-    return 'Diagnosis: the Spark server is reachable but the request was refused. Please try again in a moment.';
+    if(!out.trim()) throw new Error('empty reply');
+    return out.trim();
   }
 
   /* ---- sending ---- */
-  function histFor(c){ const out=[], ms=c.msgs.slice(0,-1);
+  function histMsgs(c){ const out=[], ms=c.msgs.slice(0,-1);
     ms.forEach((m,i)=>{ if(m.role==='user'&&!(ms[i+1]&&ms[i+1].role==='model')) return;
-      let t=m.text; if(m.role==='user'){ if(m.ctx&&m.ctx.length) t+='\n[Attached: '+m.ctx.join(', ')+']'; if(m.thumb) t+='\n[an image was attached]'; }
-      out.push({role:m.role,parts:[{text:t}]}); });
+      let t=m.text; if(m.role==='user'&&m.ctx&&m.ctx.length) t+='\n[Attached: '+m.ctx.join(', ')+']';
+      out.push({role:m.role==='model'?'assistant':'user',content:t}); });
     return out.slice(-14); }
   function send(text){
     text=(text||'').trim(); if(S.busy||(!text&&!S.img)) return; if(!text) text='Explain this image in terms of price action.';
@@ -2536,8 +2545,7 @@ updateProgress();
     let msg=null, tm=0; S.streaming=false;
     try{
       const pre=ctx.length?'Use the following reference material from the Price Action OS to answer.\n\n'+ctx.map(x=>`=== ${x.label} ===\n${x.text}`).join('\n\n')+'\n\n=== QUESTION ===\n':'';
-      const parts=[{text:pre+text}]; if(img) parts.push({inlineData:{mimeType:'image/jpeg',data:img.b64}});
-      const out=await ask(histFor(c).concat([{role:'user',parts}]),full=>{
+      const out=await ask(histMsgs(c).concat([{role:'user',content:pre+text}]),full=>{
         if(!msg){ msg={role:'model',text:''}; c.msgs.push(msg); S.streaming=true; }   // first words arrived → swap "thinking" for the live answer
         msg.text=full; if(!tm) tm=setTimeout(()=>{ tm=0; renderAll(); },60);
       });
@@ -2545,7 +2553,7 @@ updateProgress();
     }catch(e){
       clearTimeout(tm); if(msg){ const k=c.msgs.indexOf(msg); if(k>=0) c.msgs.splice(k,1); }   // drop a half-finished answer so Retry starts clean
       console.error('Spark error:',e);   // details stay in the browser console only
-      const t='Spark is Busy';
+      const t='Spark could not get a reply. Groq is optimizing connection. Try again.';
       S.err={text:t,retry:()=>run(c,ctx,img,text)};
     }
     clearInterval(S.timer); S.busy=false; S.streaming=false; if(fab) fab.classList.remove('busy'); save(); renderAll();
@@ -3198,5 +3206,22 @@ For questions, concerns, or privacy requests, contact:
 </script>
 
 
+<script>
+/* ═════════ LOCAL CHECKLIST PERSISTENCE (no login, no cloud) ═════════ */
+(function(){
+  const groups=[['paos_chk_workflow','.workflow-step'],['paos_chk_panel','.panel-check-item'],['paos_chk_roadmap','.roadmap .check-box']];
+  const isOn=el=>el.classList.contains('checked');
+  function saveChecks(){ groups.forEach(([k,sel])=>{ const on=[]; document.querySelectorAll(sel).forEach((el,i)=>{ if(isOn(el)) on.push(i); }); try{ localStorage.setItem(k,JSON.stringify(on)); }catch(e){} }); }
+  function restoreChecks(){
+    groups.forEach(([k,sel])=>{ let on=[]; try{ on=JSON.parse(localStorage.getItem(k)||'[]'); }catch(e){}
+      document.querySelectorAll(sel).forEach((el,i)=>{ const v=on.indexOf(i)>=0; el.classList.toggle('checked',v);
+        if(sel==='.panel-check-item'){ const b=el.querySelector('.check-box'); if(b) b.textContent=v?'✓':''; }
+        if(sel==='.roadmap .check-box') el.textContent=v?'✓':''; }); });
+    try{ checkedCount=document.querySelectorAll('.workflow-step.checked').length; updateProgress(); }catch(e){}
+  }
+  document.addEventListener('click',e=>{ if(e.target.closest('.workflow-step,.panel-check-item,.roadmap .check-box,[onclick*="resetChecklist"]')) setTimeout(saveChecks,30); });
+  restoreChecks();
+})();
+</script>
 </body>
 </html>
