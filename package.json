@@ -3,7 +3,5 @@
   "version": "1.0.0",
   "description": "Mintmos Spark T.L.S Co-Pilot Backend",
   "main": "api/spark.js",
-  "dependencies": {
-    "@google/genai": "^0.1.0"
-  }
+  "type": "module"
 }
