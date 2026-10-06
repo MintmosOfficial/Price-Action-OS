@@ -1,5 +1,5 @@
 export default async function handler(req, res) {
-  // Enforce same-origin browser check
+  // Enforce same-origin check
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   
   try {
@@ -10,7 +10,7 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: 'System error: Server API vault key missing.' });
     }
 
-    // Initialize custom Mintmos instructions manual matching Groq specification format
+    // Initialize custom Mintmos instructions matching Groq spec structure
     const groqMessages = [
       {
         role: "system",
@@ -22,12 +22,13 @@ export default async function handler(req, res) {
     if (Array.isArray(contents)) {
       contents.forEach(turn => {
         const role = turn.role === 'model' ? 'assistant' : 'user';
-        const text = typeof turn.parts === 'string' ? turn.parts : turn.parts?.text || '';
+        // Extract text elements safely based on what your index.html packages
+        const text = typeof turn.parts === 'string' ? turn.parts : (turn.parts?.[0]?.text || turn.parts?.text || '');
         if (text) groqMessages.push({ role, content: text });
       });
     }
 
-    // Call Groq Cloud endpoint directly using Meta's ultra-stable Llama 3.1 70B model 
+    // Call Groq Cloud endpoint directly using Meta's absolute latest production model
     const response = await fetch('https://groq.com', {
       method: 'POST',
       headers: {
@@ -35,7 +36,7 @@ export default async function handler(req, res) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        model: "llama3-70b-8192",
+        model: "llama-3.3-70b-versatile",
         messages: groqMessages,
         temperature: 0.4,
         max_tokens: 1024
@@ -45,7 +46,7 @@ export default async function handler(req, res) {
     const data = await response.json();
     
     if (!response.ok) {
-      return res.status(response.status).json({ error: data.error?.message || 'Groq connection failed' });
+      return res.status(response.status).json({ error: data.error?.message || 'Groq verification failed' });
     }
 
     // Pass the text safely back to your Spark chat window drawer interface
