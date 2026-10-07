@@ -44,7 +44,7 @@ export default async function handler(req, res) {
     }
 
     // Call Groq endpoint directly using their high-performance production flagship model
-    const response = await fetch('https://groq.com', {
+     const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${GROQ_API_KEY}`,
