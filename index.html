@@ -3,8 +3,7 @@
 <head>
 <script>
 /* ===== ACCOUNT SETTINGS: paste your free Firebase web config below (setup guide in chat) ===== */
-window.FB_CONFIG={apiKey:"PASTE_API_KEY",authDomain:"PASTE_PROJECT.firebaseapp.com",projectId:"PASTE_PROJECT",appId:"PASTE_APP_ID"};
-window.REQUIRE_PURCHASE=true; /* true = only emails you add to Firestore "buyers" can enter; false = any verified account */
+window.FB_CONFIG={apiKey:"AIzaSyDIKog4LmvKr1XKa-A-FXl9qKa7xObvDWU",authDomain:"mintmos-first-project.firebaseapp.com",projectId:"mintmos-first-project",appId:"1:81414356216:web:459516561ec478e6fa4f0d"};
 if(FB_CONFIG.apiKey.indexOf("PASTE")!==0)document.documentElement.classList.add("auth-lock");
 </script>
 
@@ -1213,469 +1212,9 @@ document.readyState==='loading'?document.addEventListener('DOMContentLoaded',go)
 
 <script>
 /* ── DATA ── */
-const modules = [
-  {
-    num:"01", title:"Market Architecture & Institutional Intent", sub:"Foundation · How Price Is Actually Engineered",
-    intro:"Before a single setup is valid, you need to understand what price action is at its root: the visible footprint of institutional order flow. This module strips away the retail mythology — the patterns, the indicators, the noise — and replaces it with the mechanics of how markets actually operate at the professional level.",
-    lessons:[
-      {
-        t:"What Price Action Represents at the Institutional Level",
-        tag:"Foundation",
-        body:"Price is not random. Every candlestick on your chart represents a completed auction between willing buyers and sellers at a specific price and time. When price advances, aggressive buyers are willing to pay more than sellers demand. When it falls, sellers are willing to accept less than buyers offer. The institutional insight most retail traders never grasp is that large participants — banks, proprietary desks, hedge funds — do not place orders the way retail traders do. They distribute execution across price ranges, creating the very zones that form the basis of every technical structure. Price action is the only unfiltered record of this institutional participation."
-      },
-      {
-        t:"The Three States of Market Behavior — Trending, Ranging, Transitioning",
-        tag:"Framework",
-        body:"Every market is perpetually in one of three states. A trending market creates sequential higher highs and higher lows (bullish) or lower highs and lower lows (bearish) — this is the environment with the highest-probability directional trades. A ranging market oscillates between defined boundaries without net directional progress, rewarding mean-reversion approaches. A transitioning market is the most dangerous state for directional traders: it is the period between established trends where old structure is being dismantled and new structure has not yet confirmed. The majority of retail trading losses occur when traders apply trend-following entries in transitioning markets, misreading the chaos of transition as continuation of the prior move."
-      },
-      {
-        t:"Why Indicators Fail — The Lagging Signal Problem",
-        tag:"Mindset",
-        body:"Every indicator available on any charting platform is mathematically derived from price history. RSI computes momentum from prior closes. Moving averages smooth historical data into a curve. MACD compares exponential averages of past price. By mathematical necessity, they are lagging — they show where price was, not where it is going. The deeper problem is cognitive: indicators create false precision. A trader watching RSI exceed 70 feels informed. They are not. What actually matters is where resting orders exist in the market, what liquidity pools sit above or below current price, and what the candle structure reveals about institutional intent. Indicators obscure this signal beneath mathematical abstraction. Removing them does not make the chart harder to read — it makes it cleaner."
-      },
-      {
-        t:"Price Action vs. Technical Analysis — Where the Line Actually Sits",
-        tag:"Concept",
-        body:"Technical analysis, broadly, is any approach that forecasts price using past market data — and by that definition, price action is a form of technical analysis. But it is the purest form. Most of what gets marketed as 'technical analysis' is actually a second-hand derivative: an oscillator, a moving average, a chart-pattern template — a calculation performed on top of price, then re-interpreted. Price action skips that layer entirely. It works only with the first-hand data a market generates about itself: the sequence of highs, lows, and closes. This isn't a stylistic preference — every indicator is, mathematically, an output of price, which means it can only ever confirm what price has already shown, later and with more noise. The practical implication is simple: a trader who has correctly read structure, location, and candle delivery has already extracted everything a lagging indicator could offer, without the delay. This is also why price action deliberately ignores scheduled news and fundamental data as inputs — the belief, tested across a century of market behavior, is that every variable capable of moving a market (news, sentiment, positioning) is already expressed in the price itself by the time you can read it. You are not ignoring information by trading price alone. You are reading it at the source.",
-        diagram:`<div class="lesson-diagram"><svg viewBox="0 0 640 210" xmlns="http://www.w3.org/2000/svg">
-          <text x="160" y="20" text-anchor="middle" fill="var(--lime)" font-family="DM Mono, monospace" font-size="11" font-weight="600">RAW PRICE ACTION</text>
-          <rect x="20" y="30" width="280" height="140" rx="6" fill="none" stroke="var(--border-bright)" stroke-width="1"/>
-          <g stroke="var(--text)" stroke-width="2">
-            <line x1="50" y1="60" x2="50" y2="110"/><rect x="46" y="70" width="8" height="30" fill="var(--lime)"/>
-            <line x1="80" y1="50" x2="80" y2="100"/><rect x="76" y="55" width="8" height="35" fill="var(--lime)"/>
-            <line x1="110" y1="80" x2="110" y2="130"/><rect x="106" y="90" width="8" height="30" fill="#e0506b"/>
-            <line x1="140" y1="70" x2="140" y2="115"/><rect x="136" y="75" width="8" height="30" fill="var(--lime)"/>
-            <line x1="170" y1="55" x2="170" y2="95"/><rect x="166" y="60" width="8" height="28" fill="var(--lime)"/>
-            <line x1="200" y1="75" x2="200" y2="125"/><rect x="196" y="90" width="8" height="28" fill="#e0506b"/>
-            <line x1="230" y1="60" x2="230" y2="105"/><rect x="226" y="65" width="8" height="32" fill="var(--lime)"/>
-            <line x1="260" y1="45" x2="260" y2="90"/><rect x="256" y="50" width="8" height="30" fill="var(--lime)"/>
-          </g>
-          <text x="160" y="155" text-anchor="middle" fill="var(--text-muted)" font-family="DM Mono, monospace" font-size="9">structure · levels · candle delivery</text>
+const modules = [];
 
-          <text x="480" y="20" text-anchor="middle" fill="var(--text-dim)" font-family="DM Mono, monospace" font-size="11" font-weight="600">INDICATOR CLUTTER</text>
-          <rect x="340" y="30" width="280" height="140" rx="6" fill="none" stroke="var(--border)" stroke-width="1"/>
-          <g stroke="var(--text-dim)" stroke-width="2" opacity="0.5">
-            <line x1="370" y1="60" x2="370" y2="110"/><rect x="366" y="70" width="8" height="30" fill="var(--text-dim)"/>
-            <line x1="400" y1="50" x2="400" y2="100"/><rect x="396" y="55" width="8" height="35" fill="var(--text-dim)"/>
-            <line x1="430" y1="80" x2="430" y2="130"/><rect x="426" y="90" width="8" height="30" fill="var(--text-dim)"/>
-            <line x1="460" y1="70" x2="460" y2="115"/><rect x="456" y="75" width="8" height="30" fill="var(--text-dim)"/>
-            <line x1="490" y1="55" x2="490" y2="95"/><rect x="486" y="60" width="8" height="28" fill="var(--text-dim)"/>
-            <line x1="520" y1="75" x2="520" y2="125"/><rect x="516" y="90" width="8" height="28" fill="var(--text-dim)"/>
-            <line x1="550" y1="60" x2="550" y2="105"/><rect x="546" y="65" width="8" height="32" fill="var(--text-dim)"/>
-            <line x1="580" y1="45" x2="580" y2="90"/><rect x="576" y="50" width="8" height="30" fill="var(--text-dim)"/>
-          </g>
-          <path d="M370,95 Q420,60 460,90 T550,75 T580,60" stroke="#e0506b" stroke-width="1.5" fill="none" opacity="0.8"/>
-          <path d="M370,105 Q420,120 460,100 T550,110 T580,95" stroke="#5b9cf0" stroke-width="1.5" fill="none" opacity="0.8"/>
-          <rect x="340" y="175" width="280" height="22" fill="none" stroke="var(--border)" stroke-width="1"/>
-          <rect x="345" y="180" width="60" height="12" fill="#e0506b" opacity="0.4"/>
-          <text x="480" y="189" text-anchor="middle" fill="var(--text-dim)" font-family="DM Mono, monospace" font-size="8">RSI · MACD · STOCH — all derived from the same candles on the left</text>
-        </svg><p class="diagram-caption">Same market. Same information. The right side adds three lagging re-interpretations of data the left side already shows you first-hand.</p></div>`
-      },
-      {
-        t:"Auction Theory — The Origin of Every Zone and Level",
-        tag:"Concept",
-        body:"Markets function as continuous two-sided auctions. Price moves to facilitate trade — to locate the prices where willing buyers and sellers can transact. When price reaches a level where one side decisively overwhelms the other, aggressive expansion occurs. This is the institutional logic behind every support and resistance zone: they are historical records of price levels where a massive order imbalance occurred, where one side overwhelmed the opposing liquidity so completely that price departed rapidly. Because those orders were placed at a specific zone rather than a single price, the order book retains unfilled orders in that zone. When price returns, those remaining orders are filled and the directional expansion resumes. This is not mystical technical analysis — it is market microstructure."
-      },
-      {
-        t:"Timeframe Hierarchy — The Top-Down Analytical Framework",
-        tag:"System",
-        body:"Professional traders do not analyze price on a single timeframe. They operate with a top-down framework where each timeframe serves a distinct analytical purpose. The weekly and daily charts establish the dominant structural bias and identify the major institutional levels where directional conviction is highest. The 4-hour and 1-hour charts reveal internal structural sequences, recent BOS events, and the formation of institutional zones. The 15-minute and 5-minute charts provide entry precision — the specific retest level, confirmation candle, and stop placement. Trading on a lower timeframe without alignment to the higher timeframe bias is perhaps the single most common source of technically clean-looking setups that immediately fail. The institutional participants generating daily volume are operating on daily and weekly timeframes. Trading against their established intent on a 15-minute chart is trading against a current moving at full speed. A practical recency rule applies at every level of this hierarchy: the most recent 3–6 months of price action should carry the majority of your analytical weight when reading structure and levels, with anything older treated as background context rather than an active reference. Markets evolve — a supply zone or trendline from eighteen months ago rarely holds the same relevance as one formed last month."
-      },
-    ]
-  },
-  {
-    num:"02", title:"Structural Analysis & The Break of Structure", sub:"The Architecture Beneath Every Valid Setup",
-    intro:"Market structure is the single most important analytical concept in price action. It is not subjective. It has a mechanical definition, a clear visual signature, and a precise set of rules for what constitutes a valid shift. Every entry in this system — without exception — is anchored to a structural event. Understanding it at the institutional level is non-negotiable.",
-    lessons:[
-      {
-        t:"The Mechanical Definition of Market Structure",
-        tag:"Core",
-        body:"Market structure is the sequential pattern of swing highs and swing lows that price creates as it moves through time. In a bullish trend, each successive swing high must exceed the prior one, and each swing low must remain above the prior swing low. This is a mathematical definition, not a discretionary judgment call. The moment a bullish swing low is violated by a closing candle, structural integrity is broken. Identifying these swing points accurately requires consistency: a swing high is a candlestick whose high exceeds both the immediately preceding and succeeding candle highs. A swing low is the inverse. Ambiguous structures — where candles overlap and swing points are unclear — are not analytical challenges to be resolved. They are signals to stand aside."
-      },
-      {
-        t:"Break of Structure — The Primary Directional Signal",
-        tag:"Core",
-        body:"A Break of Structure (BOS) is the first objective confirmation that institutional intent has shifted direction. In a bullish sequence, a BOS occurs when price closes decisively below a prior swing low. In a bearish sequence, a BOS occurs when price closes above a prior swing high. This is not simply a 'support break.' It is a structural event communicating that the participants responsible for maintaining the prior trend have been overwhelmed. The critical execution error most retail traders make is reacting immediately to the BOS candle itself — entering at the exact moment of maximum momentum and minimum risk-to-reward. The BOS identifies the shift. The subsequent retest of the broken level provides the entry. These are two distinct events, and conflating them is consistently expensive.",
-        pdfRef:`<a class="pdf-ref" href="https://temporal-store-2ce.notion.site/Price-Action-Operating-System-Checklist-3dc69183ba09806b82ece1b62c188feb" target="_blank">Trading Checklist — BOS / CHOCH / FVG / Order Blocks quick-reference</a> <a class="pdf-ref" href="pdf:bd7f56bd" target="_blank" onclick="return openEmbeddedPdf(event)">Chart Marking Guide — exact BOS marking rules, page 2</a>`
-      },
-      {
-        t:"Change of Character — The Early Warning Signal",
-        tag:"Advanced",
-        body:"Before a confirmed Break of Structure, the market produces a Change of Character (CHoCH): the first internal structural break against the prevailing trend direction. In a bullish trend, a CHoCH is the first time an internal swing low is violated — not a major structural low, but a minor internal low within the trend. It does not confirm a reversal. It signals that the trend's momentum is weakening and that counter-trend interest is beginning to emerge. Professional traders use CHoCH as an alert to stop adding to trend-following positions and to begin watching for a full BOS. Trading CHoCH signals as confirmed reversals — without subsequent BOS confirmation — is a high-failure-rate approach that consistently catches traders in premature counter-trend entries.",
-        pdfRef:`<a class="pdf-ref" href="pdf:bd7f56bd" target="_blank" onclick="return openEmbeddedPdf(event)">Chart Marking Guide — how to mark a CHoCH distinctly from a BOS, page 2</a>`
-      },
-      {
-        t:"Terminology Bridge — BOS, CHoCH, MSS and the Names You Will Meet Elsewhere", tag:"Reference",
-        body:"Educators use these words differently, which is why students think two courses disagree when they do not. In this system a BOS is a body close beyond a major swing point against the prior trend, confirming the shift, and a CHoCH is the first minor internal break, an early warning. Many ICT/SMC creators reverse the labels: a break in the trend's direction is their BOS (continuation) and the first break against the trend is their CHoCH or Market Structure Shift (MSS). The mechanics are identical, only the labels differ. Translate on sight: this course's BOS equals their CHoCH/MSS with a close beyond the major swing, and this course's CHoCH equals their internal or minor shift. Whatever labels you use, mark the same candles, require a body close, and wait for the retest."
-      },
-      {
-        t:"Clean Structure vs. Choppy Structure — When the Correct Trade Is No Trade",
-        tag:"Critical",
-        body:"Not all markets produce clean, tradeable structural sequences. In consolidation periods, post-news environments, or low-liquidity sessions, swing points become ambiguous and structure fractures into overlapping, non-sequential price action. This is the environment where systematic price action traders must exercise the discipline to not participate. The defining characteristic of clean, tradeable structure is clear swing points with unambiguous sequencing — highs and lows that are visually obvious across multiple timeframes with clear space between each swing. When price creates overlapping, compressed candle formations with no defined swing sequence, the technically correct action is to close the charting platform and wait. No setup in this system is valid when structure is unclear."
-      },
-      {
-        t:"Multi-Timeframe Structural Alignment — The Probability Filter",
-        tag:"System",
-        body:"Every entry requires structural alignment across a minimum of two timeframes to carry institutional-grade probability. The higher timeframe defines the directional permission — the structural bias that determines whether long entries or short entries are authorized. The lower timeframe provides entry precision — the specific BOS event and retest that defines the exact entry point. When both timeframes agree, the probability is materially higher than when they conflict. The highest-failure-rate trades in systematic price action are those taken when a lower timeframe produces a perfect-looking BOS retest entry against a confirmed higher timeframe trend. The lower timeframe setup is real. The higher timeframe participant working against it is more real. Alignment is not optional — it is the primary probability filter."
-      },
-    ]
-  },
-  {
-    num:"03", title:"Liquidity Theory — Where Price Is Engineered to Go", sub:"The Institutional Logic Beneath Every Sweep and Reversal",
-    intro:"Liquidity is the concept that separates retail trading theory from institutional market reality. Understanding liquidity does not require access to order books or insider information — it requires understanding where predictable retail behavior places resting orders, and recognizing that institutional participants require those orders to execute their own positions efficiently.",
-    lessons:[
-      {
-        t:"What Liquidity Actually Means in Market Structure Context",
-        tag:"Foundation",
-        body:"Liquidity, in the context of institutional trading, refers to the pools of resting buy and sell orders that exist at predictable price levels. Every retail trader who places a stop loss above a swing high creates a resting buy order. Every trader with a stop below a swing low creates a resting sell order. Every breakout trader with a pending buy order above a resistance level creates a resting buy order. These resting orders are liquidity. Institutional participants executing large directional positions require this liquidity to fill their orders without creating excessive slippage. This is why price does not simply move to a level and reverse — it sweeps beyond the obvious level, triggers the resting orders (providing the fill the institution needs), and then reverses. The extension is not a failure of the level. It is the mechanism of institutional execution.",
-        pdfRef:`<a class="pdf-ref" href="pdf:101c2502" target="_blank" onclick="return openEmbeddedPdf(event)">Liquidity Map Field Guide — marking a pool, page 2</a>`
-      },
-      {
-        t:"External Range Liquidity — The Engineered Sweep Before the Real Move",
-        tag:"Advanced",
-        body:"External range liquidity sits above the current structure's swing high (buy-side liquidity) and below its swing low (sell-side liquidity). When price aggressively sweeps above a prior high and immediately reverses with a displacement candle, this is an institutional liquidity sweep — price was engineered to trigger the buy stops above the high, allowing institutional sellers to fill their short positions into that retail buying pressure. The retail mistake is entering on the breakout — precisely the moment institutional participants are using the liquidity created by that buying pressure to enter the opposite side. The professional setup is to observe the sweep, wait for the displacement candle that confirms the reversal, and enter on the retest. The sweep is not the trade. The reversal from the sweep is.",
-        pdfRef:`<a class="pdf-ref" href="pdf:101c2502" target="_blank" onclick="return openEmbeddedPdf(event)">Liquidity Map Field Guide — Tier B ranking & marking style, page 2</a>`
-      },
-      {
-        t:"Equal Highs and Equal Lows — Magnets, Not Resistance",
-        tag:"Critical",
-        body:"Equal highs and equal lows — price levels that have been tested multiple times without significant breakthrough — are not evidence of strong resistance or support. They are liquidity magnets. Every touch of a level places additional stop orders just beyond it. Three or four touches of the same level creates a concentrated pool of resting orders above or below. Institutional participants are aware of exactly these pools. Price engineering toward equal highs or lows should be analyzed as directional intent — the destination is the liquidity pool. When you identify equal highs forming on a daily chart, the analytical question is not 'will this level hold?' but 'when will it sweep, and what displacement occurs immediately after?' The sweep is the confirmation that institutional orders have been filled — and the subsequent move is the delivery.",
-        pdfRef:`<a class="pdf-ref" href="pdf:101c2502" target="_blank" onclick="return openEmbeddedPdf(event)">Liquidity Map Field Guide — Tier A ranking table, page 3</a>`
-      },
-      {
-        t:"Inducement — The Setup Before the Real Setup",
-        tag:"Advanced",
-        body:"Inducement is the market's mechanism for creating premature entries before the institutional move. It is a minor, internally valid structural shift that occurs before the real directional move — designed to attract retail traders into the market early, providing the liquidity required for institutional positioning. In a bearish trend, for example, price creates a small internal BOS to the upside — enough to trigger stop losses on short positions and attract long entries. This minor sweep upward is inducement. After filling the institutional sell orders into that retail buying pressure, price resumes its bearish delivery to the real structural target. Identifying inducement requires multi-timeframe awareness: what appears as a legitimate BOS opportunity on the lower timeframe is clearly internal liquidity engineering when the higher timeframe context is understood.",
-        pdfRef:`<a class="pdf-ref" href="pdf:101c2502" target="_blank" onclick="return openEmbeddedPdf(event)">Liquidity Map Field Guide — how to mark inducement distinctly, page 4</a>`
-      },
-      {
-        t:"Reading Stop Hunt Architecture — Anticipating Institutional Traps",
-        tag:"Execution",
-        body:"Stop hunts follow a recognizable and repeatable architecture across all liquid markets. Price approaches a significant structural level — an obvious swing high, equal highs, or a prior consolidation boundary. It shows micro-deceleration just below the level, creating the visual impression of respect. It then extends aggressively beyond the level in one or two large candles before snapping back with an equally aggressive displacement in the opposite direction. The extension phase is typically sharp and brief. The key confirmation is the displacement candle that follows the sweep — a large, full-bodied close back away from the swept level. This displacement candle is the institutional entry signal. The subsequent retest of the displacement candle's origin is the entry. The stop sits just beyond the sweep extreme. This is one of the most commonly observed sequences in liquid markets; verify its frequency on your own charts with the Proof Protocol in Module 11.",
-        pdfRef:`<a class="pdf-ref" href="pdf:101c2502" target="_blank" onclick="return openEmbeddedPdf(event)">Liquidity Map Field Guide — the 4-phase sequence table, page 4</a>`
-      },
-    ]
-  },
-  {
-    num:"04", title:"Candlestick Delivery — Reading Institutional Aggression", sub:"Every Candle Is Evidence of Who Controlled That Period",
-    intro:"Candlestick analysis in this system is not about pattern memorization. It is about reading the delivery mechanics of each candle — who won, who lost, and how decisively. The difference between a high-probability confirmation candle and a deceptive one is specific, objective, and learnable.",
-    lessons:[
-      {
-        t:"What a Candlestick Measures — Auction Mechanics in a Single Bar",
-        tag:"Foundation",
-        body:"A candlestick is a compressed record of a complete auction across a defined time period. The opening price is the starting point of that period's auction. The body represents the net result — the distance and direction between the open and close. The wicks represent the full range of price discovery during the period — levels that were tested but could not sustain participation from either side. A large body with minimal wicks indicates decisive, one-sided order flow: the auction was resolved quickly and emphatically. A small body with extended wicks indicates a contested auction where neither side overwhelmed the other. Reading candlestick delivery correctly means reading these mechanics — not memorizing names like 'hammer' or 'doji.'"
-      },
-      {
-        t:"Displacement Candles — The Signature of Institutional Participation",
-        tag:"Core",
-        body:"A displacement candle is a large, impulsive candlestick that closes aggressively in one direction with minimal wick on the closing side. This is the single most important confirmation signal in price action trading. Displacement indicates that institutional participants have entered with sufficient volume to overwhelm all opposing liquidity in that period. The body should be at minimum twice the instrument's average candle size at that timeframe. Critical nuance: the close is the only element that matters. A candle that ranged aggressively in one direction but closed with a large opposing wick is not a displacement candle — it is a rejection, and directionally opposite in its implications. Displacement requires a full-bodied close. Anything less is noise, and treating it as confirmation is one of the most reliable sources of premature, low-probability entries."
-      },
-      {
-        t:"Rejection Wicks — Identifying Trapped Participants",
-        tag:"Core",
-        body:"A rejection wick is the visual record of institutional orders positioned at a specific price level. When price aggressively extends to a level and immediately reverses, the wick that forms represents the participants who were trapped by that extension. Large upper wicks in a bullish move communicate that sellers absorbed every buy order that reached that level and pushed price back down — buyers were aggressive, but sellers were more aggressive. The analytical value of a rejection wick is entirely dependent on its location. A rejection wick formed at a fresh institutional zone, after a liquidity sweep, during the London or New York session, carries significant weight. A rejection wick in the middle of a range with no structural context is background noise. Location and context are what distinguish signal from noise. In classic retail terminology this exact candle — a small body with one long, dominant wick pointing in the direction price was rejected from — is called a pin bar (or 'pinocchio bar,' named for the nose-like wick). The name is cosmetic; the mechanics described above are exactly what a pin bar is measuring. If you encounter that term elsewhere, treat it as a synonym for a single-candle rejection wick, not a different concept. One additional visual filter worth applying: a rejection wick that clearly protrudes beyond the wicks of the surrounding candles — not just technically qualifying by ratio, but visibly standing apart on the chart — is a materially stronger signal than a borderline one sitting flush with neighboring price action. If you have to measure the ratio carefully to convince yourself it counts, treat that as a weak signal by default."
-      },
-      {
-        t:"The Inside Bar & The Fakey — Compression and the False-Breakout Trap",
-        tag:"Core",
-        body:"An inside bar is a two-candle structure where the current candle's entire range — high and low — is contained within the range of the prior candle, referred to as the mother bar. It represents compression: a temporary pause where neither side is winning, immediately after one side had been in clear control. Compression after control is not neutral information — it usually precedes expansion, and the two most common outcomes are traded very differently. The first outcome is a continuation breakout: price breaks the inside bar's range in the same direction as the mother bar's trend, and the inside bar acted as a brief pause before the trend resumed. The second outcome is the fakey: price breaks one side of the inside bar's range, briefly trading beyond it, then reverses and closes back inside the mother bar's range entirely — trapping everyone who entered on the initial breakout. A stronger variant of the base pattern is the inside pin bar combo: the inside candle itself qualifies as a pin bar — a rejection wick with a small body — rather than a neutral small-bodied candle. This stacks two pieces of evidence into one candle: compression (it's contained inside the mother bar) and directional rejection (its own wick shows which side is being repelled), which is why this combo is treated as a higher-conviction version of a plain inside bar. The fakey is one of the highest-value patterns in all of price action precisely because of who it traps: traders who react to the first break, without waiting for a close, are the liquidity that fuels the reversal. This is not a separate phenomenon from what Module 03 calls Inducement and stop hunt architecture — it is the exact same mechanic, described at the individual-candle level rather than the liquidity-pool level. A fakey at equal highs is an inducement sweep. A fakey at a fresh supply zone is a zone rejection. The classic and institutional vocabularies are describing one underlying behavior.",
-        diagram:`<div class="lesson-diagram"><svg viewBox="0 0 640 190" xmlns="http://www.w3.org/2000/svg">
-          <text x="150" y="18" text-anchor="middle" fill="var(--lime)" font-family="DM Mono, monospace" font-size="10.5" font-weight="600">INSIDE BAR</text>
-          <line x1="30" y1="100" x2="270" y2="100" stroke="var(--border)" stroke-width="1" stroke-dasharray="2 3"/>
-          <g stroke="var(--text)" stroke-width="2">
-            <line x1="90" y1="45" x2="90" y2="120"/><rect x="82" y="55" width="16" height="55" fill="var(--text-dim)"/>
-          </g>
-          <text x="90" y="135" text-anchor="middle" fill="var(--text-muted)" font-family="DM Mono, monospace" font-size="8">mother bar</text>
-          <g stroke="var(--lime)" stroke-width="2">
-            <line x1="150" y1="65" x2="150" y2="100"/><rect x="142" y="72" width="16" height="20" fill="var(--lime)"/>
-          </g>
-          <text x="150" y="135" text-anchor="middle" fill="var(--lime)" font-family="DM Mono, monospace" font-size="8">inside bar</text>
-          <path d="M175,80 L215,50" stroke="var(--lime)" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arrow1)"/>
-          <text x="235" y="45" text-anchor="middle" fill="var(--text-muted)" font-family="DM Mono, monospace" font-size="8">continuation</text>
-
-          <text x="480" y="18" text-anchor="middle" fill="#e0506b" font-family="DM Mono, monospace" font-size="10.5" font-weight="600">FAKEY (FALSE BREAKOUT)</text>
-          <line x1="360" y1="100" x2="600" y2="100" stroke="var(--border)" stroke-width="1" stroke-dasharray="2 3"/>
-          <g stroke="var(--text)" stroke-width="2">
-            <line x1="400" y1="45" x2="400" y2="120"/><rect x="392" y="55" width="16" height="55" fill="var(--text-dim)"/>
-          </g>
-          <g stroke="var(--lime)" stroke-width="2">
-            <line x1="440" y1="65" x2="440" y2="100"/><rect x="432" y="72" width="16" height="20" fill="var(--lime)"/>
-          </g>
-          <g stroke="#e0506b" stroke-width="2">
-            <line x1="480" y1="30" x2="480" y2="70"/><rect x="472" y="50" width="16" height="18" fill="none" stroke="#e0506b"/>
-          </g>
-          <path d="M480,30 L480,20" stroke="#e0506b" stroke-width="1" stroke-dasharray="2 2"/>
-          <text x="480" y="14" text-anchor="middle" fill="#e0506b" font-family="DM Mono, monospace" font-size="7">fake breakout — traps buyers</text>
-          <g stroke="var(--lime)" stroke-width="2.5">
-            <line x1="520" y1="70" x2="520" y2="135"/><rect x="512" y="80" width="16" height="45" fill="var(--lime)"/>
-          </g>
-          <path d="M528,100 L560,140" stroke="var(--lime)" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arrow1)"/>
-          <text x="560" y="155" text-anchor="middle" fill="var(--lime)" font-family="DM Mono, monospace" font-size="8">real move (reversal)</text>
-          <defs><marker id="arrow1" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="var(--lime)"/></marker></defs>
-        </svg><p class="diagram-caption">Left: inside bar breaks in trend direction — continuation. Right: inside bar fakes a breakout one way, then reverses hard — the same trap Module 03 calls Inducement.</p></div>`,
-        crossRef:"↳ Same mechanic, liquidity-engineering view: Module 03 — Inducement & Reading Stop Hunt Architecture"
-      },
-      {
-        t:"Fair Value Gaps — The Six-Filter Entry Method",
-        tag:"Advanced",
-        body:"A Fair Value Gap (FVG) is a three-candle structure where the middle candle is a displacement candle of sufficient magnitude that its range is entirely outside the wicks of both the preceding and following candles. This creates a price zone that was never efficiently traded — a void in the auction record where one side was so aggressive that no counter-participation occurred. Markets operate on the principle of efficient price delivery, which means price frequently revisits these imbalances to complete the unfinished auction before continuing in the direction of the original displacement. An FVG is a location worth watching, not a trade. Treating every gap as an entry is the single most common FVG mistake — the six filters below, applied in order, are what separate a worthwhile FVG from one of the dozens of competent-looking gaps that fail. <br><br><b>Filter 1 — Structural Permission.</b> Trade FVGs only in the direction of a confirmed BOS. If the displacement candle that created the gap didn't also break a prior swing point, it's just a fast candle — not evidence of institutional intent. No BOS, no gap trade.<br><br><b>Filter 2 — Unmitigated Only.</b> The gap must not have been previously visited since its formation. A gap price has already reacted from has done its job — the imbalance is spent. Second and third touches are where traders get chopped up.<br><br><b>Filter 3 — The First Gap in the Leg.</b> A single structural leg often produces several stacked FVGs. Only the first gap off the originating swing is high-probability — in a bullish leg, that's typically the lowest FVG in the range; in a bearish leg, the highest. Gaps stacked further into the move are usually the market catching its breath mid-trend, not a genuine re-entry point.<br><br><b>Filter 4 — Premium and Discount.</b> Draw a Fibonacci retracement from the leg's swing low to its swing high and mark the 0.5 level — equilibrium. A bullish FVG only qualifies if it sits below equilibrium, in discount. A bearish FVG only qualifies if it sits above equilibrium, in premium. A bullish gap sitting in premium is, structurally, buying at the expensive end of the range — skip it regardless of how clean the gap looks.<br><br><b>Filter 5 — Confluence Inside the Zone.</b> The strongest FVGs don't stand alone. Check whether an Order Block, a prior support/resistance level, or a recent liquidity sweep sits inside the same zone as the gap. One reason to enter is a guess. Two or three factors stacking in the same small price range is a genuine setup — this is the T.L.S. framework's 'Level' criterion reinforcing itself.<br><br><b>Filter 6 — Entry Confirmation.</b> Never place a blind limit order inside a gap. Wait for price to wick into the zone, then require a candle to close either inside the zone or back out in the trade's direction — the same 50% body-to-range confirmation rule used everywhere in this course. If a candle closes fully through the gap instead, the setup is invalidated; delete the zone and move on.<br><br><b>Execution specifics:</b> stop loss sits beyond the extreme of the displacement candle that created the gap (the middle of the three candles), with a small buffer. Target the next significant structural level or liquidity pool. Minimum R:R is 1:2, the same floor as every setup in this course.",
-        diagram:`<div class="lesson-diagram"><svg viewBox="0 0 640 230" xmlns="http://www.w3.org/2000/svg">
-          <text x="320" y="18" text-anchor="middle" fill="var(--lime)" font-family="DM Mono, monospace" font-size="11" font-weight="600">FILTER 4 — PREMIUM &amp; DISCOUNT</text>
-          <rect x="60" y="30" width="520" height="160" fill="none" stroke="var(--border)" stroke-width="1"/>
-          <line x1="60" y1="110" x2="580" y2="110" stroke="var(--lime)" stroke-width="1.5" stroke-dasharray="4 3"/>
-          <text x="590" y="114" fill="var(--lime)" font-family="DM Mono, monospace" font-size="9">0.5</text>
-          <text x="75" y="48" fill="#e0506b" font-family="DM Mono, monospace" font-size="9" font-weight="600">PREMIUM (sells only)</text>
-          <text x="75" y="178" fill="var(--lime)" font-family="DM Mono, monospace" font-size="9" font-weight="600">DISCOUNT (buys only)</text>
-          <text x="40" y="34" fill="var(--text-muted)" font-family="DM Mono, monospace" font-size="8">swing high</text>
-          <text x="40" y="190" fill="var(--text-muted)" font-family="DM Mono, monospace" font-size="8">swing low</text>
-
-          <rect x="150" y="150" width="60" height="22" fill="rgba(163,230,53,0.15)" stroke="var(--lime)" stroke-width="1.5"/>
-          <text x="180" y="164" text-anchor="middle" fill="var(--lime)" font-family="DM Mono, monospace" font-size="8">FVG</text>
-          <text x="180" y="200" text-anchor="middle" fill="var(--lime)" font-family="DM Mono, monospace" font-size="8" font-weight="700">✓ valid — bullish, in discount</text>
-
-          <rect x="420" y="55" width="60" height="22" fill="rgba(224,80,107,0.12)" stroke="#e0506b" stroke-width="1.5"/>
-          <text x="450" y="69" text-anchor="middle" fill="#e0506b" font-family="DM Mono, monospace" font-size="8">FVG</text>
-          <text x="450" y="97" text-anchor="middle" fill="#e0506b" font-family="DM Mono, monospace" font-size="8" font-weight="700">✕ invalid — bullish, in premium</text>
-        </svg><p class="diagram-caption">Same gap quality, opposite outcome. Location relative to equilibrium decides whether Filter 4 passes — a clean bullish FVG above the 0.5 line still gets skipped.</p></div>`,
-        pdfRef:`<a class="pdf-ref" href="https://temporal-store-2ce.notion.site/Price-Action-Operating-System-Checklist-3dc69183ba09806b82ece1b62c188feb" target="_blank">Trading Checklist — FVG defined alongside BOS/CHOCH/Order Blocks</a> <a class="pdf-ref" href="pdf:bd7f56bd" target="_blank" onclick="return openEmbeddedPdf(event)">Chart Marking Guide — drawing the premium/discount split, page 5</a>`
-      },
-      {
-        t:"The Confirmation Candle — The Gate Before Execution",
-        tag:"Execution",
-        body:"The confirmation candle is the final authorization before a trade is executed. After identifying the structural context, the liquidity event, the displacement, and the retracement to the entry zone — the confirmation candle is the element that differentiates disciplined execution from anticipatory gambling. This candle must close decisively in the direction of the trade, from within the entry zone, with a body representing at minimum 50% of its total range and minimal opposing wick. Entering before the confirmation candle has fully closed is anticipation — and the cost of anticipation, compounded across dozens of trades, is substantial. The confirmation candle is not an optional final check. It is the entry gate. There is no valid reason to execute before it closes.",
-        pdfRef:`<a class="pdf-ref" href="pdf:97dfb09e" target="_blank" onclick="return openEmbeddedPdf(event)">Entry Confirmation Sheet — the 50% rule across all 3 setups, on one page</a>`
-      },
-    ]
-  },
-  {
-    num:"05", title:"The Execution System — Entry Models & Invalidation Logic", sub:"Three Setups. Complete Rules. Rules Over Opinion.",
-    intro:"This is the operational core of the system. Every concept in the preceding modules exists to serve the precision execution of three primary setups. The rules are explicit. The confirmation criteria are objective. The invalidation conditions are mechanical. If a setup does not meet every criterion, it does not exist.",
-    lessons:[
-      {
-        t:"Setup One: The Break of Structure Retest — Full Execution Framework",
-        tag:"Flagship",
-        body:"The BOS Retest is the system's primary setup because it combines structural confirmation, liquidity logic, and entry precision in a single, verifiable sequence. The setup requires: a clear swing high or low to be violated by a full candle close (the BOS), followed by a retracement back to the broken level from the opposite side, followed by a confirmation candle that closes away from the level in the direction of the BOS. The critical invalidation rule: if price retraces back through the full body of the BOS candle before the confirmation occurs, the structural event is invalid and the setup is canceled. Stop loss sits just beyond the last swing point that preceded the BOS. Target sits at the next significant structural level in the trade direction. The setup does not require any additional indicator, confluence, or subjective assessment.",
-        pdfRef:`<a class="pdf-ref" href="pdf:bd7f56bd" target="_blank" onclick="return openEmbeddedPdf(event)">Chart Marking Guide — Setup One marking walkthrough, page 4</a>`
-      },
-      {
-        t:"Setup Two: Institutional Zone Rejection — Precision Entry at Supply and Demand",
-        tag:"Flagship",
-        body:"The Zone Rejection entry is executed when price returns to a fresh institutional supply or demand zone and provides a valid displacement candle back out of that zone. The sequence is precise: price must reach the proximal edge of the zone (not simply approach it), show a full-bodied displacement close back out of the zone in the intended trade direction, and the confirmation candle must close outside the zone boundaries. The single most important execution rule for this setup: you do not enter on the first candle into the zone. You enter on the first candle that closes back out. This eliminates a large category of failures where price enters a zone and continues through it rather than rejecting. The zone must be fresh — first approach since its formation. Stop loss sits just beyond the zone's distal edge. In ICT-style terminology, the specific unmitigated institutional candle marking the origin of this zone is called an Order Block. Different vocabulary, same object: an origin candle you're waiting to see price return to and reject from.",
-        pdfRef:`<a class="pdf-ref" href="https://temporal-store-2ce.notion.site/Price-Action-Operating-System-Checklist-3dc69183ba09806b82ece1b62c188feb" target="_blank">Trading Checklist — Order Blocks entry defined</a> <a class="pdf-ref" href="pdf:bd7f56bd" target="_blank" onclick="return openEmbeddedPdf(event)">Chart Marking Guide — zone drawing rules & freshness tiers, page 3</a>`
-      },
-      {
-        t:"Setup Three: Second-Entry Continuation — The 'One Rejection Means Nothing' Rule",
-        tag:"Flagship",
-        body:"The two setups above trade the moment structure shifts. Setup Three trades the moment an established trend resumes after a pause — and it exists because a single pullback candle in an active trend is not, by itself, trustworthy evidence of anything. The rule this setup is built on, echoed across every serious bar-by-bar price action methodology: one rejection attempt means nothing; it is the second attempt that changes the picture. In a confirmed trend, wait for a pullback toward the most recent swing or a rising/falling reference average. The first candle that attempts to resume the trend is the first entry — skip it. If that attempt stalls or fails, wait for a second pullback candle to form and produce a clean structure candle (a pinbar-style rejection or a strong-bodied close) back in the trend's direction. This second attempt is the entry. It filters out the single largest source of false continuation signals: shallow, one-candle pullbacks that immediately fail. Stop loss sits beyond the second pullback's extreme. Because this setup trades with the dominant structure rather than against it, it typically produces a higher hit rate than the two reversal-based setups — but only when the higher-timeframe trend bias is unambiguous. In a ranging or transitional market, this setup is invalid by definition, because there is no trend to continue.",
-        pdfRef:`<a class="pdf-ref" href="pdf:bd7f56bd" target="_blank" onclick="return openEmbeddedPdf(event)">Chart Marking Guide — marking the skip vs. entry pullback candle, page 4</a>`
-      },
-      {
-        t:"Session Timing — The Invisible Probability Filter",
-        tag:"Critical",
-        body:"Setup quality is not determined by technical structure alone. The session window in which a setup triggers is a core component of its probability. Institutional participants who generate the volume required to deliver a trade from entry to target are predominantly active during the London session (08:00–12:00 London time) and the New York session (13:30–17:00 London time). Setups that trigger during these windows carry institutional participation behind them. Setups that trigger during the Asian session close (outside JPY pairs), the midnight rollover period, or low-liquidity gaps carry significantly elevated failure rates regardless of technical quality. A technically perfect BOS retest at 03:00 New York time in EURUSD is a materially lower-probability trade than an identical setup triggering at 10:00 New York time."
-      },
-      {
-        t:"The T.L.S. Confluence Framework — Trend, Level, Signal",
-        tag:"Framework",
-        body:"Every setup in this system, without exception, is really a confluence check across three independent questions: Trend — what is the higher-timeframe structural bias (Module 02)? Level — is price at a genuine, fresh liquidity point: a supply/demand zone, an equal-highs/lows pool, or a swept level (Module 03)? Signal — has the candle-level evidence confirmed it: a displacement candle, a rejection wick, or a resolved fakey (Module 04)? A single factor in isolation is not a trade. A candlestick signal with no level behind it is noise. A key level with no confirming signal is a level to watch, not an order to place. The discipline this framework enforces is simple to state and hard to practice: require at least two of the three factors to align before you even consider an entry, and require all three before you execute. When traders describe a setup as having 'confluence,' this is what they mean — Trend and Level agreeing, or Level and Signal agreeing, or all three stacking at once. The three flagship setups in this module are simply the most common ways T.L.S. shows up in practice: the BOS Retest is Trend + Signal at a freshly broken Level; Zone Rejection is Level + Signal within a confirmed Trend; Second-Entry Continuation is Trend + Signal with the Level being the pullback zone itself. You are never inventing a new setup by using this framework — you are auditing whether the setup you think you see actually has the structural agreement it needs.",
-        diagram:`<div class="lesson-diagram"><svg viewBox="0 0 640 200" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="220" cy="90" r="70" fill="rgba(163,230,53,0.08)" stroke="var(--lime)" stroke-width="1.5"/>
-          <circle cx="320" cy="90" r="70" fill="rgba(163,230,53,0.08)" stroke="var(--lime)" stroke-width="1.5"/>
-          <circle cx="270" cy="150" r="70" fill="rgba(163,230,53,0.08)" stroke="var(--lime)" stroke-width="1.5"/>
-          <text x="180" y="60" text-anchor="middle" fill="var(--text)" font-family="DM Mono, monospace" font-size="12" font-weight="700">TREND</text>
-          <text x="180" y="74" text-anchor="middle" fill="var(--text-muted)" font-family="DM Mono, monospace" font-size="8">Module 02</text>
-          <text x="360" y="60" text-anchor="middle" fill="var(--text)" font-family="DM Mono, monospace" font-size="12" font-weight="700">LEVEL</text>
-          <text x="360" y="74" text-anchor="middle" fill="var(--text-muted)" font-family="DM Mono, monospace" font-size="8">Module 03</text>
-          <text x="270" y="185" text-anchor="middle" fill="var(--text)" font-family="DM Mono, monospace" font-size="12" font-weight="700">SIGNAL</text>
-          <text x="270" y="197" text-anchor="middle" fill="var(--text-muted)" font-family="DM Mono, monospace" font-size="8">Module 04</text>
-          <text x="270" y="115" text-anchor="middle" fill="var(--lime)" font-family="DM Mono, monospace" font-size="10" font-weight="700">ENTRY</text>
-          <text x="480" y="70" fill="var(--text-muted)" font-family="DM Mono, monospace" font-size="9">2 of 3 overlap → worth watching</text>
-          <text x="480" y="90" fill="var(--lime)" font-family="DM Mono, monospace" font-size="9" font-weight="600">all 3 overlap → valid entry</text>
-          <text x="480" y="110" fill="var(--text-dim)" font-family="DM Mono, monospace" font-size="9">1 or 0 → not a setup</text>
-        </svg><p class="diagram-caption">T.L.S. is not a fourth thing to learn — it's the checklist that connects what Modules 02, 03, and 04 already taught you.</p></div>`
-      },
-      {
-        t:"Disqualifying Conditions — When No Setup Is Valid",
-        tag:"Rule",
-        body:"Five conditions independently disqualify any setup regardless of technical quality. First: a major scheduled news event within 30 minutes of the trigger — economic releases create artificial volatility that invalidates structural analysis. Second: higher timeframe structure is ambiguous or transitioning — directional permission is absent. Third: the intended entry zone has been previously touched more than twice — institutional orders are likely depleted. Fourth: the confirmation candle shows less than 50% body-to-range ratio — institutional conviction is insufficient. Fifth: the session is outside the London or New York institutional windows. A setup meeting all technical criteria but failing any one of these conditions does not have a lower probability of success — it has unknown probability, which is categorically worse."
-      },
-      {
-        t:"Pre-Execution Checklist — Every Box Must Be Checked Before Entry",
-        tag:"Execution",
-        body:"The pre-execution checklist is the operational form of the T.L.S. framework — it is not a suggestion, it is the protocol that converts a discretionary analysis process into a systematic execution framework. The checklist covers: higher timeframe structural bias confirmed (bullish/bearish — not neutral), a genuine liquidity event has occurred before the setup trigger (a sweep or BOS, not a gradual approach), the entry zone is fresh and untouched since formation, the confirmation candle has fully closed with a body exceeding 50% of total range, the stop loss placement is structural (not a round number or arbitrary pip distance), the risk-to-reward ratio is a minimum of 1:2, and the session timing is within the valid execution window. A setup that cannot be verified on every point of this checklist is not entered. The checklist is the line between systematic trading and expensive improvisation."
-      },
-    ]
-  },
-  {
-    num:"06", title:"Risk Architecture & Capital Preservation", sub:"The System That Keeps You in the Game Long Enough to Win",
-    intro:"No edge in the world survives poor risk architecture. This module treats risk management not as a restriction on trading but as the foundational system that makes consistent profitability possible. The mathematics of survival are non-negotiable. The interactive risk calculator is in the Risk tab.",
-    lessons:[
-      {
-        t:"Structural Stop Placement — The Only Valid Stop Logic",
-        tag:"Core",
-        body:"A stop loss is valid only when it is placed at the price level that definitively invalidates the trade thesis. In a BOS retest entry, the stop sits just below the last significant swing low that preceded the BOS — because if price returns to that level, the structural shift being traded has been negated. In a zone rejection entry, the stop sits just beyond the distal edge of the supply or demand zone — because if price closes through the full zone, the institutional orders being traded alongside have been overwhelmed. Stops placed at round numbers, at fixed pip distances, or at broker-suggested levels are not logical — they are not connected to market structure and will be triggered by normal price noise with no genuine invalidation having occurred. Structural stop placement is not optional. It is the mechanical foundation of every risk management calculation."
-      },
-      {
-        t:"The 1–2% Rule — Survival Mathematics Over a Sample of Trades",
-        tag:"Rule",
-        body:"The 1–2% risk rule is not a conservative guideline — it is the mathematical framework that prevents a losing streak from becoming a terminal event. Consider a 10-trade losing streak with 2% risk per trade: the account drawdown is approximately 18%. The same losing streak at 5% risk per trade produces a 40% drawdown requiring a 67% gain just to recover to breakeven. At 10% risk, a 10-trade losing streak eliminates 65% of the account. Even a statistically excellent edge with a 55% win rate will produce runs of consecutive losses. The 1–2% rule does not limit your gains — it ensures that the inevitable losing periods do not eliminate your ability to participate when your edge returns. The rule is not about being conservative. It is about staying in the game long enough for the edge to materialize."
-      },
-      {
-        t:"Risk-to-Reward — The Mathematics of Long-Term Profitability",
-        tag:"Concept",
-        body:"Risk-to-reward (R:R) determines whether a trading system is mathematically profitable regardless of win rate. A system with a 40% win rate is profitable at 1:2.5 R:R or better. A system with a 50% win rate is profitable at any R:R above 1:1 (after accounting for spread and commissions). The institutional implication is significant: you do not need to be right more than half the time if your average winner consistently exceeds your average loser. The minimum R:R in this system is 1:2 — meaning for every trade that reaches its stop, you require the trade to return twice the risk at target. This is not an aspiration. It is a filtering criterion: if the structure of a trade does not provide a 1:2 R:R opportunity with the stop at its correct structural position, the trade does not qualify regardless of setup quality."
-      },
-      {
-        t:"Position Sizing — The Formula That Makes Risk Management Mechanical",
-        tag:"Formula",
-        body:"Position sizing converts the abstract 1–2% risk rule into a specific, actionable trade size for every entry. The formula is straightforward: risk amount (account balance × risk percentage) divided by stop loss distance in pips (or points) equals position size per pip/point. For example: a $10,000 account risking 1% ($100) with a 20-pip structural stop produces a position size of $5 per pip. This calculation is performed before entry, not after, and the position size is fixed from the moment of entry regardless of what happens to the trade. Scaling a position up after entry because 'the trade looks good' is not confidence — it is the behavioral pattern that converts manageable losses into catastrophic ones. Position sizing is calculated once. It does not change. This exact formula is what powers the interactive Risk Calculator in this course — the bonus PDF gives you the same math as a printable card for when you're away from a screen.",
-        pdfRef:`<a class="pdf-ref" href="https://temporal-store-2ce.notion.site/Price-Action-Operating-System-Checklist-3dc69183ba09806b82ece1b62c188feb" target="_blank">Trading Checklist — Position Sizing System Logic</a>`
-      },
-      {
-        t:"Psychological Capital — Managing the Mind Through Drawdown",
-        tag:"Mindset",
-        body:"A structured drawdown plan is as important as a position sizing formula. When a losing streak occurs — and it will — traders operating without a predefined response framework make increasingly irrational decisions: widening stops to avoid stops, reducing position size so dramatically that a recovery period produces minimal gains, or increasing position size in an attempt to 'win back' losses. The professional framework defines in advance: after three consecutive losses, reduce position size to 0.5% per trade until two consecutive winners are achieved. After a 10% drawdown, cease trading for 48 hours and complete a mandatory review of all recent trade journals. These pre-commitments are not signs of weakness — they are the psychological infrastructure that prevents a losing streak from becoming an account-ending event.",
-        pdfRef:`<a class="pdf-ref" href="pdf:c9c084ca" target="_blank" onclick="return openEmbeddedPdf(event)">Trader Psychology Guide — The Drawdown Protocol, page 4</a>`
-      },
-    ]
-  },
-  {
-    num:"07", title:"Trade Review & Execution Case Studies", sub:"Theory Validated. Process Institutionalized.",
-    intro:"Every concept in this system means nothing until you can apply it in real time to real charts with real money at stake. This module deconstructs actual trade sequences — both wins and losses — with the analytical rigor that converts chart reading into a professional skill. The goal is not to memorize examples. It is to internalize the process.",
-    lessons:[
-      {
-        t:"Anatomy of a Winning Trade — What Actually Made It Work",
-        tag:"Analysis",
-        body:"A winning trade is not defined by its outcome — it is defined by the quality of its process. A winning trade in this system has five verifiable components: the higher timeframe structural bias was unambiguous before entry, a genuine liquidity event preceded the setup trigger, displacement confirmed institutional directional participation, the entry zone was fresh, and the confirmation candle closed with conviction. When all five are present, the win is a function of process. When one or more are absent and the trade wins anyway, the outcome is randomness — and treating randomness as skill is the most reliable path to inconsistency. Every winning trade should be audited with the same question: would I take this exact setup again under the same conditions?",
-        pdfRef:`<a class="pdf-ref" href="https://temporal-store-2ce.notion.site/Mintmos-Trade-Journal-Guide-2a1ba74c486b42d39a30b5583349d7d0" target="_blank">Trade Journal Template — the 5 verifiable components, in the journal's Trade Context section</a>`
-      },
-      {
-        t:"Anatomy of a Losing Trade — The Diagnostic Protocol",
-        tag:"Analysis",
-        body:"Every losing trade contains precise diagnostic information about the specific point at which the process failed. The post-loss review asks four questions with complete clinical objectivity: First — was the higher timeframe bias clear and aligned with the trade direction? A no here means the trade was taken against institutional intent. Second — was there a genuine liquidity sweep before the entry trigger? A no here means the entry lacked institutional backing and was likely an inducement. Third — did the confirmation candle fully close before execution? A no here means the entry was premature anticipation. Fourth — was the stop placed at a structural level rather than an arbitrary distance? A no here means the stop was not logically connected to invalidation and was vulnerable to normal market noise. The majority of recurring loss patterns are eliminated within 20 to 30 sessions of consistent application of these four questions."
-      },
-      {
-        t:"The 90-Second Pre-Trade Analysis Framework",
-        tag:"System",
-        body:"Professional traders have a repeatable, time-efficient analysis process. The 90-second framework: open the weekly chart and identify whether price is approaching a significant weekly structure level — this determines whether extra caution is warranted regardless of lower timeframe signals. Move to the daily chart: identify the dominant structural direction (bullish, bearish, or neutral), mark the most recent BOS event and direction, identify any fresh institutional zones in the path of price. Move to the 4-hour chart: assess internal structural alignment with the daily bias, identify the most recent CHoCH or BOS signal, note session timing relative to the current candle. Drop to the entry timeframe (1-hour or 15-minute): identify the specific zone, wait for the confirmation candle. If the full process takes longer than two minutes, the setup is ambiguous — which is itself a signal to wait for clarity."
-      },
-      {
-        t:"Building the Trade Journal — The Compound Learning Architecture",
-        tag:"Practice",
-        body:"A trade journal is not a record-keeping exercise. It is a compound learning system that converts individual trading sessions into compounding professional knowledge. Every journal entry should capture: the multi-timeframe context that authorized the trade direction, the specific structural event that triggered the setup evaluation, the confirmation candle's characteristics, the precise entry price, stop loss level and structural justification, the intended target and its structural basis, and the post-trade outcome assessment covering both the mechanical execution and the psychological experience during the trade. After 30 to 50 consistently documented trades, pattern recognition becomes possible: which session window produces the highest probability results, which setup variation has the highest completion rate, which specific behavioral patterns consistently reduce performance. The journal makes the invisible visible.",
-        pdfRef:`<a class="pdf-ref" href="https://temporal-store-2ce.notion.site/Mintmos-Trade-Journal-Guide-2a1ba74c486b42d39a30b5583349d7d0" target="_blank">Trade Journal Template — the fillable workspace itself</a>`
-      },
-      {
-        t:"The Live Trade Mental Script — Process After Entry",
-        tag:"Mindset",
-        body:"Once a trade is entered, the analytical process is complete. The most destructive behavior pattern in trade management is continued analysis while in a position — searching for reasons to exit early, second-guessing the setup, treating normal retracement as invalidation. The professional mental script after entry is mechanical and immovable: if price has not reached the stop loss, the trade remains valid. Counter-moves, pauses, and temporary retracements are the normal delivery mechanics of every valid trade. They are not warning signs — they are the noise that triggers premature exits in undisciplined traders, converting positive expectancy setups into breakeven or small-loss outcomes. After entry, exactly two events are relevant: price reaches the stop (loss recorded, diagnostic review conducted), or price reaches the target (profit recorded, process assessment completed). Everything in between is irrelevant information.",
-        pdfRef:`<a class="pdf-ref" href="pdf:c9c084ca" target="_blank" onclick="return openEmbeddedPdf(event)">Trader Psychology Guide — The Live Trade Mental Script, page 5</a>`
-      },
-    ]
-  },
-  {
-    num:"08", title:"The Daily Execution Protocol", sub:"Consistency Is the Compounding Edge",
-    intro:"The best traders are not the most analytically gifted — they are the most systematically consistent. This module provides the complete daily operating protocol: what to do before markets open, the non-negotiable rules during live trades, and the post-session review process that converts daily experience into cumulative professional growth.",
-    lessons:[
-      {
-        t:"The Pre-Market Bias Framework — 6-Step Chart Preparation",
-        tag:"Protocol",
-        body:"Pre-market preparation is the analytical foundation for every intraday decision. The 6-step process: Step 1 — Weekly chart: identify whether price is approaching a significant weekly structure level, which establishes whether the session carries elevated risk. Step 2 — Daily chart: identify the dominant structural direction, the most recent BOS event, and the key institutional zones that price may interact with during the session. Step 3 — Asian session range: if trading London or New York, mark the previous Asian session range — this range frequently serves as the liquidity target for London session sweeps. Step 4 — Identify the specific price levels where institutional activity is most probable: fresh zones at structural confluence points with higher timeframe alignment. Step 5 — Set price alerts at those levels. Do not watch the chart — wait for the alert to come to you. Step 6 — Define the session maximum: one to three trades. Preparation is complete before any market opens. All six steps assume you're actually fit to trade in the first place — rested, distraction-free, and emotionally neutral. Skipping that personal check and going straight to the chart is how a technically sound setup gets executed badly.",
-        pdfRef:`<a class="pdf-ref" href="https://temporal-store-2ce.notion.site/Price-Action-Operating-System-Checklist-3dc69183ba09806b82ece1b62c188feb" target="_blank">Trading Checklist — Trading Readiness self-assessment (Stage 0)</a>`
-      },
-      {
-        t:"Establishing the Daily Bias — The Directional Permission Filter",
-        tag:"Daily",
-        body:"The daily bias is not a prediction — it is a directional permission filter that governs which setup types are authorized for the session. The bias is bullish when the daily chart structure is creating higher highs and higher lows, the most recent confirmed BOS was to the upside, and price is currently positioned above the key daily structure level. The bias is bearish under the inverse conditions. The bias is neutral — and this is the most critical designation — when structure is ambiguous, overlapping, or transitioning between directions. On neutral bias days, long and short entries are both unauthorized. The correct posture is to observe and wait, without forcing directional entries into an environment that does not support them. The majority of developing traders' worst days occur on days that, in retrospect, were clearly neutral bias environments."
-      },
-      {
-        t:"During-Trade Protocol — Five Rules That Are Non-Negotiable",
-        tag:"Rule",
-        body:"The five during-trade rules exist to prevent emotional decision-making from overriding the pre-trade analytical process. First: the stop loss is not moved against the position under any circumstance — moving a stop deeper into a losing trade converts systematic risk management into escalating gambling. Second: no positions are added to a losing trade — averaging down amplifies a structured loss into a potential account-defining loss. Third: once price reaches 1:1 risk-to-reward, evaluate whether session timing and structural context support moving the stop to breakeven on the remaining position. Fourth: between entry and the first partial target, the trade is not analyzed or adjusted — the analytical work was completed before entry. Fifth: if a significant unscheduled news event occurs post-entry that materially changes the fundamental context, size reduction or full exit is considered. Uncertainty is a legitimate reason to reduce exposure. It is not a reason to hold and hope."
-      },
-      {
-        t:"Post-Trade Review — Five Questions Without Ego",
-        tag:"Growth",
-        body:"The post-trade review is the highest-leverage activity a developing trader performs — and the most consistently avoided. The five questions, answered with complete honesty regardless of outcome: First — was the higher timeframe bias unambiguous and aligned with the trade direction before execution? Second — was there a genuine liquidity event (sweep or BOS) before the entry trigger, or was the entry an inducement setup? Third — did the confirmation candle fully close before execution, or was the entry premature? Fourth — was the stop placed at a structurally logical level — a level whose violation genuinely invalidates the thesis? Fifth — what is one specific, executable process adjustment for the next session? These five questions, applied honestly to every trade over 30 sessions, produce more measurable performance improvement than any additional technical study.",
-        pdfRef:`<a class="pdf-ref" href="https://temporal-store-2ce.notion.site/Mintmos-Trade-Journal-Guide-2a1ba74c486b42d39a30b5583349d7d0" target="_blank">Trade Journal Template — the exact 5 questions, fillable after every trade</a>`
-      },
-      {
-        t:"The Weekly Compound Review — Turning Sessions Into Systems",
-        tag:"Growth",
-        body:"The weekly review is a higher-order analysis of the complete record across the previous five sessions. Its purpose is not to evaluate individual trades but to identify systemic behavioral patterns across a statistically meaningful sample. The professional weekly review examines: which session window produced the cleanest setup quality (and whether trading was concentrated in those windows), which instrument demonstrated the most structurally clear behavior (and whether analytical focus was appropriately allocated), the accuracy rate of daily bias assessments versus actual structural behavior, and the ratio of rule-adherent executions to discretionary deviations. The weekly review produces one output: the single highest-leverage behavioral adjustment available for the coming week. One adjustment. Not five. The compound effect of one deliberate, focused improvement per week, applied consistently over months, is the mechanism by which developing traders become professional ones."
-      },
-    ]
-  }
-,
-  {
-    num:"09", title:"Pattern & Candle Library — Classic Patterns Through the T.L.S. Lens", sub:"Every Pattern You Have Heard Of, Translated Into Trend, Level and Signal",
-    intro:"Retail pattern books list shapes. This module explains what each shape is actually recording — a sweep, a structure shift or compression — so patterns become inputs to T.L.S. instead of a second, competing system. A pattern with no Trend and no Level behind it is decoration.",
-    lessons:[
-      {t:"Classic Candle Names Decoded — Doji, Spinning Top, Engulfing, Morning and Evening Star", tag:"Core",
-       body:"Doji and spinning top are small-bodied candles with wicks on both sides: a contested auction. Alone they mean nothing; after a sweep at a Tier A or B pool they show absorption, and mid-range they are noise. An engulfing candle is a displacement close whose body covers the prior body. A bullish engulfing is valid only when it closes out of a fresh demand zone or back above a swept low, with a body of at least 50% of range and at least average candle size; the bearish version is the mirror. Morning and evening stars are three candles — impulse, indecision, displacement the other way — which is simply rejection plus displacement at a Level. Take one only when the third candle closes beyond the midpoint of the first and the pattern sits at a fresh zone or swept pool. The names are shorthand. Location and the close are the evidence."},
-      {t:"Reversal Patterns as Liquidity Events — Double Tops and Bottoms, Head and Shoulders", tag:"Core",
-       body:"A double top is an equal-highs pool (Module 03, Tier A). The textbook trade sells the second peak; this system waits for the sweep, which is often a slightly higher second high, then displacement, then a close through the neckline and a retest. Double bottoms are the mirror image. Head and shoulders is a structure sequence: the head is the last higher high, a failed right shoulder is the CHoCH, a close below the neckline (the swing low) is the BOS, and the retest of the neckline is Setup One. Stop goes above the right shoulder, target is the next structural level, and the classic measured move (head-to-neckline height projected down) is a reference only. The pattern is invalid if price closes back above the right shoulder. Prioritise patterns on the 4H or Daily that form at a higher-timeframe level, and ignore any that form inside barb wire."},
-      {t:"Continuation Patterns — Flags, Pennants, Triangles and Rectangles", tag:"Core",
-       body:"Every continuation pattern is compression after displacement: a pause where orders build before the next leg. A flag is a tight counter-sloping channel and a pennant a small converging triangle, both retracing no deeper than the 50% equilibrium. An ascending triangle is a flat top (a buy-side pool) over rising lows, a descending triangle is the inverse, and a symmetrical triangle gives no direction until a body close. A rectangle is a range between two pools. Never trade inside the pattern. Wait for a body close through the boundary in the trend direction, then enter the retest (Setup One) or the second pullback (Setup Three). A close back inside the boundary within two candles is a fakey, and you trade the opposite side only on fresh displacement. Trade symmetrical triangles only in the higher-timeframe trend direction, and treat a pattern that drags on for more than twice the length of its impulse as losing momentum."},
-      {t:"Polarity Change — Support/Resistance Role Reversal and How Levels, Zones and Pools Relate", tag:"Concept",
-       body:"Polarity change is a broken support becoming resistance, or a broken resistance becoming support. In this system it is exactly Setup One: a body close through the level, a retest from the other side, and a confirmation candle. Three tools are constantly confused. A support or resistance level is where price reacted before, drawn as a zone with width. A supply or demand zone is the base that produced a displacement departure, and it is your entry (Setup Two). A liquidity pool is where stops rest, and it is a destination, not a wall. Levels give location, zones give entries and pools give targets. A flip is valid only after a body close with displacement beyond the level, it earns one clean retest, and a second retest is weaker. If price spends several candles chopping across the level without a decisive close, nothing has flipped."}
-    ]
-  },
-  {
-    num:"10", title:"Strategy Playbooks — Order Blocks, Breakouts, Reversals, Ranges and Participation", sub:"Every Common Strategy Rebuilt as a Rule-Based Variation of the Same Three Setups",
-    intro:"Traders search for breakouts, reversals, range plays and order blocks as if they were separate systems. They are not. This module gives each one explicit entry, stop and invalidation rules, and shows which of the three flagship setups it reduces to, so you never need a fourth system.",
-    lessons:[
-      {t:"Order Blocks — The Complete Definition and Rules", tag:"Advanced",
-       body:"An order block (OB) is the last opposite-coloured candle, or tight cluster, before a displacement that breaks structure. A bullish OB is the last down candle before an up-displacement that produces a BOS, and a bearish OB is the mirror. It is the same object as the Setup Two zone, so the entry rule is unchanged: you enter on the first candle that closes back out of it. Draw the full range (wick to wick). Use the 50% mean threshold only when you need a tighter stop to reach 1:2. An OB is valid only when the displacement broke structure, the move also left a sweep or an FVG, the block is unmitigated (price has not traded back into it), and it sits in discount for longs or premium for shorts. An OB that also overlaps a fresh FVG is the highest-quality version because the same displacement left both. The failure mode is marking every opposite candle on the chart. If it did not cause a BOS, it is not an order block."},
-      {t:"Breakout Trading — When It Works and Why Most Fail", tag:"Strategy",
-       body:"Most retail breakouts fail because they are the liquidity grabs described in Module 03. A breakout qualifies only when all five conditions hold: a body close beyond the level with displacement of at least twice average candle size, higher-timeframe bias in the same direction, no opposing Tier A or B pool or fresh zone within 1.5R of the break, prior compression (a flag, triangle or rectangle from Module 09), and a London or New York session window. You never enter the break candle. You enter the retest (Setup One). If price runs without a retest, you skip it and do not chase. If price closes back inside within one or two candles, it is a fakey and there is no breakout trade. Stop-entry orders placed above resistance are not part of this system."},
-      {t:"Reversal Trading and the Range Playbook", tag:"Strategy",
-       body:"A valid reversal needs five things in order: price at a higher-timeframe level or Tier A pool, a sweep, displacement, a CHoCH followed by a BOS on the entry timeframe, and a retest with a confirmation candle. Skip any step and it is a counter-trend guess. Cap counter-trend risk at 1% and target the first internal level before the higher-timeframe level. For ranges, mark the range high and low as pools and the 0.5 midpoint as equilibrium. The trade is a deviation: price sweeps a range edge, closes back inside, and displaces. Enter the retest, target the midpoint first and the opposite edge second. Never trade the middle third of a range, and if the structural stop cannot return 1:2 to the midpoint, the range is too narrow to trade. A body close beyond the edge with displacement stops being a range trade and must pass the breakout checklist instead."},
-      {t:"Participation Evidence — Volume, VSA, Climax Volume and Delta", tag:"Advanced",
-       body:"Volume is an optional upgrade to the Signal in T.L.S., not a new setup. Know your data first: futures, stocks and crypto perpetuals have real volume, spot forex has only tick volume as a proxy, and delta or footprint requires order-flow data. Volume Spread Analysis compares effort (volume) with result (candle range). Four rules apply. Displacement on rising volume above the recent average is genuine, while displacement on shrinking volume is suspect and may be inducement. A pullback on falling volume inside a trend is healthy. A climax is a volume spike of roughly twice average with a small body or long wick at a Tier A pool or at the end of an extended leg, which signals absorption or exhaustion, and you still need displacement after it before acting. A narrow up-bar on low volume into resistance shows no demand. For delta, a strong displacement with negative delta means the move was absorbed, which is a warning. Volume agreement adds one point on the Confluence Scorecard in Module 11 and never vetoes a trade alone."}
-    ]
-  },
-  {
-    num:"11", title:"Macro Context & Confluence — Wyckoff, Elliott, Fibonacci, Moving Averages and the Scorecard", sub:"From Setup Quality to Trade Selection to Your Own Proof",
-    intro:"Setups tell you how to enter. This module tells you which entries deserve full risk, which deserve less and which to skip. Each classic framework is mapped onto T.L.S. with honest limits, and the module ends with the method for turning the rules into your own statistics.",
-    lessons:[
-      {t:"Wyckoff — The Macro Map Behind Every Sweep", tag:"Framework",
-       body:"Wyckoff describes four phases: accumulation, markup, distribution and markdown. In accumulation, a selling climax and automatic rally define the range, a secondary test confirms it, and a spring is a sweep below the range low that closes back inside (a sell-side pool sweep). A sign of strength is displacement up through the range high, which is a BOS. The last point of support is the retest, which is your Setup One entry. Distribution mirrors this with a buying climax, an upthrust after distribution (a sweep above the range high), a sign of weakness and a last point of supply. Wyckoff tells you the phase, meaning which side is permitted, and T.L.S. gives the trigger. Work on the 4H and Daily, and trade the retest rather than the spring itself. The schematics are idealised: real ranges skip events, and if you have to force the labels, the structure is not there."},
-      {t:"Elliott Wave — Context, Not a Trigger", tag:"Framework",
-       body:"An impulse has five waves (1, 3 and 5 with the trend, 2 and 4 against it) and a correction has three (A, B, C). Three rules cannot be broken: wave 2 never retraces beyond the start of wave 1, wave 3 is never the shortest, and wave 4 does not overlap wave 1 (diagonals aside). In this system waves 1 and 3 are BOS legs, waves 2 and 4 are pullbacks into a zone (Setup Two or Three), and a deep wave 2 pullback into wave 3 usually offers the best R. Wave 5 arriving at a Tier A pool with weakening participation is a distribution warning, and an A-B-C is a counter-trend move to trade smaller or skip. Wave counts are subjective and get revised, so they are never a trigger and never override structure. A count is a hypothesis, and when one of its own rules breaks you discard it."},
-      {t:"Fibonacci Confluence — The Golden Pocket and Optimal Trade Entry", tag:"Confluence",
-       body:"Draw the retracement across the leg that produced the BOS, always the same leg and never redrawn to fit. The 0.5 level is equilibrium (Filter 4 of the FVG method). The 0.618–0.786 band is the optimal trade entry (OTE) zone, with 0.705 as its midpoint, and 0.618–0.65 is the golden pocket. Fibonacci is never the trigger. It scores a zone that already passes Trend and Level: a fresh zone, OB or FVG overlapping the OTE band inside discount (longs) or premium (shorts) earns two points on the Scorecard. A retracement beyond 0.786 is weaker, and one that closes through 1.0 has broken the swing and is invalid. Fibonacci extensions can be used as a reference for targets, but the next structural level always governs."},
-      {t:"Moving Averages as Dynamic Support — A Context Overlay, Not a Signal", tag:"Confluence",
-       body:"Module 01 explains why averages lag, so they are never a trigger. They remain useful context because the 20, 50 and 200 EMA are watched by so many participants that pullbacks into them cluster orders. The slope of the 20 EMA on your entry timeframe shows trend pace, and it is the reference average in Setup Three. The 50 EMA marks typical pullback depth in a healthy trend. The 200 EMA on the 4H or Daily is a macro bias line: price above it favours longs, but it is not a signal. Flat, tangled averages confirm barb wire, which means no trade. A zone overlapping the 50 EMA earns one point. When an average and a zone disagree, the zone wins. Use only these three averages and nothing else on the chart."},
-      {t:"The Confluence Scorecard — Ranking Every Trade Before You Take It", tag:"Framework",
-       body:"T.L.S. still gates the entry: all three factors are required. The Scorecard ranks quality and sets risk. Trend: higher and mid timeframe aligned +2 (only one +1). Level: fresh zone or OB +1, FVG Filters 1–4 passed +1, swept Tier A or B pool beforehand +2, Fibonacci OTE overlap +1, EMA overlap +1, Wyckoff phase agrees +1. Signal: displacement of at least twice average +1, participation evidence agrees +1, London or New York window +1. The maximum is 12. A score of 9–12 is A+ (risk up to 2%), 6–8 is A (risk 1%), and below 6 is no trade. The Scorecard never overrides the five disqualifying conditions in Module 05. Log the score in your Journal, and after 30–50 trades compare results by grade. If A+ trades do not outperform A trades in your own data, recalibrate the weights."},
-      {t:"The Proof Protocol — Turning Rules Into Your Own Statistics", tag:"Practice",
-       body:"No course can promise your results, so this is the method for generating evidence. Step 1, marking drills: mark 20 historical charts per setup blind, then compare against the module rules. Step 2, backtest: use bar replay to log 50 occurrences of each setup on your instrument, recording the R result, score, session and whether you followed every rule. Step 3, compute expectancy: (win rate × average win in R) − (loss rate × average loss in R). Require at least +0.2R across 50 or more trades before going live. Step 4, forward-test: 20 demo trades, then 20 live trades at minimum size. Step 5, freeze the rules, and change only one variable per 50 trades. Spreads, execution and instrument behaviour change results, so your numbers are the only ones that count. Keep a proof table with setup, sample size, win rate, average R, expectancy and best session."}
-    ]
-  },
-  {
-    num:"12", title:"Practice Lab — Walkthroughs, Mistake Library and Drills", sub:"Rehearse the Decision Sequence Before Risking Capital",
-    intro:"Rules become skill only through repetition. This module gives you three constructed walkthroughs (a win, a valid-process loss and a skipped trap), the ten most expensive mistakes with their fixes, and points you to the interactive Lab tab for the Scorecard, the expectancy calculator and twelve scored drills.",
-    lessons:[
-      {t:"Read This First — How to Use the Walkthroughs", tag:"Guide",
-       body:"The three walkthroughs below are constructed teaching sequences with round numbers. They are not live trades, they are not performance claims, and they are not evidence that any setup wins at a given rate. Their purpose is to rehearse the order of decisions: bias, level, sweep, displacement, retest, confirmation, stop, target, score. Read each one, cover the explanation, and try to name the decision at every step. Then repeat the same sequence on your own charts and log it in your Journal."},
-      {t:"Walkthrough A — BOS Retest, Valid Process, Winner (EURUSD-style, Daily bias, 15M entry)", tag:"Worked Example",
-       body:"Daily structure is bullish (higher highs and higher lows) and the 4H has pulled back into a demand zone. At 09:10 London an equal-lows pool at 1.0850 is swept: price wicks to 1.0846 and closes back above it. A 15M displacement candle then runs from 1.0852 to 1.0885, with a body 2.3 times the recent average, and closes above the swing high at 1.0878: that is the BOS. At 09:55 price retraces to 1.0878 and a confirmation candle closes at 1.0884 with a 70% body. Entry is 1.0884, stop is 1.0842 beyond the last swing before the BOS (42 pips), and the target is the next structural level at 1.0968 (84 pips), which is 1:2. Scorecard: higher timeframe +1, mid timeframe +1, fresh zone +1, swept pool +2, displacement +1, session +1 = 7, grade A, 1% risk. The setup would have been cancelled had price retraced through the full body of the BOS candle (below 1.0852) before confirming. In this constructed example the target is reached. The lesson is that every box was ticked before entry, so the result came from process rather than luck."},
-      {t:"Walkthrough B — Zone Rejection, Valid Process, Loser", tag:"Worked Example",
-       body:"Daily structure is bearish, and the 4H shows a fresh supply zone at 1.2740 to 1.2765 on its first return. At 14:15 London (New York session) a 15M candle trades into the zone and the next candle closes back out at 1.2738 with a 60% body. Entry is 1.2738, stop is 1.2770 beyond the distal edge (32 pips), and the target is the next opposing zone at 1.2674 (64 pips), which is 1:2. Scorecard: higher timeframe +1, mid timeframe +1, fresh zone +1, displacement +1, session +1, participation +1 = 6, grade A, 1% risk. Forty minutes later an unscheduled headline drives price through the zone and the stop is hit for a 1R loss. Run the four post-loss questions: the bias was aligned, the setup was valid, the candle closed before entry, and the stop was structural. All four answers are yes, so the process was sound and this loss is simply one of the losses your expectancy already includes. Log it, do not change the rules, and do not size up to recover it."},
-      {t:"Walkthrough C — The Trade You Correctly Skip (Inducement Trap)", tag:"Worked Example",
-       body:"Daily structure is bearish. Price rallies into a small internal break at 1.3010 on the 1H, below a Tier A equal-highs pool at 1.3040. On the 15M this produces what looks like a textbook BOS retest long with a clean confirmation candle. Run T.L.S.: Trend is against the long (bearish daily), there is no swept pool yet, and the Level is a pool that has not been taken, which makes this the inducement from Module 03. The checklist fails on the first line, so there is no trade. Price then sweeps 1.3040, displaces down by roughly 90 pips and breaks structure. The correct action was to wait for that sequence and take the retest short. The trade you skip because the checklist said no is as valuable as the trade you take, and your Journal should record skipped setups with the reason."},
-      {t:"The Mistake Library — Ten Expensive Errors and Their Fixes", tag:"Review",
-       body:"One: entering on the BOS candle itself instead of the retest (Module 02). Two: treating a CHoCH as a confirmed reversal (Module 02). Three: entering before the confirmation candle closes (Module 04). Four: taking a zone on its third touch (Module 05). Five: placing the stop at a round number rather than a structural level (Module 06). Six: moving the stop against the position (Module 08). Seven: marking every opposite candle as an order block, when only those that caused a BOS qualify (Module 10). Eight: trading in a transitioning market because the lower timeframe looks clean (Module 01). Nine: ignoring session windows (Module 05). Ten: forcing confluence, meaning adding Fibonacci, EMA or Wyckoff labels to a setup that already failed T.L.S. (Module 11). When a trade goes wrong, find it on this list first. Most losses are a repeat of one of these ten."}
-    ]
-  }
-];
-
-const setupCards = [
-  {name:"BOS + Retest", emoji:"<i data-lucide='trending-up' class='lu'></i>", condition:"Price breaks structure, retests the level", entry:"First candle that holds the level with a strong close", sl:"Just beyond the last swing point that preceded the BOS", rr:"Minimum 1:2"},
-  {name:"Zone Rejection", emoji:"<i data-lucide='layers' class='lu'></i>", condition:"Price enters a supply or demand zone", entry:"Full-bodied displacement candle closing back out of the zone (an engulfing-style close qualifies)", sl:"Above zone high (supply) / Below zone low (demand)", rr:"Minimum 1:2"},
-  {name:"Second-Entry Continuation", emoji:"<i data-lucide='candlestick-chart' class='lu'></i>", condition:"Confirmed trend, pullback in progress — first pullback candle fails to resume", entry:"Second pullback candle closes as a clean pinbar or strong-bodied continuation candle", sl:"Beyond the second pullback's extreme", rr:"Minimum 1:2"},
-];
+const setupCards = [];
 
 const workflowSteps = [
   {num:"1", label:"Learn", ref:"Module 1", detail:"Review the source module if any concept feels unclear before you touch a chart."},
@@ -1686,325 +1225,7 @@ const workflowSteps = [
   {num:"6", label:"Review", ref:"Module 7 & 8", detail:"Log the trade and run the Post-Trade Review, win or lose."},
 ];
 
-const executionPanel = [
-  {
-    num:"01", title:"Foundations of Institutional Price Action", ref:"Module 1",
-    goldenRule:"Price is the only unfiltered record of institutional order flow. Every candle is a completed auction — read that, and every derivative indicator becomes redundant.",
-    goldenRuleRef:"Module 1, Foundation",
-    items:[
-      {text:"Treat every candle as a completed auction between buyers and sellers, not a random print.", ref:"Module 1, Foundation"},
-      {text:"Classify the current market into one of three states before analyzing anything else: Trending, Ranging, or Transitioning.", ref:"Module 1, The Three States of Market Behavior"},
-      {text:"Flag Transitioning markets as a hard no-trade condition — this is where most retail edge gets destroyed.", ref:"Module 1, The Three States of Market Behavior"},
-      {text:"Discard lagging indicators (RSI, MACD, Moving Averages) as primary decision inputs — they are mathematically derived from price you've already seen.", ref:"Module 1, Why Indicators Fail"},
-      {text:"Recognize price action as the purest form of technical analysis — first-hand data, zero derivative layers.", ref:"Module 1, Price Action vs. Technical Analysis"},
-      {text:"Treat news and fundamentals as already priced in — stop reacting to headlines as new information.", ref:"Module 1, Price Action vs. Technical Analysis"},
-      {text:"Weight the most recent 3–6 months of price action heaviest; treat anything older as background context only.", ref:"Module 1, Timeframe Hierarchy"},
-    ],
-    toggles:[
-      {trigger:"If you catch yourself watching an indicator cross a threshold to justify a decision", action:"Close the indicator and re-read the raw candle structure instead.", ref:"Module 1, Why Indicators Fail"},
-    ],
-    subsections:[
-      {title:"Timeframe Hierarchy", ref:"Module 1, Timeframe Hierarchy",
-        items:[
-          {text:"Weekly/Daily — establish dominant structural bias and major institutional levels."},
-          {text:"4H/1H — identify internal structural sequences and BOS events."},
-          {text:"15M/5M — execute entry precision: retest level, confirmation candle, stop placement."},
-        ],
-        toggles:[
-          {trigger:"If your entry-timeframe setup contradicts your higher-timeframe bias", action:"Stand down; you are trading against the volume that actually moves the market.", ref:"Module 1, Timeframe Hierarchy"},
-        ]
-      }
-    ]
-  },
-  {
-    num:"02", title:"Market Structure: The Mechanical Backbone", ref:"Module 2",
-    goldenRule:"Market structure has a mechanical definition, not a discretionary one. Ambiguity is not an analytical puzzle — it's a signal to stand aside.",
-    goldenRuleRef:"Module 2, The Mechanical Definition of Market Structure",
-    items:[
-      {text:"Define a swing high as a candle whose high exceeds both the preceding and succeeding candle's high (inverse for swing lows).", ref:"Module 2, The Mechanical Definition of Market Structure"},
-      {text:"Confirm a Break of Structure (BOS) only on a full candle close beyond the prior swing point.", ref:"Module 2, Break of Structure"},
-      {text:"Treat a Change of Character (CHoCH) as an early warning of weakening momentum — not a confirmed reversal.", ref:"Module 2, Change of Character"},
-      {text:"Require structural alignment across a minimum of two timeframes before authorizing any entry.", ref:"Module 2, Multi-Timeframe Structural Alignment"},
-      {text:"Walk away from overlapping, compressed price action with no clear swing sequence.", ref:"Module 2, Clean Structure vs. Choppy Structure"},
-    ],
-    toggles:[
-      {trigger:"If you're tempted to enter directly on the BOS candle", action:"Wait; the BOS confirms the shift, while the retest of the broken level is the entry.", ref:"Module 2, Break of Structure"},
-      {trigger:"If a CHoCH appears mid-trend", action:"Stop adding to trend positions and watch for full BOS confirmation before treating it as a reversal.", ref:"Module 2, Change of Character"},
-      {trigger:"If a lower-timeframe entry looks perfect but conflicts with higher-timeframe structure", action:"Skip it — the higher-timeframe participant is more significant than the setup.", ref:"Module 2, Multi-Timeframe Structural Alignment"},
-    ]
-  },
-  {
-    num:"03", title:"Liquidity: Trading Where Institutions Actually Trade", ref:"Module 3",
-    goldenRule:"Retail stop losses and breakout orders are the liquidity institutions need to fill their own size. Price sweeps those pools by design, not by accident.",
-    goldenRuleRef:"Module 3, What Liquidity Actually Means",
-    items:[
-      {text:"Map external range liquidity: buy-side above the swing high, sell-side below the swing low.", ref:"Module 3, External Range Liquidity"},
-      {text:"Re-classify equal highs/lows as liquidity magnets, not resistance or support.", ref:"Module 3, Equal Highs and Equal Lows"},
-      {text:"Reframe the analytical question from \u201cwill this level hold?\u201d to \u201cwhen will it sweep, and what happens after?\u201d", ref:"Module 3, Equal Highs and Equal Lows"},
-      {text:"Identify inducement: a minor internal structural shift designed to trap early entries before the real move.", ref:"Module 3, Inducement"},
-      {text:"Recognize stop-hunt architecture: micro-deceleration near a level → sharp extension beyond it → aggressive displacement snap-back.", ref:"Module 3, Reading Stop Hunt Architecture"},
-    ],
-    toggles:[
-      {trigger:"If price sweeps a high/low and reverses with a strong displacement candle", action:"Wait for the retest of the displacement origin before entering — the sweep is not the trade.", ref:"Module 3, External Range Liquidity"},
-      {trigger:"If a lower-timeframe BOS contradicts the higher-timeframe context", action:"Treat it as inducement, not opportunity.", ref:"Module 3, Inducement"},
-    ]
-  },
-  {
-    num:"04", title:"Candlestick Delivery Mechanics", ref:"Module 4",
-    goldenRule:"A candlestick measures who won the auction and how decisively — not a memorized shape. Read mechanics, not names.",
-    goldenRuleRef:"Module 4, What a Candlestick Measures",
-    items:[
-      {text:"Confirm displacement candles by their close, not their range or wick extension.", ref:"Module 4, Displacement Candles"},
-      {text:"Require a displacement body of at minimum 2× the instrument's average candle size on that timeframe.", ref:"Module 4, Displacement Candles"},
-      {text:"Judge rejection wicks by location and session context — a wick with no structural context is noise.", ref:"Module 4, Rejection Wicks"},
-      {text:"Treat borderline wicks as weak by default — a wick must visibly stand apart from neighboring candles to count as strong.", ref:"Module 4, Rejection Wicks"},
-      {text:"Validate a Fair Value Gap (FVG) only when formed by genuine displacement, aligned with confirmed structure, and unvisited since formation.", ref:"Module 4, Fair Value Gaps"},
-      {text:"Require the confirmation candle to close with a body-to-range ratio of 50%+ before executing.", ref:"Module 4, The Confirmation Candle"},
-    ],
-    toggles:[
-      {trigger:"If price ranges hard in one direction but closes with a large opposing wick", action:"Classify it as rejection, not displacement — the implication is directionally opposite.", ref:"Module 4, Displacement Candles"},
-      {trigger:"If price breaks one side of an inside bar's range but closes back inside the mother bar", action:"It's a fakey; the breakout crowd is now the liquidity fueling the reversal.", ref:"Module 4, The Inside Bar & The Fakey"},
-      {trigger:"If the inside candle itself qualifies as a pin bar", action:"Treat it as a higher-conviction combo signal: compression plus directional rejection stacked.", ref:"Module 4, The Inside Bar & The Fakey"},
-    ]
-  },
-  {
-    num:"05", title:"Flagship Setups & The T.L.S. Confluence Framework", ref:"Module 5",
-    goldenRule:"Every valid setup is a Trend + Level + Signal confluence check. Two factors aligning is worth watching. All three stacking is the only condition for execution.",
-    goldenRuleRef:"Module 5, The T.L.S. Confluence Framework",
-    items:[],
-    subsections:[
-      {title:"Setup 1 — BOS Retest", ref:"Module 5, Setup One",
-        items:[
-          {text:"Confirm a clean BOS via full candle close."},
-          {text:"Wait for the retracement back to the broken level."},
-          {text:"Enter only on a confirmation candle closing away from the level."},
-          {text:"Place stop just beyond the swing point preceding the BOS."},
-          {text:"Target the next significant structural level."},
-        ],
-        toggles:[
-          {trigger:"If price retraces through the full body of the BOS candle before confirmation", action:"The setup is invalid — cancel it.", ref:"Module 5, Setup One"},
-        ]
-      },
-      {title:"Setup 2 — Institutional Zone Rejection", ref:"Module 5, Setup Two",
-        items:[
-          {text:"Confirm the zone is fresh — first approach since formation."},
-          {text:"Wait for price to reach the proximal edge, not merely approach it."},
-          {text:"Require a full-bodied displacement close back out of the zone."},
-          {text:"Enter on the first candle that closes back out — never the first candle into the zone."},
-          {text:"Place stop just beyond the zone's distal edge."},
-        ]
-      },
-      {title:"Setup 3 — Second-Entry Continuation", ref:"Module 5, Setup Three",
-        items:[
-          {text:"Confirm an unambiguous higher-timeframe trend before using this setup at all."},
-          {text:"Skip the first pullback attempt to resume the trend — it proves nothing alone."},
-          {text:"Wait for a second pullback producing a clean rejection or strong-bodied close."},
-          {text:"Enter on that second attempt only."},
-          {text:"Place stop beyond the second pullback's extreme."},
-        ],
-        toggles:[
-          {trigger:"If the market is ranging or transitional", action:"This setup is invalid by definition — there is no trend to continue.", ref:"Module 5, Setup Three"},
-        ]
-      },
-      {title:"Session Timing Filter", ref:"Module 5, Session Timing",
-        items:[
-          {text:"Confirm the trigger falls inside London (08:00–12:00 London time) or New York (13:30–17:00 London time) sessions."},
-          {text:"Treat Asian-session, midnight-rollover, or low-liquidity triggers as elevated-failure-rate regardless of technical quality."},
-        ]
-      },
-      {title:"Disqualifying Conditions — Run Before Every Trade", ref:"Module 5, Disqualifying Conditions",
-        items:[
-          {text:"No major scheduled news event within 30 minutes of trigger."},
-          {text:"Higher-timeframe structure is clear — not ambiguous or transitioning."},
-          {text:"Entry zone touched twice or fewer since formation."},
-          {text:"Confirmation candle body-to-range ratio is 50%+."},
-          {text:"Session timing falls inside London or New York windows."},
-          {text:"Risk-to-reward is a minimum 1:2 with stop at correct structural position."},
-        ]
-      },
-    ]
-  },
-  {
-    num:"06", title:"Risk Architecture & Survival Mathematics", ref:"Module 6",
-    goldenRule:"No edge survives bad risk architecture. Risk management isn't a restriction on trading — it's the system that keeps you in the game long enough for the edge to materialize.",
-    goldenRuleRef:"Module 6, The 1–2% Rule",
-    items:[
-      {text:"Place every stop at a structural invalidation point — never a round number or fixed pip distance.", ref:"Module 6, Structural Stop Placement"},
-      {text:"Cap risk per trade at 1–2% of account balance, no exceptions.", ref:"Module 6, The 1–2% Rule"},
-      {text:"Require a minimum 1:2 risk-to-reward as a hard filtering criterion, not an aspiration.", ref:"Module 6, Risk-to-Reward"},
-      {text:"Calculate position size before entry: (Account × Risk %) ÷ Stop Distance.", ref:"Module 6, Position Sizing"},
-      {text:"Lock position size at entry — never scale up mid-trade because \u201cit looks good.\u201d", ref:"Module 6, Position Sizing"},
-    ],
-    toggles:[
-      {trigger:"If you hit 3 consecutive losses", action:"Reduce risk to 0.5% per trade until you have 2 consecutive wins.", ref:"Module 6, Psychological Capital"},
-      {trigger:"If you hit a 10% drawdown", action:"Cease trading for 48 hours and complete a full journal review.", ref:"Module 6, Psychological Capital"},
-    ]
-  },
-  {
-    num:"07", title:"Trade Review & Diagnostic Protocol", ref:"Module 7",
-    goldenRule:"A winning trade with a broken process is randomness, not skill. Audit process, not outcome.",
-    goldenRuleRef:"Module 7, Anatomy of a Winning Trade",
-    items:[],
-    subsections:[
-      {title:"Anatomy of a Winning Trade", ref:"Module 7, Anatomy of a Winning Trade",
-        items:[
-          {text:"Higher-timeframe bias was unambiguous before entry."},
-          {text:"A genuine liquidity event preceded the trigger."},
-          {text:"Displacement confirmed institutional participation."},
-          {text:"Entry zone was fresh."},
-          {text:"Confirmation candle closed with conviction."},
-        ]
-      },
-      {title:"The 4-Question Loss Diagnostic", ref:"Module 7, Anatomy of a Losing Trade",
-        items:[
-          {text:"Was the higher-timeframe bias aligned with trade direction?"},
-          {text:"Was there a genuine liquidity sweep before entry?"},
-          {text:"Did the confirmation candle fully close before execution?"},
-          {text:"Was the stop structural, not arbitrary?"},
-        ]
-      },
-      {title:"The 90-Second Pre-Trade Scan", ref:"Module 7, The 90-Second Pre-Trade Analysis Framework",
-        items:[
-          {text:"Weekly chart — proximity to major structure."},
-          {text:"Daily chart — dominant bias, recent BOS, fresh zones in price's path."},
-          {text:"4H chart — internal alignment and session timing."},
-          {text:"Entry timeframe — identify zone, wait for confirmation."},
-        ],
-        toggles:[
-          {trigger:"If the full scan takes longer than 2 minutes", action:"The setup is ambiguous — stand down.", ref:"Module 7, The 90-Second Pre-Trade Analysis Framework"},
-        ]
-      },
-      {title:"Trade Journal Fields", ref:"Module 7, Building the Trade Journal",
-        items:[
-          {text:"Multi-timeframe context that authorized the direction."},
-          {text:"Specific structural trigger event."},
-          {text:"Confirmation candle characteristics."},
-          {text:"Entry, stop, target — with structural justification for each."},
-          {text:"Outcome assessment — mechanical execution plus psychological experience."},
-        ]
-      },
-      {title:"Live Trade Mental Script", ref:"Module 7, The Live Trade Mental Script",
-        items:[
-          {text:"Stop analyzing once the position is open."},
-          {text:"Treat retracements and pauses as normal delivery, not warning signs."},
-          {text:"Accept only two relevant post-entry events: stop hit, or target hit."},
-        ]
-      },
-    ]
-  },
-  {
-    num:"08", title:"Daily & Weekly Operating Protocol", ref:"Module 8",
-    goldenRule:"Consistency beats analytical talent. This is a repeatable operating system, not a one-time checklist.",
-    goldenRuleRef:"Module 8",
-    items:[],
-    subsections:[
-      {title:"Pre-Market: 6-Step Prep", ref:"Module 8, The Pre-Market Bias Framework",
-        items:[
-          {text:"Confirm you're fit to trade — rested, distraction-free, emotionally neutral."},
-          {text:"Weekly chart — flag proximity to major structure."},
-          {text:"Daily chart — mark bias, recent BOS, key zones."},
-          {text:"Mark the previous Asian session range."},
-          {text:"Set price alerts at key levels — don't babysit the chart."},
-          {text:"Define session max: 1–3 trades."},
-        ]
-      },
-      {title:"Establishing Daily Bias", ref:"Module 8, Establishing the Daily Bias",
-        items:[
-          {text:"Declare bias explicitly: bullish, bearish, or neutral."},
-          {text:"On neutral-bias days, take zero directional entries — observe only."},
-        ]
-      },
-      {title:"During-Trade Rules — Non-Negotiable", ref:"Module 8, During-Trade Protocol",
-        items:[
-          {text:"Never move a stop against the position."},
-          {text:"Never add to a losing trade."},
-          {text:"At 1:1 R:R, evaluate moving stop to breakeven."},
-          {text:"Do not analyze or adjust between entry and first partial target."},
-          {text:"Reduce or exit on major unscheduled news that changes context."},
-        ]
-      },
-      {title:"Post-Trade Review — Five Questions", ref:"Module 8, Post-Trade Review",
-        items:[
-          {text:"Was higher-timeframe bias unambiguous and aligned?"},
-          {text:"Was there a genuine liquidity event before the trigger?"},
-          {text:"Did the confirmation candle fully close first?"},
-          {text:"Was the stop structurally logical?"},
-          {text:"What's one executable adjustment for next session?"},
-        ]
-      },
-      {title:"Weekly Compound Review", ref:"Module 8, The Weekly Compound Review",
-        items:[
-          {text:"Session window that produced the cleanest setups."},
-          {text:"Instrument with the clearest structural behavior."},
-          {text:"Daily-bias accuracy vs. actual outcomes."},
-          {text:"Rule-adherence ratio vs. discretionary deviations."},
-          {text:"One highest-leverage adjustment for the coming week — not five."},
-        ]
-      },
-    ]
-  },,
-  {
-    num:"09", title:"Pattern & Candle Library", ref:"Module 9",
-    goldenRule:"A pattern is a record of a sweep, a structure shift or compression. Without a Trend and a Level behind it, it is decoration.",
-    goldenRuleRef:"Module 9, Foundation",
-    items:[
-      {text:"Read doji, engulfing and stars by location and close, never by name alone.", ref:"Module 9, Classic Candle Names"},
-      {text:"Treat double tops and bottoms as equal-highs or equal-lows pools: wait for the sweep, displacement and neckline retest.", ref:"Module 9, Reversal Patterns"},
-      {text:"Never trade inside a flag, pennant, triangle or rectangle; wait for the body-close break and the retest.", ref:"Module 9, Continuation Patterns"},
-      {text:"A polarity flip needs a body close with displacement, and only the first retest is clean.", ref:"Module 9, Polarity Change"}
-    ],
-    toggles:[
-      {trigger:"If a pattern forms inside barb wire or with no Level behind it", action:"Ignore it completely.", ref:"Module 9, Reversal Patterns"}
-    ],
-    subsections:[]
-  },
-  {
-    num:"10", title:"Strategy Playbooks", ref:"Module 10",
-    goldenRule:"Breakouts, reversals, ranges and order blocks are variations of the same three setups. Never enter the break candle.",
-    goldenRuleRef:"Module 10, Foundation",
-    items:[
-      {text:"Mark an order block only if its displacement broke structure and the block is unmitigated.", ref:"Module 10, Order Blocks"},
-      {text:"Run the five-point breakout checklist; if price runs with no retest, skip it.", ref:"Module 10, Breakout Trading"},
-      {text:"Take reversals only with all five steps in order and cap counter-trend risk at 1%.", ref:"Module 10, Reversal Trading"},
-      {text:"Never trade the middle third of a range.", ref:"Module 10, Range Playbook"},
-      {text:"Check which data your instrument offers before using volume or delta; volume agreement adds a point, never a veto.", ref:"Module 10, Participation Evidence"}
-    ],
-    toggles:[
-      {trigger:"If price closes back inside the broken level within 1-2 candles", action:"Treat it as a fakey and do not take the breakout.", ref:"Module 10, Breakout Trading"}
-    ],
-    subsections:[]
-  },
-  {
-    num:"11", title:"Macro Context, Confluence & Proof", ref:"Module 11",
-    goldenRule:"T.L.S. gates the entry; the Scorecard sizes the risk; your own backtest is the only proof that counts.",
-    goldenRuleRef:"Module 11, Foundation",
-    items:[
-      {text:"Use Wyckoff to identify the permitted side and trade the retest, never the spring.", ref:"Module 11, Wyckoff"},
-      {text:"Use Elliott counts as context only and discard any count that breaks its own rules.", ref:"Module 11, Elliott Wave"},
-      {text:"Score Fibonacci OTE and EMA overlaps as confluence, never as triggers.", ref:"Module 11, Fibonacci and Moving Averages"},
-      {text:"Score every trade out of 12: 9+ may risk up to 2%, 6-8 risk 1%, under 6 is no trade.", ref:"Module 11, Confluence Scorecard"},
-      {text:"Require at least +0.2R expectancy over 50 or more backtested trades before going live.", ref:"Module 11, Proof Protocol"}
-    ],
-    toggles:[
-      {trigger:"If the score and a disqualifying condition disagree", action:"The disqualifier wins; there is no trade.", ref:"Module 11, Confluence Scorecard"}
-    ],
-    subsections:[]
-  },
-  {
-    num:"12", title:"Practice Lab", ref:"Module 12",
-    goldenRule:"Rehearse the decision order until it is automatic: bias, level, sweep, displacement, retest, confirmation, stop, target, score.",
-    goldenRuleRef:"Module 12, Read This First",
-    items:[
-      {text:"Run the Lab Scorecard on every chart you have already marked before you trade it live.", ref:"Module 12, Walkthrough A"},
-      {text:"Log skipped setups with the reason; a correct skip is a result.", ref:"Module 12, Walkthrough C"},
-      {text:"After every loss, find it on the Mistake Library list before changing any rule.", ref:"Module 12, Mistake Library"}
-    ],
-    toggles:[
-      {trigger:"If a loss followed every rule", action:"Log it and change nothing; it is part of your expectancy.", ref:"Module 12, Walkthrough B"}
-    ],
-    subsections:[]
-  }
-];
+const executionPanel = [];
 
 const faqs = [
   {q:"Do I need trading experience to start this course?", a:"No. The course starts from first principles — what price action is, why markets move, and how to read a blank chart. Absolute beginners will find it approachable, while experienced traders will find depth in the later modules."},
@@ -2279,14 +1500,9 @@ function fallbackCopy(text, onSuccess, onFailure) {
   }
 }
 
-/* ── INIT ── */
-buildModules();
-buildWorkflow();
-buildExecutionPanel();
-buildSetupCards();
-buildFAQ();
+/* ── INIT (runs after the vault unlocks) ── */
+window.paosInit=function(){buildModules();buildWorkflow();buildExecutionPanel();buildSetupCards();buildFAQ();updateProgress();if(window.paosSparkMenu)window.paosSparkMenu();};
 calcRisk();
-updateProgress();
 </script>
 <!-- ═════════ PA.OS ADD-ON: READING MODE + AI CO-PILOT ═════════ -->
 <style>
@@ -2837,13 +2053,14 @@ updateProgress();
     if(navigator.clipboard&&window.isSecureContext) navigator.clipboard.writeText(t).then(done,fb); else fb(); }
 
   /* ---- chat component ---- */
+  window.paosSparkMenu=function(){ views.forEach(function(v){ if(v.mk) v.menu.innerHTML=v.mk(); }); };
   function mount(root){
     root.innerHTML=`<div class="sp-chat"><div class="sp-msgs" role="log" aria-live="polite"></div><div class="sp-ctx"></div>
       <form class="sp-form"><div class="sp-plusw"><button type="button" class="sp-plus" aria-label="Attach a module, section or image" title="Attach module / section / image"><i data-lucide='plus' class='lu'></i></button><div class="sp-menu" hidden></div></div>
       <textarea rows="1" placeholder="Message Spark…" aria-label="Message"></textarea><button class="sp-send" type="submit" aria-label="Send"><i data-lucide='arrow-up' class='lu'></i></button></form>
       <p class="sp-foot">Spark can make mistakes. Check important answers against the modules.</p><input type="file" accept="image/*" hidden></div>`;
     const v={msgs:$('.sp-msgs',root),ctx:$('.sp-ctx',root),ta:$('textarea',root),menu:$('.sp-menu',root),file:$('input[type=file]',root)};
-    v.menu.innerHTML='<button data-img>Image / chart screenshot</button><p>Modules</p>'+modules.map((m,i)=>`<button data-k="m${i}">${m.num} · ${esc(strip(m.title))}</button>`).join('')+'<p>Sections</p>'+SECTIONS.map(s=>`<button data-k="s${s[0]}">${s[1]}</button>`).join('');
+    const mk=()=>'<button data-img>Image / chart screenshot</button><p>Modules</p>'+modules.map((m,i)=>`<button data-k="m${i}">${m.num} · ${esc(strip(m.title))}</button>`).join('')+'<p>Sections</p>'+SECTIONS.map(s=>`<button data-k="s${s[0]}">${s[1]}</button>`).join(''); v.menu.innerHTML=mk(); v.mk=mk;
     $('.sp-plus',root).onclick=e=>{ e.stopPropagation(); v.menu.hidden=!v.menu.hidden; };
     v.menu.onclick=e=>{ const b=e.target.closest('button'); if(!b) return; if(b.hasAttribute('data-img')) v.file.click(); else addCtx(b.dataset.k); v.menu.hidden=true; };
     document.addEventListener('click',e=>{ if(!v.menu.hidden&&!v.menu.contains(e.target)) v.menu.hidden=true; });
@@ -3557,76 +2774,87 @@ calcSC();calcExp();
 <style>
 .auth-lock body>*:not(#authGate){display:none!important}
 #authGate{position:fixed;inset:0;z-index:99999;background:#000;display:flex;align-items:center;justify-content:center;padding:20px;font-family:inherit}
-#authGate[hidden]{display:none}
-.ag-card{width:100%;max-width:400px;background:#0a0a0a;border:1px solid #27272a;border-radius:18px;padding:28px;color:#e4e4e7}
+#authGate[hidden],.ag-card [hidden]{display:none!important}
+.ag-card{width:100%;max-width:410px;background:#0a0a0a;border:1px solid #27272a;border-radius:18px;padding:28px;color:#e4e4e7}
 .ag-card h1{font-size:22px;font-weight:500;color:#fff;margin:0 0 6px}.ag-card p{font-size:13.5px;color:#a1a1aa;margin:0 0 18px;line-height:1.5}
 .ag-card input{width:100%;background:#000;border:1px solid #27272a;border-radius:10px;color:#fff;padding:12px;font-size:14px;margin-bottom:10px;box-sizing:border-box}
 .ag-card input:focus{outline:none;border-color:#4ade80}
+#agCode{text-align:center;letter-spacing:.14em;font-family:var(--mono,monospace);text-transform:uppercase}
 .ag-card button{width:100%;padding:12px;border-radius:10px;border:1px solid #27272a;background:#111;color:#fff;font-size:14px;cursor:pointer;margin-top:8px}
 .ag-card button.pri{background:#fff;color:#000;border:0;font-weight:500}
 .ag-card .lnk{background:none;border:0;color:#a1a1aa;font-size:12.5px;width:auto;padding:6px 0;margin:6px 10px 0 0;text-decoration:underline}
 #agMsg{min-height:20px;font-size:13px;color:#4ade80;margin-top:10px}#agMsg.e{color:#f87171}
+#paosWM{position:fixed;inset:0;z-index:99998;pointer-events:none}
 </style>
 <div id="authGate" hidden><div class="ag-card">
-<h1 id="agTitle">Sign in to Price Action OS</h1><p id="agSub">Use the email you purchased with. New here? Create your account.</p>
-<form id="agForm"><input id="agEmail" type="email" placeholder="Email" autocomplete="email" required><input id="agPass" type="password" placeholder="Password (8+ characters)" autocomplete="current-password" minlength="8" required>
-<button class="pri" id="agGo" type="submit">Sign in</button></form>
-<button id="agGoogle" type="button">Continue with Google</button>
+<h1 id="agTitle">Sign in to Price Action OS</h1><p id="agSub"></p>
+<form id="agForm"><input id="agEmail" type="email" placeholder="Email" autocomplete="email" required><input id="agPass" type="password" placeholder="Password (8+ characters)" autocomplete="current-password" minlength="8"><button class="pri" id="agGo" type="submit">Sign in</button></form>
+<button id="agGoogle" type="button">Continue with Google</button><button id="agLink" type="button">Email me a sign-in link</button>
 <button class="lnk" id="agToggle" type="button">Create an account</button><button class="lnk" id="agReset" type="button">Forgot password?</button>
+<form id="agCodeBox" hidden><input id="agCode" placeholder="XXXX-XXXX-XXXX" autocomplete="off" required><button class="pri" type="submit">Unlock course</button></form>
 <button id="agVerify" type="button" hidden>I have verified my email</button><button class="lnk" id="agOut" type="button" hidden>Sign out</button>
 <div id="agMsg" role="status"></div></div></div>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script>
+const PDFB64={};
 (function(){
-var ON=document.documentElement.classList.contains("auth-lock");
 var $=function(i){return document.getElementById(i)};
-if(!ON||!window.firebase){ if(ON&&!window.firebase){$("authGate").hidden=false;$("agMsg").className="e";$("agMsg").textContent="Could not load the sign-in service. Check your connection and refresh.";} return; }
+if(!window.firebase){$("authGate").hidden=false;$("agMsg").className="e";$("agMsg").textContent="Could not load the sign-in service. Check your connection and refresh.";return}
 $("authGate").hidden=false;
-firebase.initializeApp(FB_CONFIG);var auth=firebase.auth(),db=firebase.firestore(),up=false,tok="";
+firebase.initializeApp(FB_CONFIG);var auth=firebase.auth(),db=firebase.firestore(),up=false,tok="",started=false;
 window.paosAuthHeader=function(){return tok?{Authorization:"Bearer "+tok}:{}};
 function msg(t,bad){$("agMsg").textContent=t;$("agMsg").className=bad?"e":""}
-function show(id,v){$(id).hidden=!v}
+var V={in:["agForm","agGoogle","agLink","agToggle","agReset"],verify:["agVerify","agOut"],code:["agCodeBox","agOut"],load:[]},ALL=["agForm","agGoogle","agLink","agToggle","agReset","agCodeBox","agVerify","agOut"];
+var TX={in:["Sign in to Price Action OS","Create an account or sign in. You will need the access code from your purchase email."],verify:["Verify your email","Open the link we emailed you, then come back."],code:["Enter your access code","Paste the code from your purchase email. You only do this once."],load:["Loading your course…",""]};
+function view(v){ALL.forEach(function(i){$(i).hidden=V[v].indexOf(i)<0});$("agTitle").textContent=TX[v][0];$("agSub").textContent=TX[v][1];document.documentElement.classList.add("auth-lock");$("authGate").hidden=false}
 function nice(e){var c=e&&e.code||"";if(/invalid-credential|wrong-password|user-not-found/.test(c))return"Wrong email or password.";if(c==="auth/email-already-in-use")return"That email already has an account. Sign in instead.";if(c==="auth/weak-password")return"Use at least 8 characters.";if(c==="auth/too-many-requests")return"Too many attempts. Wait a minute and try again.";if(c==="auth/popup-closed-by-user")return"";return(e&&e.message)||"Something went wrong."}
-function mode(u){up=u;$("agTitle").textContent=u?"Create your account":"Sign in to Price Action OS";$("agGo").textContent=u?"Create account":"Sign in";$("agToggle").textContent=u?"I already have an account":"Create an account";$("agPass").autocomplete=u?"new-password":"current-password";msg("")}
+function mode(u){up=u;$("agGo").textContent=u?"Create account":"Sign in";$("agToggle").textContent=u?"I already have an account":"Create an account";$("agPass").autocomplete=u?"new-password":"current-password";msg("")}
 $("agToggle").onclick=function(){mode(!up)};
-$("agForm").onsubmit=function(e){e.preventDefault();msg("Working…");var em=$("agEmail").value.trim(),pw=$("agPass").value;
- (up?auth.createUserWithEmailAndPassword(em,pw):auth.signInWithEmailAndPassword(em,pw)).catch(function(x){msg(nice(x),1)})};
+$("agForm").onsubmit=function(e){e.preventDefault();var em=$("agEmail").value.trim(),pw=$("agPass").value;if(pw.length<8){msg("Use at least 8 characters.",1);return}msg("Working…");(up?auth.createUserWithEmailAndPassword(em,pw):auth.signInWithEmailAndPassword(em,pw)).catch(function(x){msg(nice(x),1)})};
 $("agGoogle").onclick=function(){auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).catch(function(x){msg(nice(x),1)})};
+$("agLink").onclick=function(){var em=$("agEmail").value.trim();if(!em){msg("Type your email first.",1);return}auth.sendSignInLinkToEmail(em,{url:location.origin+location.pathname,handleCodeInApp:true}).then(function(){localStorage.setItem("el_pending",em);msg("Link sent. Open it on this device to sign in.")}).catch(function(x){msg(nice(x),1)})};
 $("agReset").onclick=function(){var em=$("agEmail").value.trim();if(!em){msg("Type your email first.",1);return}auth.sendPasswordResetEmail(em).then(function(){msg("Reset link sent. Check your inbox.")}).catch(function(x){msg(nice(x),1)})};
-$("agOut").onclick=function(){auth.signOut()};
+$("agOut").onclick=function(){localStorage.removeItem("vault_cache");auth.signOut()};
 $("agVerify").onclick=function(){auth.currentUser.reload().then(function(){check(auth.currentUser)})};
-function gate(){document.documentElement.classList.add("auth-lock");$("authGate").hidden=false}
+$("agCodeBox").onsubmit=function(e){e.preventDefault();var u=auth.currentUser,code=$("agCode").value.trim().toUpperCase();if(!code||!u)return;msg("Checking…");
+ var b=db.batch();b.update(db.collection("codes").doc(code),{used:true,usedBy:u.uid,usedAt:Date.now()});b.set(db.collection("members").doc(u.uid),{email:u.email.toLowerCase(),code:code,joined:Date.now()});
+ b.commit().then(function(){check(u)}).catch(function(){msg("That code is invalid or already used. Check it and try again.",1)})};
+if(auth.isSignInWithEmailLink(location.href)){var pe=localStorage.getItem("el_pending")||prompt("Confirm your email to finish signing in");if(pe)auth.signInWithEmailLink(pe,location.href).then(function(){localStorage.removeItem("el_pending");history.replaceState(null,"",location.pathname)}).catch(function(x){msg(nice(x),1)})}
 async function check(u){
- if(!u){gate();show("agForm",1);show("agGoogle",1);show("agToggle",1);show("agReset",1);show("agVerify",0);show("agOut",0);return}
+ if(!u){view("in");return}
  tok=await u.getIdToken();
- show("agForm",0);show("agGoogle",0);show("agToggle",0);show("agReset",0);show("agOut",1);
- if(!u.emailVerified){try{await u.sendEmailVerification()}catch(e){}show("agVerify",1);msg("We sent a verification link to "+u.email+". Click it, then press the button above.");return}
- if(window.REQUIRE_PURCHASE){var ok=false;try{ok=(await db.collection("buyers").doc(u.email.toLowerCase()).get()).exists}catch(e){}
-  if(!ok){show("agVerify",0);msg("This email is not on the buyer list. Sign in with the email you purchased with, or contact support.",1);return}}
+ var pw=u.providerData.length&&u.providerData[0].providerId==="password";
+ if(pw&&!u.emailVerified){try{await u.sendEmailVerification()}catch(e){}view("verify");msg("We sent a verification link to "+u.email+". Click it, then press the button.");return}
+ view("load");msg("Checking your access…");var m;
+ try{m=await db.collection("members").doc(u.uid).get()}catch(e){view("in");msg("Could not check your access. Refresh and try again.",1);return}
+ if(!m.exists){view("code");msg("");return}
+ try{await loadVault()}catch(e){console.error(e);view("verify");$("agVerify").hidden=true;msg("Could not load your course. Refresh, or contact support.",1);return}
  unlock(u)}
+async function loadVault(){
+ var meta=(await db.collection("vault").doc("meta").get()).data(),c=null,docs;
+ try{c=JSON.parse(localStorage.getItem("vault_cache")||"null")}catch(e){}
+ if(c&&c.v===meta.v)docs=c.docs;else{docs={};await Promise.all(meta.ids.map(function(id){return db.collection("vault").doc(id).get().then(function(d){docs[id]=d.data().j})}));try{localStorage.setItem("vault_cache",JSON.stringify({v:meta.v,docs:docs}))}catch(e){}}
+ var P=function(k){return JSON.parse(docs[k])};
+ modules.length=0;Object.keys(docs).filter(function(k){return/^m\d+$/.test(k)}).sort().forEach(function(k){modules.push(P(k))});
+ executionPanel.length=0;P("panel").forEach(function(x){executionPanel.push(x)});setupCards.length=0;P("setups").forEach(function(x){setupCards.push(x)});Object.assign(PDFB64,P("pdfs"))}
 auth.onAuthStateChanged(check);setInterval(function(){if(auth.currentUser)auth.currentUser.getIdToken().then(function(t){tok=t})},3000000);
-var started=false;
 function unlock(u){
  document.documentElement.classList.remove("auth-lock");$("authGate").hidden=true;if(started)return;started=true;
- var nav=$("navTabs");if(nav){var b=document.createElement("button");b.className="tab-btn";b.textContent="Sign out";b.onclick=function(){auth.signOut().then(function(){location.reload()})};nav.appendChild(b)}
+ window.paosInit();
+ var em=(u.email||"").replace(/&/g,"&amp;").replace(/</g,"&lt;"),svg="<svg xmlns='http://www.w3.org/2000/svg' width='380' height='230'><text x='24' y='130' fill='white' fill-opacity='0.05' font-family='monospace' font-size='15' transform='rotate(-24 190 115)'>"+em+"</text></svg>",w=document.createElement("div");
+ w.id="paosWM";w.style.backgroundImage='url("data:image/svg+xml,'+encodeURIComponent(svg)+'")';document.body.appendChild(w);
+ var nav=$("navTabs");if(nav){var b=document.createElement("button");b.className="tab-btn";b.textContent="Sign out";b.onclick=function(){localStorage.removeItem("vault_cache");auth.signOut().then(function(){location.reload()})};nav.appendChild(b)}
  var ref=db.collection("users").doc(u.uid),last="";
  function snap(){var o={};for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k.indexOf("paos_")===0&&k!=="paos_sync_t")o[k]=localStorage.getItem(k)}return JSON.stringify(o)}
  function push(){var b=snap();if(b===last||b.length>900000)return;last=b;var t=Date.now();ref.set({blob:b,t:t}).then(function(){try{localStorage.setItem("paos_sync_t",t)}catch(e){}}).catch(function(){last=""})}
- ref.get().then(function(d){
-  var lt=+(localStorage.getItem("paos_sync_t")||0);
-  if(d.exists&&d.data().t>lt&&!sessionStorage.getItem("paos_r")){var data={};try{data=JSON.parse(d.data().blob||"{}")}catch(e){}
-   var ch=false;Object.keys(data).forEach(function(k){if(localStorage.getItem(k)!==data[k]){localStorage.setItem(k,data[k]);ch=true}});
-   try{localStorage.setItem("paos_sync_t",d.data().t)}catch(e){}
-   if(ch){sessionStorage.setItem("paos_r","1");location.reload();return}}
-  last=snap();setInterval(push,15000);addEventListener("visibilitychange",push);addEventListener("pagehide",push)}).catch(function(){});
-}
+ ref.get().then(function(d){var lt=+(localStorage.getItem("paos_sync_t")||0);
+  if(d.exists&&d.data().t>lt&&!sessionStorage.getItem("paos_r")){var data={};try{data=JSON.parse(d.data().blob||"{}")}catch(e){}var ch=false;Object.keys(data).forEach(function(k){if(localStorage.getItem(k)!==data[k]){localStorage.setItem(k,data[k]);ch=true}});try{localStorage.setItem("paos_sync_t",d.data().t)}catch(e){}if(ch){sessionStorage.setItem("paos_r","1");location.reload();return}}
+  last=snap();setInterval(push,15000);addEventListener("visibilitychange",push);addEventListener("pagehide",push)}).catch(function(){})}
 })();
-/* PDF store (each file embedded once) + click handling */
 (function(){document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest('a[href^="pdf:"]');if(a&&!a.hasAttribute("onclick")){e.preventDefault();openEmbeddedPdf({preventDefault:function(){},currentTarget:a})}});
 var f=document.querySelector("iframe[data-src]");if(f)addEventListener("load",function(){setTimeout(function(){f.src=f.getAttribute("data-src")},1200)});})();
-const PDFB64={"bd7f56bd":"JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1lbnQgKG9wZW5zb3VyY2UpCjEgMCBvYmoKPDwKL0YxIDIgMCBSIC9GMiAzIDAgUiAvRjMgNSAwIFIKPj4KZW5kb2JqCjIgMCBvYmoKPDwKL0Jhc2VGb250IC9IZWx2ZXRpY2EgL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcgL05hbWUgL0YxIC9TdWJ0eXBlIC9UeXBlMSAvVHlwZSAvRm9udAo+PgplbmRvYmoKMyAwIG9iago8PAovQmFzZUZvbnQgL0hlbHZldGljYS1Cb2xkIC9FbmNvZGluZyAvV2luQW5zaUVuY29kaW5nIC9OYW1lIC9GMiAvU3VidHlwZSAvVHlwZTEgL1R5cGUgL0ZvbnQKPj4KZW5kb2JqCjQgMCBvYmoKPDwKL0NvbnRlbnRzIDE0IDAgUiAvTWVkaWFCb3ggWyAwIDAgNjEyIDc5MiBdIC9QYXJlbnQgMTMgMCBSIC9SZXNvdXJjZXMgPDwKL0ZvbnQgMSAwIFIgL1Byb2NTZXQgWyAvUERGIC9UZXh0IC9JbWFnZUIgL0ltYWdlQyAvSW1hZ2VJIF0KPj4gL1JvdGF0ZSAwIC9UcmFucyA8PAoKPj4gCiAgL1R5cGUgL1BhZ2UKPj4KZW5kb2JqCjUgMCBvYmoKPDwKL0Jhc2VGb250IC9IZWx2ZXRpY2EtT2JsaXF1ZSAvRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZyAvTmFtZSAvRjMgL1N1YnR5cGUgL1R5cGUxIC9UeXBlIC9Gb250Cj4+CmVuZG9iago2IDAgb2JqCjw8Ci9Db250ZW50cyAxNSAwIFIgL01lZGlhQm94IFsgMCAwIDYxMiA3OTIgXSAvUGFyZW50IDEzIDAgUiAvUmVzb3VyY2VzIDw8Ci9Gb250IDEgMCBSIC9Qcm9jU2V0IFsgL1BERiAvVGV4dCAvSW1hZ2VCIC9JbWFnZUMgL0ltYWdlSSBdCj4+IC9Sb3RhdGUgMCAvVHJhbnMgPDwKCj4+IAogIC9UeXBlIC9QYWdlCj4+CmVuZG9iago3IDAgb2JqCjw8Ci9Db250ZW50cyAxNiAwIFIgL01lZGlhQm94IFsgMCAwIDYxMiA3OTIgXSAvUGFyZW50IDEzIDAgUiAvUmVzb3VyY2VzIDw8Ci9Gb250IDEgMCBSIC9Qcm9jU2V0IFsgL1BERiAvVGV4dCAvSW1hZ2VCIC9JbWFnZUMgL0ltYWdlSSBdCj4+IC9Sb3RhdGUgMCAvVHJhbnMgPDwKCj4+IAogIC9UeXBlIC9QYWdlCj4+CmVuZG9iago4IDAgb2JqCjw8Ci9Db250ZW50cyAxNyAwIFIgL01lZGlhQm94IFsgMCAwIDYxMiA3OTIgXSAvUGFyZW50IDEzIDAgUiAvUmVzb3VyY2VzIDw8Ci9Gb250IDEgMCBSIC9Qcm9jU2V0IFsgL1BERiAvVGV4dCAvSW1hZ2VCIC9JbWFnZUMgL0ltYWdlSSBdCj4+IC9Sb3RhdGUgMCAvVHJhbnMgPDwKCj4+IAogIC9UeXBlIC9QYWdlCj4+CmVuZG9iago5IDAgb2JqCjw8Ci9Db250ZW50cyAxOCAwIFIgL01lZGlhQm94IFsgMCAwIDYxMiA3OTIgXSAvUGFyZW50IDEzIDAgUiAvUmVzb3VyY2VzIDw8Ci9Gb250IDEgMCBSIC9Qcm9jU2V0IFsgL1BERiAvVGV4dCAvSW1hZ2VCIC9JbWFnZUMgL0ltYWdlSSBdCj4+IC9Sb3RhdGUgMCAvVHJhbnMgPDwKCj4+IAogIC9UeXBlIC9QYWdlCj4+CmVuZG9iagoxMCAwIG9iago8PAovQ29udGVudHMgMTkgMCBSIC9NZWRpYUJveCBbIDAgMCA2MTIgNzkyIF0gL1BhcmVudCAxMyAwIFIgL1Jlc291cmNlcyA8PAovRm9udCAxIDAgUiAvUHJvY1NldCBbIC9QREYgL1RleHQgL0ltYWdlQiAvSW1hZ2VDIC9JbWFnZUkgXQo+PiAvUm90YXRlIDAgL1RyYW5zIDw8Cgo+PiAKICAvVHlwZSAvUGFnZQo+PgplbmRvYmoKMTEgMCBvYmoKPDwKL1BhZ2VNb2RlIC9Vc2VOb25lIC9QYWdlcyAxMyAwIFIgL1R5cGUgL0NhdGFsb2cKPj4KZW5kb2JqCjEyIDAgb2JqCjw8Ci9BdXRob3IgKFwoYW5vbnltb3VzXCkpIC9DcmVhdGlvbkRhdGUgKEQ6MjAyNjEwMDIwOTQ1MzErMDAnMDAnKSAvQ3JlYXRvciAoXCh1bnNwZWNpZmllZFwpKSAvS2V5d29yZHMgKCkgL01vZERhdGUgKEQ6MjAyNjEwMDIwOTQ1MzErMDAnMDAnKSAvUHJvZHVjZXIgKFJlcG9ydExhYiBQREYgTGlicmFyeSAtIFwob3BlbnNvdXJjZVwpKSAKICAvU3ViamVjdCAoXCh1bnNwZWNpZmllZFwpKSAvVGl0bGUgKFByaWNlIEFjdGlvbiBPUyAtIENoYXJ0IE1hcmtpbmcgR3VpZGUpIC9UcmFwcGVkIC9GYWxzZQo+PgplbmRvYmoKMTMgMCBvYmoKPDwKL0NvdW50IDYgL0tpZHMgWyA0IDAgUiA2IDAgUiA3IDAgUiA4IDAgUiA5IDAgUiAxMCAwIFIgXSAvVHlwZSAvUGFnZXMKPj4KZW5kb2JqCjE0IDAgb2JqCjw8Ci9GaWx0ZXIgWyAvQVNDSUk4NURlY29kZSAvRmxhdGVEZWNvZGUgXSAvTGVuZ3RoIDE1MzAKPj4Kc3RyZWFtCkdhdG07Z0paY3MmOk86U1M+VlQ9JkwhLyVbODVgJWklOy8+JnR1Vk1NaWJ1RkpoLmRGaV0oO1s0aDtORG5pQjRZJyUvSHNkc1wqa11CO185OVVBWD9LLCZAYWlHPlNcQElQJS8xZUU9RCVFQkYjJSRZQSIuOChGTWBLVWUiMF9rM0JVL1JcYC4oLyxJK0s7ZG1SaGQ4OltAKEpoUCcsSGRPPV5cRE5BbUxKNklkRmMpOTpgSStCTjtLZzEkLW8lJzJgW11yYEZbM11tSzBTXmMkIzw3YDBaX19NTXI1L14mWzVkX05pLyM+Imc6b1lxXGhWIjo0KD9Rb0M8YnQtU1VmZG1YRmcyLm9ATiopJG5GZ2BURWM9NTUtRjUuNW1STU5aMG1tTjMhamxnXlhCWGM8ZyU9LEknPTBFUFdpbFdhI0AoMjJHYEJjI14xbjJHP3UjaFAhNmJrJj1JJGksTDgzLEEkSmJGMEYtSjRxPVttSzNzKDZEc20qKUtbJixZZ0RiR25GL21jKTNhOUtQSztUU1UmX2RnXzBLbz8/K009LjhYVidSPmgrNXVIJ2JhOD8xJ1dRLmZzaSg5JkpZdGgnaWFLXlNaJkY1OFs7JylQPypaNmIyayRlb2tmSWMnRy9CT25dLylPYSVxXltcWUI8KkZQailoaTY8NzRsSiFZbV5LYiZyYF0wOi0qdS4pQVY9MDRVU0BBdUNhQClNNSVgUiYzdU80O1lHMDQqIm5AJzY4WGBVKlxgU2EoX2lETnFjTVlIWF1kSExMdDtBMkhNLi83OVlscTlRLz9IWj82TGdnNU5eaDFJSU1gKTpbcUkuJDpnPTFNUi9TJyRAOkFkOG5dJ15YNV9hRDMubjI2N0FoXUFFWjNOVk8rZmA5cj1NL2NtPytILklYXzdjWVZrZDxpdCNbVXBCYVtHLEYtUDJyJ3FcaFUza2BnMGJca20hbDN1bl5nRW0tZUZyMiNPUy9qUShsLkJoSjstOmA0XENNYG1xUUFNKTA4YSlEVDw7NF1QOypDVj1qbUxjQitVOTFrRUhIWilkWC9uUV8iQCElWm9ZJC0xaTxFIVpnT14oRC5fPGBcZWp1XCsnamElcWNjZlRVRD1rbDpUZVldPy4hbWNZKUhdZGhcVWEyZ0gmRm8qQGBbN11oRzkrLUxuJlxZWGxhNy9JajEkVS1WXCJtSjQwWCJIZjZIIjldVDM2VFQ3XiteQUpBKSFLUWMnWCkrUko6aVdoYyZBaUdkKW0lNENQJkdoKT8vcFFPQXIiTCtIW3RALSpjYi5qa0ooKjxMSlJmWWoxVTZ0b10sWEAmMkpsI2syJ25FUzEjL2QxbVEwR2dJSV84UC8rL2gtbXM9WU1ePEsmciRVTlY2TCtBUTpVLlJ0RkFnXyZiK2EtcUNSViFwRiU4NkohTG1ocCNsNlNUXmNLTnIqbj5NKEk5NCFYTCxhUi9VLGgyWkJDQScsdShlRSdDRXUtMWZELCU/Klpcc1I9ZmBTbCltVGcoU2Vcb0dnclQqUy9kUktHU1s1JDIqSWs2SDwyaD5VNzItaicwO2RMPSZUXER0dVkxQSVHPTlmIyI/a0NVWipnREJCRTQ7KCcubSs7V25qJVRdblJHIS03ZUVAIj0lJ2tcNTReYzFfMjY+JEwxcktHVStmL0JfIV89Y2o2UD4ucGtrRkwoMjN0SlVrYFJxbV5RVkZRXSlTRG5rJEVtJ3A0P0M/bkEkJ1lAaVlXLV8jKCVuZVxQVWldZ2xhOT5VMUI7VzslMipEbVw4J3NhPjdlVHFAWCthMWxjMzYqcC9fJkxcLiQpOFZaTkNGKkUoSGUsS0k9LnFhXWBTRCo7R1YhXk8yQGo/Jm8mSzZdUGMpRmp1ITRKZEpJTnREYFNGdW0uaj5TLGNdRkVWWHQlZiwuRDNIPWJlOjRZJkE9RGJTSCpiTSM4KyE9VlBoRmYuTUxDImBUU05BUFZsZWxEa2FNXickLWVOSCgrNE5GUC8tPkVqMV1xIUtcaVtzUXVOaSpUUEwyMyV+PmVuZHN0cmVhbQplbmRvYmoKMTUgMCBvYmoKPDwKL0ZpbHRlciBbIC9BU0NJSTg1RGVjb2RlIC9GbGF0ZURlY29kZSBdIC9MZW5ndGggMTk5MAo+PgpzdHJlYW0KR2IhI1s+dVRLOydSZi5HZ28iR2g2WD4wZUVSSGU9bHBBL3E+KyJSQCRubUw/LGJoYDRhdGIuO2xoPVorOEtcLjYzZEZndUBaUChscFooJU1PITRyJCsxXjoxLFdgTjZHQ04ncmBINDg7VyJYOjpxQGZFKW4sOm1zZyxJSnVkJWFwPkxVJVE9NmhmQXBwRC1bcDJgNiU+MHIwQW0mYkg+LDBIJjc2ZVpaNigqRDtXITE4X3VBUkNGUjtfcnFQOGhwVjA+XV9XSEJZQkVHQDBKLiRgSCpnUCtRXHNUI11POTdQImJYI3UlZjByVzFUKCxPUkIiOEtXRSFNRnFNaFlaQmVuRVs4UVFRX1pMdUU8LWByU2hxa05pTVxzI180b2tsKzQqOGJoaVNZUEFiSHRQUC03JD0qVFdgcThJNjFSZFZCdDBQQFNhXTpYVyRVUEcuXV4zLz8rbS8yTV5vRT86PDA6L3EiMEVeP2UtYyhfazlmPUZLZTtONm8wM1QsI3BmKFY2a15NcVVdJzhWTyNgSmdeYGBaXSVYWi0yZEBwMTlZQCFTI0k1Jk9uYFtRL1NFXnRwOWNPcj4pKjFkWGFuKzNUZ1crcVMhUD47VGA3am1oIlVLUF5vOi0rISU+KHI9IkUyMVBQYnJRWmU8XTBELT1vcT5EJ3BWIj5FTCdSUFRmJT9VXj5kdTVWcEFoUTNvJnArXjBpaU1QUzw/PDMnNy4+SEVsZF86dDdKN3I3XWxrQXJdXnF1Sl1maGwxLkExMG1XX0JrOSNzJGwwZV4saHM1TztmPUNyM3NeJE9pWGAlSUVcJ21aVSleMVFVUlJeTF4paDRQMyRnR1ZcU2MoKW1OYzs6cm0+LDRta1MxLlBVVDJXIjNQY1pdOzpcXFU/amNjSEhGVGw/LFE7dVNvJGMtXCEtL0BjT1FkPThWTmEtIXRsM3JCIT5fYT1JJlYpWlVrJXVUWDVYY108PHEhKyNCTitmIixPcm9MUUIpSDJxQDAzS0t0a0VFOzpMWCwxN3RrNWk7cSYyL2VrP1M7cls9YzYxQEJiM2QzO3NkRS5QKEsmciRPLE5kJ2NIXlRYNkgwM2glPjNlUnQtSFhGaS43cy9FKG9uYzJOaWZpXUhEUFdtQk02ZmpbaSxJVStmIyo8YUsqZDYrNCU7XFRWdFhgPWRAYzhBY0JCQTFEUUtjIzJgLV08S2I0WD5idV43PytzTiRnJCE9anVQbENbXz5aJS1XITwnIkVeLigyaU5POFxBTkVDJEAmZVdRQ0IxMSpDTD9XNixqLWxiWi1QOD1gYlcqI1c7XkwhNmVtOHBcMF5RajJBUV5QRDxbPm5KRk9VRj9tTE8hRk47R0wuNSY1Q1FwPmlERE9dIls6b1w0cEVUJF1XaDgwajwodTJITTcxMG0uL1dJWl8kLjtyV1tvZ29tRi84TTpZayJBWiReQWxUWnIlJU5YVWUoUU4xcTZsWWVQbyZdUlMhUnNsdDA9NW9FKS83UVsvWFA0SVckL0MzUjhZXFMxQ2BRbHFRKmNQWHFpPGBRODJNQ11IUWBUZWxcYiErSnROX0d0ZylnbGswV1dfWk9fT1hwaGxhaTg9cVtsRGMxWUFtQEYqUy1qbStDViZOPV8jUiNrZDNbUENiJVhmKCROMkJCI1tsOTtcLVg5Im5cJ1c9JSY2KkFVN2chKGBHKFsmZWFMTyEoMDdOTT4jOkc4LzVlLilRQktFU0kvR08jXXNKVl9TIjZxUDUnbSpfJjlQX1QlIjpMdTA4OGssY15uLzI6NWVfVDlXVzYmZCguR2kzUSdMSWkkZ24oR0JKPUonXElVPlheR1xaI3RGM19lLzRPRVBJakU3TFRkclhrbTMqT1tyWDhIXUc6YjQqaHNVNi0rZWdsSz5vRmQyVGgjK0U9ZmdERWcsU1sjJ1NZUVUzdGUsIW9UQytnPWAyWio0USk9V1VBTT44NGdUWkIiNT4/Ti1TP0tqXUkqWDx1KEE5b0xHNlpPXCcmaSNwK2w8bT80TyhXW2BYJy8nbz1MTFVUJz9TXnU4bTkwWl9xb2BWWFs2SHVwR1w/IyE6SGMkSUEqZGNxa19sVHMoOj1ZPVBNWVY7TTdEVj1qWz1xNEwnLlMyX2AqNydCXiJFQC07Mjh0NFdSRWxgRSlzZjYrWmMzcC1ZT3M1cmtRUkZpc1A9NkxuYCdhX2cmb0swMytqIk5qXHMoTiRrS3NZc104PztuPE1bJi9WOTYsImxwNjpwJSUuTiE6VklvL0JAMF51KEROPiFVPkQ8LHA/IV9Hb2sxNCJcXi5CQzcoSF0qXSYzSzZHUl4sQSlEYz8jQjhhWF0jJSQsLF90JXJGLiJ0NSZgI0VQPzVCKDIyckRQIydLKyokY0FyLEguOHFeMyI7LkNbSiMwP0UjPV5iXDhpZilpbyhEKDhFSHJwRWM+dS5PaFUwKTVqZ1UmJXBEczsqPVEzSiFeckEwMC0rZXBhLnInY2E4UTwrXjRHcj5PZTJtXTYxRCFGYEc2a2E4bEVgXjliXFlmbUR0P0psR29DOUpPaHEyLD5TNlUxP0R0JUpkdDNFVHVBLnJMRyI6JkVUTi4yRGI1VVxGRzF0KDNOQ0VwTWA1Vy9WK1VqYGlcZW5ubWxzPVFxXEt+PmVuZHN0cmVhbQplbmRvYmoKMTYgMCBvYmoKPDwKL0ZpbHRlciBbIC9BU0NJSTg1RGVjb2RlIC9GbGF0ZURlY29kZSBdIC9MZW5ndGggMTkwNgo+PgpzdHJlYW0KR2F0bTxmbGwrLiY6TzpTYll0UjwlYS5pdHFqKUpAU0R1R19YTCtsZ0lYdCRcSmpVLysoSF1ka3BBdUo2OENsb2tRPVtwOEFkMCcoUjYsTjNgbEhKVlBGVWpdT0ZGcmRhRGtvUi1IRVRDKUlDbjNuRHNTZUJrTjBPZVlka2xMNjxQVFtkR2RyLWYlWykwNk5tPFptZG1gWD0wKkYwO2VFP09nMURkJk5ON2pqQ3NhSig+NiVNKEdyZSJpQ2JLcScwXSV1PzQ+O1E8bS1ASz9ccmcyISUkIUtQWCpEJWxvODBxUFM8PWYnaWNqTlZBP0lGKTtSLVU9WjMwYmthXmg7OEVpP0FuN29FQT9GcycxczNVVWBJQTxBS1ImdFsiOlVMcjBIRiljXEhQRkdQbDciK1tQcEo7bVAtXiYuWjczMSkxdU5SPzszaGhKbDtJLC87RWorcDtcaS9GcjNVJ09CTmwpQV9taGQjTEU+dTZMQkhpJS1gJEZ1aTZSVFIwP3FWWj1zIz8zWlZiQ0RHPSZkM11FSj4rTlJLJ19CRVsyNzgjZGphKz5hRj9kcCdYSV0ldSQoNE8lU2s/W0pyVSNNKSlpQyZKT1w8blI4XzEjVVVoNmkoJi1YYVN1OCkzcTpqRTA9X2UxTF8xbmkibTlHbTheVktrZ2psRD0/Tj9LT2FMJCdPKDtQPj5sVC5DImI1R1ZdJGBTSy4lPUZmW2MvaUg0U0RmMjxuND4yMXVgIkpFb2Y8X1g7ZVApQGJwMj9RbCpkOGRFcyIlb2YpIWZVKjlnImRYI1k5QVE2UCIhQyhDNDhMXl1UckRgREciIz9XRGthQWJULGhUOktwP25kRy9iXGFWP0U6OWxBXV51JUBSV188LUpLK2ZGQD5nIW1RVElsbV9vMz0uVS04aiEjQWRnI3IxX29OZWQlM2dpKDY4MzlXa1wqNjZkPj8vXDpMPGllaFtuK3VncStbO1xUbDlcLG9FXShePE1cbU89M1tRcUtgYyE4cEFAYEwwYSoqIWMldVMqIz1sIW1ZJG9cTnRuY3JhQGVyYjNYQ2o9VT1EUjhtZlwlPSlbLUJlVFI+aSw7V09ILTQtO1ZhKDRPcitjYGxMIkVXT0BSZSI8X1RDJ1dhQCdYKGxPVXBcQnVlYmMkK14qZmdqS1gsK1RiVnA8YVFhR1U6Y0ImQmNpakFZaT5FKmhcUmtxbTRSXHFNXDNpaHBWZCM9NXIhLlVsLidQLGg2NGhyY1NrImEmNy42XjJRbjEzLSojU1QnaDEpPUJdWFdMbV5oNi45Q2g8JWY8XSZmPV0jcURBT0hgZzNOJD82Zig6STFfaFpKRSZISGNZT3BNazhfcmxqZV05KEMwOkgwIjEuS2xSQiVNdC1kLk8sSUg9SUpAVidQQkg2RWhEYF5kZSFkPF1kT0pUKSsiUjM9PlBaLEFwbVlJUUNeNWJxYkU9SDs4K0xXLUtpRURPVE08XkBhJGEzMDxcXmt1VU8kbmNodCpSWHRROTNJPzpLTUpBSF5LXWUvPUZQQzxgRTkyYmYhaDBsZG03OnA2NVJXRVBKVD9WQl87SmU1SStaSmddUCovYmRAJE5dJD1LRz5pLGJRNFxxJDNLUXNOWkJFXXUqWSVlZUojNDFyS0FXayohWitGc2VYJyEwZiJHUnRuOyZNQ2ZnNnE5R1A4MTIiZFJvXGokU189aEs6MkcySklZWWpjaSwkRktQUXQkIUwhJFFBSVcmOTBZOUYyWyo7NmI3JFlfY0NPIzwjcjF0Oz5fOl1zTj9NWjA+SFstMWpTJG44UzYmZyVcLDxGcT1CaV1RNGcvMSkrZldLUzRpXFB1LjxQN0AjbVJVbUtUXW9BP0UzJENfLj5zRFNhY3UoYFtnKVxwOWxeO1EmPyVNcV81QilzPCZAWk9iIXFiMShDM1htcHFPLlZcWTpuK0IzWmwkNkxUWkMoaU5LU0dtRSNaXllncjMqcS1EVjpvWTgtcWp0MkwoLi47QEtjUl9ILmFBaVwxakslLHRBOi5XXDtePjpBakozUV45Nz1YPVNsSyZJOT9MQjxeNDlKLjtMUDQ0ZiM9Kms1cTdFSylKRixGLDxmWkw+ayYvMTFPJy10VkE8SHNnSWBvR0lwYylRPEgrak0uQFxHJE9lWVs6QlVDMyojOEsrYTEvZkRzRVlXKDxIOmsuZklUPUJmO2A3UTtTJVBMakNuVmdDMSUjKGZhN148Rmo+RWkwQ1ouJCdMJVlPXUQpI2BmWGdKNzsuc0dSdVBLXWVtZiFASDlJRSJAT2BOKCo4TT5JY2NJYWlTWjVlMTg6VzwtaGg0ImBsM0NfSmtjZCVnPWo3RmFyO0JBZ0g9cFBoYUJFIm4uVUlkO1JjRkhaYl5sJVtnN04vIURhJXBGQzpbSkhvZVlTVFswJ0IiJVBiLk9uNU5uZVFjOmhDTE5WcEpbIUo4J0k0U0dPdV1NYVlAWE80cjhcYVtANGdacixKZWtLay9OMV9tXTozWXVGQFZdUWVWSFouL0wzcidrNDxxM2F+PmVuZHN0cmVhbQplbmRvYmoKMTcgMCBvYmoKPDwKL0ZpbHRlciBbIC9BU0NJSTg1RGVjb2RlIC9GbGF0ZURlY29kZSBdIC9MZW5ndGggMTcyNgo+PgpzdHJlYW0KR2F1SEtiQkRWdSZEZDQ2QWxVQGBialpwQENmYTJsb1gjdTBHJS5TIl1SYFVNSmRoYzQhKldGPF4mcm5NKCZGWCE8MzlcaCZrTk4jZ3EhI0EiPGtLKHBLOUJTbWhiS2U7Wm9yK01dLzxIODdEJCs0dF1WMDNmM1xwWldTdTtIIz46IyVBIipkSCpvW05RQTA5a3IrS0xFS2pQR1E3MzNjWk4vdWk4X3NNLTM2J0YjS2M9R3AuOjtaJyQvOGVrY1VVQygpaFtgTFIkQTkyZjpcaSIwQy8pW21KMkoyKmVtSyc3X0JMJ0JlLVtORUtpKSdhUFk7b1ItWi4mRiRAW01kcFUnOHFQTihdZS1iWV8jSGJvSjpGdHNBOWhUWjFrWmVtQSVjSSReLURYRVZva0BoNmJBPlJuWiJcaF9DQzpLO2ElKCldWy9AWSUsIlkhaDAzc0JYTFROaS5BKldjM3AhaD1zMSVlSGI9QE11dWRzOFRrP2MxLig4cSJYTmsnQiw2OE9RK3QuXk4kYzBkY2A1JU4nOVcjMUdpS1lVN1IrLVVaJ0FsJFEiREBRZXUuVF8sJ1FjKVFGN1Y1V3AlciVqV2NaNiRIMEpNVUNydS9CRTl0bFB1OHRNQk00QF81IlEkWjQoUFteb1hMO19zJjMnNVZzJiFQLVlNSDtSKyE1MFNCT0AjWzwxTF0iPTw3ZzdGUjdDJ3BkTzIsZko9QXFDLVtVQmAhKEwmWztMIVJ1dD1AWiRKK0RoL2FcOzBjVl5OUEZ1NF4rXCdgIig1YjFHXV41Jy9GcXRXWGM3LHRxOXUhLjliSSNcWSpsNC5FLEFRVVJTRyMoYDRUT1w+Km0iVSc2ZVMvMVdkMjc8Olo+XV5IKEBIKCovdD4iXTZmOEJicD90bHBMSWpFV1ZSVVI+VFFoMFozPFQzLFsrWEtaIiU9KFonUUdIQz5tNG9iSk0yT285IWZJQUprTihwJj5IUEMwXHIzUCQ4Wik1Yilya3JtXmREbF9xXkNRTUByWGYsO1VLaiU/ZSMyUVs9aG5INCs2Vm9OZEMza11WMGA8WFtuJC82dTNtPilbaDknJ0goIjklKGk7Z2UxZ1tNS0QqTk4vSlhqZjdVLzdqP1dBWmxxPi5YSixsbnB0TzgiRV1zc0owJS5DQ0lTLFRFKC4lITxiSy1acywrNEFNMm83JFZFTFk1JVxCKydVKjwucFVCYV1qR14+cmpRbjZmXnFwbDBraFs8VWtaQzcnKm9QR1NDPi1jXyUiTyFJViVnPC9ZWC0ySmxyK25lJk5FJjskRjtPK2oqPVZmLTpVIkREZSI+SGlSUiNWSV4qTWVsUGMvQ24jSlZXZTduZ0diVzBNMWpbXSg5cU8sUWgyTzxzLnVELXNnMGVQTEg7VFYhazVBQj5BKTFRN0JkNitjIj5hRVszRihkamVEXmtTOGJWJnRUcWEvVl1tQSpeMShHYC5jRFolNkBCNkRzW0dbQVQlJldkS0A8Zz5XLkpQJ1IlQV5CUnQsbGUoWlNiOGhTJSQwK1JhYDBSTDpMQSM9Tzc1XUtpODA9IlchJi0oVlkiRVc2az5MXDhKUEFYbGVKWlhWTilubDdPYC0lcWBROG90OlgoJTxkZXMuMHEwTmlzaj5ULFlQdEtHWXFDcT91RTxwbV9xWFNuY05aWSg3ZClUZyQnbDdFI09ONzJoNVM6OSwsc2EjTThqWTxRLjkqOyxnXD5fQUB0VlY5Kk8uQ0hjTTU6TmkqcEhQWjlzOFZXOm9nLjdhdCNqImknSG0vTTs0U21oTklEaDhVZSNNS289alJhOiMxQWgvK3RhNkUzLTJuLkRFRnRIKCRRR0MmNDNfZ2lnJTBhQmRuPkVLMDMyVSlRb1I8cSo8LDNyVDBETGFKLDU8LV8iaCouOl1WQllhcmhOKFAyY0FJXGhqdTRAQixFYCZrT0ZnP21dWlFTOj88Rm9OVXFwMmwkbGlzMG9lb1tDXC9JWC1xQyhPNEFASEwvVlFoRENNInNTYFQ/Y15JX1pwLS1wTyopUSpAcltMclZrdCE6VD4kLk0+YktIdHRjXGNvNCI2Y20kTF83WztNdTFUYygyWDRTR25FOUJTbGssK1VkKzJCUlJnViowMUhZcSVWYi5iXm9LWzhoKVo3RDNiSV9ROWFTKTQ8XipKWzRKNDtscVFrY11yNklkRF5ONztBZ0dIbUNGSnIxQGlyKENpL2ReSmtVVnBXaENCTV5vIzpRKDo+ND9BX0tmTWFJMSpOUm9vUVI0ZWtBVT9NcTxTR1dLLkl1cHJ+PmVuZHN0cmVhbQplbmRvYmoKMTggMCBvYmoKPDwKL0ZpbHRlciBbIC9BU0NJSTg1RGVjb2RlIC9GbGF0ZURlY29kZSBdIC9MZW5ndGggMTcyMgo+PgpzdHJlYW0KR2F0bTw+P0JRPSY6V2VEYmdWbU86dFA5b0lBNnRXb1k8ZDptREJ1TydPKy4uJ0olNl9DJlwnay9wOEF1O1MlXHUsalI0U2xTZyRvcSJQRWxcIVI1RSlTaCthIVtOPDQjWT0jRjBYdVleXzg0ImlFQF1NajktREBLPCYpQDNoaStXKzYrPkInPkQhXzJJRTpkYzA/Wi45YltJb2UxbVo9SWAiWWNJJi9wXyorYU45QURkaSxLIzRGREFEdGtrWiNdak85XDVTdV1NRFY8SiZDOlBPVj9xUXRtLSElb1VXLjd0OF8jdS1gYy8nNFBkYVRkJFZrcVBhTDVpbCshIUU8Nk0jY1lHI2M5J01saFhVLlNdWkZgZjVwaT5Wbyt0ZjVfIz1LWWM/JjA2IyphXW0mTSdYSTctQm1YY1E9ZSQ8SDA4MUYlXmY3OGdbUlIsJz1sOmhANEclbkBPOlJHViw3KlQlb244MVVZZUZ0XmhkXyVAaUpOPF9EVT1nMVdVcC9TMEhvXC5MZWdYInMybzsvOmdVMEZaXkVePFVwRFhnIigqY1I/WXUvbSpFZkxkTU01IydkSl5dQz8kVS5QRD4uNjwoMl1LbXAnJypCXk41UVRKVjEkVnNnKk9VYUwpQycnUWIpW2pndFwjS0wlQ0ktJTNJLzE1QldhVFUxaz5XK1A3TUhaQC9MdXMlI1JPKXNwaDkxLkxBKmJ0RFkjYWRYNDZcWGpLYCpOX3MuMlc8XFFbbU00Qjw6JT9bMHRPMyNgZVVqbzdEVjlwN2FaZl47LCQ6bSw6MDZnZzdFKWVhYDlYJiVYM1wrZmNKSCcscFJmODBQIi9RSEQ3ZmdwTkQ9NkVVTjtPPXVzUzJYI2ZfUUhYbTBbVkZLI0tORUM6Ykt1JkZMW2UtW0haVUpnUkRcTGhpYyI5ciZMPUl1ITpnbkhEM2pkTmM9LkhwLC9zOlM/PGwkRVBPOXMrLVMwTScuVyMzQG1xPGRAR24sRWZUPTZbOD0yWEJNLkRiX3QzXkwmMjZNQWJBYVY+WENbMHFlc0UiLmUtSGJFKkhaYjNEYSM2ZVhHPU1YRmE5UDRNOFByUCxSJFQkPjI/XTlXSWQiLDhtdHBASGw+TDsxdVNZLFsoVnM0LmFWSTpKLlBgNic9UydlQV5nSm50XEVDUCFUTkpJNUByTk5ySiY0NktKNEhBUSkvZ002Oz1LI0NCIzxpQUxLUFgoSUg+NDJQLVBKUUgnZGE9LEZPMFgzdUVxPFRZLVd1JkQ9X1pcJT5kcTwpXCdtUFtVSkU6dU08RVJLbGdvUGVSSl1hN2RKPysqS1pGaGVTbTU7OGVPRy0lOGM3Tmo1SCpLZHIvNnRiLFEvYFxyZm04KW9zZ0s/VlgnYVJcU0JjZjgsRGduTlYnMWI2REgnQmk9OiJ0bW1zPWw/KStBImNaMysnVXBbYkJfaUtURE9ZJSlmQCFpK000ZUtRVkBLODRJaFNjbyFDcSVGWUZsSV84XCpBPGlfUUw8PjJMVShvaHA2LWMsU0hTalcmOF1HSzNfYlNwPTV1V29VaC09Yj0xN1pSYmBkQWgnZEhZOzhmXFYnWUFPUU87T2hGNnU5JVMmbkk8OkRWYTcpX0UjS0ZgQik/VV9xOFtRNDJiYD4jSS5HLD4pOi5rLF5gJVQlQDJpL0dCcWFYcSIpYytpO0UzOiJsK0w/MzhOVD9PTGBnQVlocDZFakEzK11daTlhO0lBJTQyPGBpNSg/ZDJFaUhdcDdqcDxgJkZYc0JsOztdPVsqa1hiZjBLZidZSmBfPiIsa1xOJVVITFFYNmh1T0tBRFxjL0EvQjAwbSEhXDNWOD4qLmVLSWooSSshKGk0MGYtKzpXPHErdUpjLihOOVtEOXEvWnVFQVFEcU5rQyZwK29mLG1IciRSKF90TzNAbkU3W1ZRLVJgLloqRi9EVDgzaTYkLDJkMXQ4Pl90LDY/PDg+XVFxMmloX0ZsUkskaSpaV0BScSVIJmEwTGtUNDMiZzcuY0M8LEptMC5OcGE3KDA6Xl1UL11oPUlhbVVuITUwNEg+P0JjYSUpSl4vNTEwbGJSXSZbKEduU0tRa1VgaiFjWjUmMTdPWXQ1dWpVKlw5W25JYVJyZVAvczpHOVxiPEotViZZL15EVHFYM2I+PyRKXyRvVEMjUUNUbnQrMUNuOHJhME1lM1AxZ2JpYFYtQTRRI0pUIW5VZmRZbjYwZl8qZmojJSInO3NkLj9sVjZuND9ZdE4+RTQ8PSJoMm8mLmwmMFFwSkMlMz83ciUqNjpGTn4+ZW5kc3RyZWFtCmVuZG9iagoxOSAwIG9iago8PAovRmlsdGVyIFsgL0FTQ0lJODVEZWNvZGUgL0ZsYXRlRGVjb2RlIF0gL0xlbmd0aCAxNjA3Cj4+CnN0cmVhbQpHYXRtOz1dPT8/JjpXZURvWz06MyRjX3IyI1dvOTYnVGVfL1s5TDheTW0yOzJLLlY/b1I4aT4jRG4jJzUjdExBX2pLXiM8PigoZXNXPyRNTW4lZW1mL1xvSUJObTdcMzZDPz04YCpObCQkVE9eRklHWUUlYVhsc1s4OTo0TD45KkNuXD1XKWlRTVBLNXBoWlc3YE5bNSZNcWpAI2ZYcVxUKmxVdUZNXmgpTVNCQXBQaCJSIj5ASlVHMSslYz8ySHBAJDEna2djKW1dcl0+LTw2YTw1Uk4uNidSRzVmKFx1Jz5jWD9ja0A9JE0/VD9FWVxQL0FzQmNeXC5KO0FRP2M5O18xN1tOSExFTjgrZSFZRkJFIT84PUpZQEkzM0whcTBBV0w5ZmMzNjkvXTRKaFkhNW1VXipkUCFbSTZpTDtPRl5zNnJORSZVNDskU280bCJ0ZUUtaVlqMzU3LytwbFk4Y1Y6XjZfM1UncyQqb1llXV4/YlpLYiskb1k7PXJOUmErZE0/OnMpcmszK2YuU1VKcjA+XTNfWiEvKDBObDQvUGYqYWVQQ2ZqV2U+MzJDRilMY1JhVlpvRyRaQ2EyP3FlTVlGYVwxZUk+bUxJam9IMCYySEldIXFiPC9gbj1QbSE1Y28uTy8lQW0lJHRHNkgzPDdPLCJkRFZwYi8/R3U4ck1DaV9vYidgPSFeT3FwVW9WOUg8W0hcKmxHQmlYIkVXdVpvXCRtWENzVTtLa2gvYilDb1cibjNQdF9tMyc7Y1U+ZklyL1spVjhSaFlrSVVPNnJZX2YwRCxUUTVIT2sxNiEvKiNhOlApWyEyckw7R3RmWmhgPDtDVyZvXCxLTkZsbG9gQTBxR3EiR2twOiNuYjZoZTtoR1BuaTdYTTEnYy9dOVImPHIkKlldSj8hLzhEMiolOyVvX0ZAbyleaWFPN3EyWic5OVZzUCElMDcpQFJrVlIzSGhdPHFHOUQkJSVVL2tCSjQoLiFvWlc5VykxPXJkbE9xIUZMNiZvdS86MEYlJTtZOytDNycqYXQqW25xcD1qbzAiJGVgXDNJRSwwX0EiMHNEWHIsKVNhNWxPRmh0UVYxU0Y8JTYtP3VJT2JySHI3JjQ1YTJFPU1aWkx0ZFkvVG11T0EvR1lVUSUrTW1uJy87Ny1lVi4mNkBnIVlZJF02XTJdUVEnQCppYTIjSiZSNmhfIjs8UWk+JVkwOzlfIyJQTUsuQT1jSFdhL0Y+YmlYZ3U3Vj5QUjBVWTdlZHMjWF1hVTYzbEVYVUldYlMlITlfPVwhXDkoU2hzMz1lXVQxSTxCIWcuLmsiRyZfdWQ1c1AtclhnRihdalEuKVFRXDtDLkpKOU5rO05ETz1CXEgyaVUkZUBKKGdvXF91c1VqN2lQRGQ6WmozbkVtLmlmbmdTYCZmTzFxVyVJQjRXSShoVDtePzFaISonaj1HTShnbS82L0QhXFRQOzRybUVwP2hGaF1vNVY1Tkw8bTFITVBqU29xVjE0ZjJOKTVkaUxyOFVQXC1rYiZzclxLLzE2bGIobD04SlVxMUpAJWJEO0RwRC9zSF5nR1A2WnNAdUZWcF1ObzRMak1hQ2llZmVJTkJiOyRJXTFGUD8mNFEvKTU6TjouJEJIOzZdNmknNWhYTz8kT3NCci9RO0AqJjU1SCpJJXNHKWZVWVA+OVw2cG5LWl9FUWNMP1ZNQzNQKDdtRV4pWSYqVWBoWTQyLUQzYkZaaDVaZ1dvLDU9I1lhdEg+K3E7PkdvLytaKDhuPU5LMSVnKEgtQjxVajgnJ1U/RmIxLltUYzxYVWByJj8jZWIkbEhCW2pYQHJGNChrQDZwXm1KRUpfOzEhSyFpUmdpWEw0YihaXTdNbycsPldBTmoiLjJyM3BzQSZUOTY2clBTcEQqblwjXSEqcnMzR1RETydSblxcWlFdZHBJPWM5IStOZGRJZnA5OWAiOytrImktY1k0Y2VOLWlkYig7RDpxJiNOdC4tNkUvXCE4V29xdShLTC1hNmgldHFuMEBrTiNLUnUlcGthWERfZ3M/UjIncDklKixDQColNU9kQVpmTXM7JStDUTxudWVXWmw1R0tmKkljaGInLFIoWzxGZnU2YmgzZWVyRF5AOihbVikyZHMva2t+PmVuZHN0cmVhbQplbmRvYmoKeHJlZgowIDIwCjAwMDAwMDAwMDAgNjU1MzUgZiAKMDAwMDAwMDA2MSAwMDAwMCBuIAowMDAwMDAwMTEyIDAwMDAwIG4gCjAwMDAwMDAyMTkgMDAwMDAgbiAKMDAwMDAwMDMzMSAwMDAwMCBuIAowMDAwMDAwNTI2IDAwMDAwIG4gCjAwMDAwMDA2NDEgMDAwMDAgbiAKMDAwMDAwMDgzNiAwMDAwMCBuIAowMDAwMDAxMDMxIDAwMDAwIG4gCjAwMDAwMDEyMjYgMDAwMDAgbiAKMDAwMDAwMTQyMSAwMDAwMCBuIAowMDAwMDAxNjE3IDAwMDAwIG4gCjAwMDAwMDE2ODcgMDAwMDAgbiAKMDAwMDAwMTk5MiAwMDAwMCBuIAowMDAwMDAyMDgzIDAwMDAwIG4gCjAwMDAwMDM3MDUgMDAwMDAgbiAKMDAwMDAwNTc4NyAwMDAwMCBuIAowMDAwMDA3Nzg1IDAwMDAwIG4gCjAwMDAwMDk2MDMgMDAwMDAgbiAKMDAwMDAxMTQxNyAwMDAwMCBuIAp0cmFpbGVyCjw8Ci9JRCAKWzxmMzJlZWYwZDg4ZTdlZjYzYTg1YWYzZjkxYWE5NjQxMT48ZjMyZWVmMGQ4OGU3ZWY2M2E4NWFmM2Y5MWFhOTY0MTE+XQolIFJlcG9ydExhYiBnZW5lcmF0ZWQgUERGIGRvY3VtZW50IC0tIGRpZ2VzdCAob3BlbnNvdXJjZSkKCi9JbmZvIDEyIDAgUgovUm9vdCAxMSAwIFIKL1NpemUgMjAKPj4Kc3RhcnR4cmVmCjEzMTE2CiUlRU9GCg==","97dfb09e":"JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1lbnQgKG9wZW5zb3VyY2UpCjEgMCBvYmoKPDwKL0YxIDIgMCBSIC9GMiAzIDAgUiAvRjMgNCAwIFIKPj4KZW5kb2JqCjIgMCBvYmoKPDwKL0Jhc2VGb250IC9IZWx2ZXRpY2EgL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcgL05hbWUgL0YxIC9TdWJ0eXBlIC9UeXBlMSAvVHlwZSAvRm9udAo+PgplbmRvYmoKMyAwIG9iago8PAovQmFzZUZvbnQgL0hlbHZldGljYS1Cb2xkIC9FbmNvZGluZyAvV2luQW5zaUVuY29kaW5nIC9OYW1lIC9GMiAvU3VidHlwZSAvVHlwZTEgL1R5cGUgL0ZvbnQKPj4KZW5kb2JqCjQgMCBvYmoKPDwKL0Jhc2VGb250IC9IZWx2ZXRpY2EtT2JsaXF1ZSAvRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZyAvTmFtZSAvRjMgL1N1YnR5cGUgL1R5cGUxIC9UeXBlIC9Gb250Cj4+CmVuZG9iago1IDAgb2JqCjw8Ci9Db250ZW50cyA5IDAgUiAvTWVkaWFCb3ggWyAwIDAgNjEyIDc5MiBdIC9QYXJlbnQgOCAwIFIgL1Jlc291cmNlcyA8PAovRm9udCAxIDAgUiAvUHJvY1NldCBbIC9QREYgL1RleHQgL0ltYWdlQiAvSW1hZ2VDIC9JbWFnZUkgXQo+PiAvUm90YXRlIDAgL1RyYW5zIDw8Cgo+PiAKICAvVHlwZSAvUGFnZQo+PgplbmRvYmoKNiAwIG9iago8PAovUGFnZU1vZGUgL1VzZU5vbmUgL1BhZ2VzIDggMCBSIC9UeXBlIC9DYXRhbG9nCj4+CmVuZG9iago3IDAgb2JqCjw8Ci9BdXRob3IgKFwoYW5vbnltb3VzXCkpIC9DcmVhdGlvbkRhdGUgKEQ6MjAyNjA5MTYwNTE5MzkrMDAnMDAnKSAvQ3JlYXRvciAoXCh1bnNwZWNpZmllZFwpKSAvS2V5d29yZHMgKCkgL01vZERhdGUgKEQ6MjAyNjA5MTYwNTE5MzkrMDAnMDAnKSAvUHJvZHVjZXIgKFJlcG9ydExhYiBQREYgTGlicmFyeSAtIFwob3BlbnNvdXJjZVwpKSAKICAvU3ViamVjdCAoXCh1bnNwZWNpZmllZFwpKSAvVGl0bGUgKFByaWNlIEFjdGlvbiBPUyAtIEVudHJ5IENvbmZpcm1hdGlvbiBTaGVldCkgL1RyYXBwZWQgL0ZhbHNlCj4+CmVuZG9iago4IDAgb2JqCjw8Ci9Db3VudCAxIC9LaWRzIFsgNSAwIFIgXSAvVHlwZSAvUGFnZXMKPj4KZW5kb2JqCjkgMCBvYmoKPDwKL0ZpbHRlciBbIC9BU0NJSTg1RGVjb2RlIC9GbGF0ZURlY29kZSBdIC9MZW5ndGggMjk0MAo+PgpzdHJlYW0KR2IiLyk9YGA9VyZxOVNZa2EvRE9Bby8iZ005InUjUGpCZlRBZl0nMS5DNkVkSVhycT02Oy50MCpgNSY3SV8sV0JVKC9Zbix1YHBsQ2BKb2c1UVpwL145OEs7IiNnLTxsPk88PFw9Qz9xRF1FXyRSKjxBMT4kW00jX2RJTllnUjJRQ29MIUYnXGRuXyFRZTYyJE9gKElKPU0+VF5OWHFIM1pfSik7cSxyVSRwUmlKdC8vS3BiT0UkWmRFK1ouWllkXihDPFxxOXUqYy5yK19OdVZ1ZGM6V2JeZCRBcTdaYC5yJFg9Qjk4W0A3ODwqZDZyTFcqVW4lODhRYlVDOGMuZTFfIUpaXm8wXV8hNlpnKXRbZWlASF9sMz1RblBzJUJmdV9eUj5SJDJfWi9iSyNwT0hncTAtWzpqciQ+cjxcYEtdKG4jYSVuOktRPSlFNmkjSzZBMz83aHBMaCJGL2VDKlU+XFAqPSttZFtUUk0pRU5NWGFJXzxeVkRGPmQ9V3E7X2lzIlZiKEZCW1tjL2JKbSNKOFUkcTVsblRpJzpndWImZ2c/YWFzV3BiaS9cNVE7LyknXFg5OUdKUlpHJj90SFUpUko8PzleZicpX2czX0VcSkFtciNZcVxnaEFOO0VkPEdvVyRqZmkzOElaRWYycDY8SHUnRlUldCIwbSlaW0I8KF1BaFdGUV1rVTg9Y09ZRy9iS2VZSi1NaDpRSClMTGRQKFJaN0V1YUJJcHRGdVBGIj85PkMuTGlGbWJJayxnXkpaUWdsOzNfbj90UCFCW3IoPW1nIWgraUhiS0I3WCo0b14uJlFrI0VvXC1qJlFXSUxxcytBYHQyKmNqMShEUT8vQGw2cFFgb2BJUStNMF1kcFhAKzYnLmIpNyhzPSopMnNFU0FVVDMrcj9rcm5jV1dzIVpkclRmRyooL2BhYT5YPlpoT1I0TlFiI1djc2B1Ki91VyJcSUtNdUhWMEEwSDpic2tObnEmQSFjZUw+YUoiXCE5PC1OYzE3JDRySCo6Tz4jRyEtMl9HWzE9TTtCUlwvIitsXUNDcmQ3SjhyQ11ccGBLbU08NzVjYixeNj9hb2hsTC8nMSk9QGhwNygvI0VKR0FWJzluaiYzIWIpJENiMzZmPTAtWENZOV5Na19ZPyU7WEx0VlQ/bko0WGpKKTNfS3JDbTRcODNuWjMxQG1iVkZJSEsxbnJqL007akpbK0xGbFhrTEVjIyxeRzRnNmtzQj8maFNpdWxSPzphVzo7LEw1YXAsLUU0IUJHdU9SJzVbSS5cWTJKXFUxU0IuWSEnITtWSjhZImQvcCdeJzJZJGoxJk1MS0dlcyEiQCwsJXE+JDxsUzpCY3E5NjZTXysjYk1QTitUdSwqXy85K1ZaZT5iPS49L1cyUFsnMmM/NFZtZE5aYSI5UF9obFYnMDY/YUdIVWg5bW8/JCFXNyNbZTplYzUpTTN1MjRqWjhSJSheaitQIi1Qc2FWU0hELU9WVm9uNjA3Ij07UD9fL0FmUXBXVlBkU3BMZ2RJJWl1c1ZJNEBLckw2dG8wZSZBISQ6cytxKShdSFw+QTFWQShsRF5xa0Yqa28+UD9RW2dsOCs/KyQqQkhALEJpPzNxQjtZVTQhW2UoQyUtXDo3UjlWM0YuRiJBYT1CaE9PVGQ7UmhNVSxeZlhBPS8/IyI2bWM5Y0FRaFFJcGlmYC9qMDckMG5wSFhbPFM6SWRMSlE/aF8+IVBKKG40OV5SdF5fZkZkR01iS0guTCFnPWVeKlksIzJiWnAtSmwzPGIjYnVtZShKT3Q0PEBRdDxianEyOUZQNmViPUNSbGtXRmgzTT9ncGlCLjlYS2I4KzhiOG5RdTouPTJdU25mPUpoYiRHPThUXmN1WGZybDNdQUpHMydVXHVDITwmJ1xKU1cjT1BbbjQjZG0yKj0yP29cciY3a1V0YyVscERYTitWTDUiLCNfQmdpXic3OWFRYVg1ZlhYbi9ubTUpNVRDJjVsUV1yQEFHUGhhcVNoO2ElSG1CQWRNbF9rcSchOWdnckF1MmE3YDleNV5uQS9EMFtXVm8yOkBwMVZLaj5CO1B0VCorLjpSKjVBSUReTlZMLyhacnVcb009M0ZvK2syYFpNSV9IKGBYbzd0XixVbScvUyNfUFlWZSg4Lm5oZDJMQUNEJyNrMyRuI2M+NHVpTj1zMz1YQzR1M14zdG8wOG9INEpvUldVTDo1aC85XVpGJG5IQyxBNVY1XSFeLkpzQFFXUD9yT0oicFpQUDlGU2E7bkQhTkVTVFY8SltlN0koMUgsaTg6aUEoWDhwQyExQjptNVpLWmtLTW5VTGUlbVBTPCRkSEVKMVJoWmJObF1GLiU+WW4ucXBxJFFJJHBWUD4lNz0xSWUyUWwlYSJxIloyVHRXM2V1LSlrUFBbXy0vP1g9cWpvcDc3bWhFb2M3Q0tBbD50dTFoNWtEY1U9OjAyYHM+Z10jdEtJNktBWSRjSDA4aG9LOzlnT2pJa28mM1wnX2QwOE9qaDsrYVhGNWBNVjllWWYhMWolZkFTUEdaVypFZzNtWy0/NCRgaD9qOnJVSlMlKTBZUFBRVkYqbWRlJWowTTIzdEpWRCk4W1ApO2Y6RDZ1WEIrbllmSDo+P1RWPGMmUiRkcCJCPkEuS0BNKSYla2RpPEgxP2pjVVEsXmUrTjEnTUVeakEidWJeQT9MPC1UMCU2M01acUg/PEsjTVUybjRtLDgzOlRoZCcjazZecDhtMkdZMHFycDZhXUVhXjhSNlNKdDIpUWBYdCUlOiskMWZ0NSlCUE0zW04uLzdnX1csNEgzXz1XK2JfY1dkbkpaLmsuQWMqJnBtdTstT2E/bis1QFA4KG5qS2pkcy5pJVgkK3RyTS5kUVpvK2FnK0Y+RkBVXFM4QVtUI3A2NFhVaTQzOSpsckdFSkQ0bWxoXEtZPVYxPV8uLWJaJjQhPE5nZmshR2NBTDMpU1JdUj4uM1dtNSI1KihnZmVRUyQ8SW9aIm8rIWMxZWY+LidoVm1SI2AlJGEmO1ZRN2JTSFlDQlFjSGpdXkwqZTA2Iy5PW1k9NVpTbi08ZV0nWCxBYDIyI21XNVFBViMnR1EsbkdOZEc7MS1NKlUvMzxYKjkyc0lxWXJwVjkuMDFlZFIsSVA9QzpKOSU8UDRRPUlEJi1MY3RhSGkzOWBdbTl1NDFHSyleRTctNyxOXS0zakVmS2Q6WSlVbTE4bmZPJmM9V2liJj8+Uk9kc2pARTZrQU8tY19HVCksJFprNmhvTVlOMGpQOzEzXHRMals3bCc+bU5BVUk2by5DS2FXT0A3Xk02IWA2WEtiQGVhI0E+UWFnJi82YGpZJURuMTNvW10qLihDPGskO3JwdWJDLitTIik/X29mPTpyWzFvZmciRzNWcUJVMThlbkAkOyFNb2s9RCFlYjVVJ15IRm8jMFZedDZPVkQ7Kk0jV3RVWFdOQjNxYXM4MUBGMUZuISFKIkNOS1NCKlMhY1pyXU9QXSVqbjxEb2M+IzNvKW8/YyorXyozIjYrbVdIajFZYWZXJEs3U0I6IldgajE3WzgwJWF1PWI/VDpHR086QTM+MSNxWCNnYXBZZjciIj9ndXFNTj1ZTUt1bmtyS1wwPC9pPktyV2NNcygyU1BBXWdoLUpZSUtIWWY0RlRzWE1tTklZX0o3JC84aC4iWDclSC1eKEo7dCU/QS1FOTYxKl4ibGw9JlRCbWxqVklAOSs4JFxwYWNFNigvPl40ZmhYKGdGNUchKG0mV0NPczxnOEdTWF4taEkzIy5jLTxjaWVWJjZaXkhVUUp0aCxGbEteMztsVDc0cTErZFFsY2ZqKmIuVCZbIV5WUkUkVW1Yb1RVYDozNCdcQWJqTSE+TiRKJzZzb2tKcCJPNComNmxJZlk9byg3LH4+ZW5kc3RyZWFtCmVuZG9iagp4cmVmCjAgMTAKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDYxIDAwMDAwIG4gCjAwMDAwMDAxMTIgMDAwMDAgbiAKMDAwMDAwMDIxOSAwMDAwMCBuIAowMDAwMDAwMzMxIDAwMDAwIG4gCjAwMDAwMDA0NDYgMDAwMDAgbiAKMDAwMDAwMDYzOSAwMDAwMCBuIAowMDAwMDAwNzA3IDAwMDAwIG4gCjAwMDAwMDEwMTYgMDAwMDAgbiAKMDAwMDAwMTA3NSAwMDAwMCBuIAp0cmFpbGVyCjw8Ci9JRCAKWzwzZGIxMTFhMjQ0NmYwOGE5ZmJkNDY0ZTYwNTY5YjRkYT48M2RiMTExYTI0NDZmMDhhOWZiZDQ2NGU2MDU2OWI0ZGE+XQolIFJlcG9ydExhYiBnZW5lcmF0ZWQgUERGIGRvY3VtZW50IC0tIGRpZ2VzdCAob3BlbnNvdXJjZSkKCi9JbmZvIDcgMCBSCi9Sb290IDYgMCBSCi9TaXplIDEwCj4+CnN0YXJ0eHJlZgo0MTA2CiUlRU9GCg==","101c2502":"JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1lbnQgKG9wZW5zb3VyY2UpCjEgMCBvYmoKPDwKL0YxIDIgMCBSIC9GMiAzIDAgUiAvRjMgNSAwIFIKPj4KZW5kb2JqCjIgMCBvYmoKPDwKL0Jhc2VGb250IC9IZWx2ZXRpY2EgL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcgL05hbWUgL0YxIC9TdWJ0eXBlIC9UeXBlMSAvVHlwZSAvRm9udAo+PgplbmRvYmoKMyAwIG9iago8PAovQmFzZUZvbnQgL0hlbHZldGljYS1Cb2xkIC9FbmNvZGluZyAvV2luQW5zaUVuY29kaW5nIC9OYW1lIC9GMiAvU3VidHlwZSAvVHlwZTEgL1R5cGUgL0ZvbnQKPj4KZW5kb2JqCjQgMCBvYmoKPDwKL0NvbnRlbnRzIDEzIDAgUiAvTWVkaWFCb3ggWyAwIDAgNjEyIDc5MiBdIC9QYXJlbnQgMTIgMCBSIC9SZXNvdXJjZXMgPDwKL0ZvbnQgMSAwIFIgL1Byb2NTZXQgWyAvUERGIC9UZXh0IC9JbWFnZUIgL0ltYWdlQyAvSW1hZ2VJIF0KPj4gL1JvdGF0ZSAwIC9UcmFucyA8PAoKPj4gCiAgL1R5cGUgL1BhZ2UKPj4KZW5kb2JqCjUgMCBvYmoKPDwKL0Jhc2VGb250IC9IZWx2ZXRpY2EtT2JsaXF1ZSAvRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZyAvTmFtZSAvRjMgL1N1YnR5cGUgL1R5cGUxIC9UeXBlIC9Gb250Cj4+CmVuZG9iago2IDAgb2JqCjw8Ci9Db250ZW50cyAxNCAwIFIgL01lZGlhQm94IFsgMCAwIDYxMiA3OTIgXSAvUGFyZW50IDEyIDAgUiAvUmVzb3VyY2VzIDw8Ci9Gb250IDEgMCBSIC9Qcm9jU2V0IFsgL1BERiAvVGV4dCAvSW1hZ2VCIC9JbWFnZUMgL0ltYWdlSSBdCj4+IC9Sb3RhdGUgMCAvVHJhbnMgPDwKCj4+IAogIC9UeXBlIC9QYWdlCj4+CmVuZG9iago3IDAgb2JqCjw8Ci9Db250ZW50cyAxNSAwIFIgL01lZGlhQm94IFsgMCAwIDYxMiA3OTIgXSAvUGFyZW50IDEyIDAgUiAvUmVzb3VyY2VzIDw8Ci9Gb250IDEgMCBSIC9Qcm9jU2V0IFsgL1BERiAvVGV4dCAvSW1hZ2VCIC9JbWFnZUMgL0ltYWdlSSBdCj4+IC9Sb3RhdGUgMCAvVHJhbnMgPDwKCj4+IAogIC9UeXBlIC9QYWdlCj4+CmVuZG9iago4IDAgb2JqCjw8Ci9Db250ZW50cyAxNiAwIFIgL01lZGlhQm94IFsgMCAwIDYxMiA3OTIgXSAvUGFyZW50IDEyIDAgUiAvUmVzb3VyY2VzIDw8Ci9Gb250IDEgMCBSIC9Qcm9jU2V0IFsgL1BERiAvVGV4dCAvSW1hZ2VCIC9JbWFnZUMgL0ltYWdlSSBdCj4+IC9Sb3RhdGUgMCAvVHJhbnMgPDwKCj4+IAogIC9UeXBlIC9QYWdlCj4+CmVuZG9iago5IDAgb2JqCjw8Ci9Db250ZW50cyAxNyAwIFIgL01lZGlhQm94IFsgMCAwIDYxMiA3OTIgXSAvUGFyZW50IDEyIDAgUiAvUmVzb3VyY2VzIDw8Ci9Gb250IDEgMCBSIC9Qcm9jU2V0IFsgL1BERiAvVGV4dCAvSW1hZ2VCIC9JbWFnZUMgL0ltYWdlSSBdCj4+IC9Sb3RhdGUgMCAvVHJhbnMgPDwKCj4+IAogIC9UeXBlIC9QYWdlCj4+CmVuZG9iagoxMCAwIG9iago8PAovUGFnZU1vZGUgL1VzZU5vbmUgL1BhZ2VzIDEyIDAgUiAvVHlwZSAvQ2F0YWxvZwo+PgplbmRvYmoKMTEgMCBvYmoKPDwKL0F1dGhvciAoXChhbm9ueW1vdXNcKSkgL0NyZWF0aW9uRGF0ZSAoRDoyMDI2MDkxNjA1MzMxMCswMCcwMCcpIC9DcmVhdG9yIChcKHVuc3BlY2lmaWVkXCkpIC9LZXl3b3JkcyAoKSAvTW9kRGF0ZSAoRDoyMDI2MDkxNjA1MzMxMCswMCcwMCcpIC9Qcm9kdWNlciAoUmVwb3J0TGFiIFBERiBMaWJyYXJ5IC0gXChvcGVuc291cmNlXCkpIAogIC9TdWJqZWN0IChcKHVuc3BlY2lmaWVkXCkpIC9UaXRsZSAoUHJpY2UgQWN0aW9uIE9TIC0gTGlxdWlkaXR5IE1hcCBGaWVsZCBHdWlkZSkgL1RyYXBwZWQgL0ZhbHNlCj4+CmVuZG9iagoxMiAwIG9iago8PAovQ291bnQgNSAvS2lkcyBbIDQgMCBSIDYgMCBSIDcgMCBSIDggMCBSIDkgMCBSIF0gL1R5cGUgL1BhZ2VzCj4+CmVuZG9iagoxMyAwIG9iago8PAovRmlsdGVyIFsgL0FTQ0lJODVEZWNvZGUgL0ZsYXRlRGVjb2RlIF0gL0xlbmd0aCAxMzU0Cj4+CnN0cmVhbQpHYXRtOjk2XSlOJkRtIi9CJCcvaVczVHFBcWZKKyNPRG1rUD5dOjFCREhtYjJlZGw1WDtaOyk3UCYyKj1WPG9daTg4KElLVC85PUstcEVbZVNTJXJrLCdZbmNeZ1JkK18vWTs+ZDIzJ2JrSUtYJlM6LUcoa1ZJc2hIJXRYPCNEMll0K0cnakImTzw5YiIhPlpjLVYmVWRZK1deZy5mbEsiQVpuSVwobzAnWVc2ck91NGgwMm8nJlonL09KODxNbkBzNnQhMkFTNFRNTHBabnNcUEc5NnBNNi1qP0slM2ZfZWNCI2wrQWwzWEBgKzwyTiwwM0ksXEJDTD8zLCMlMmE6LkAvRVxBIWVoaTwrYl5JaiJScmgyZExWITZuZEBtMHAwT0khRCozJGZNWU09Z1IkXiFWXVt1WUouOS5LPiFyXENmZU8qSj00Yz8zUm5BdU5nJlhDWjpMdVlnckM/Ti04SmxCL1shLyZiMGRNU0VjKydbNDxFZyRlLGo8MzZQb2ZJYD1BbUxaRktmNm51Rj45T0xDNi83P0twIV9uT2NoME9NazNvZTJQTHJXUksyQUExTmpLVSZWUVcxRF5DWVk3WkMkdXMhSDpQZm40IVA2ZmJKdVheUWVVIV1kVF1HXUZrJlVqWjNsWDxPUk1Jc2cqdVhDXjxbSVBLMXFXWiRjUllyKVIzZC1AKDk5U0xiOURUOUBeL1dSOmVsSWc0J2w5YW4xIWJ1RFcia1dSV2EiOUw+KHQoP2I4SC00RU8tLGhQN0A0aVIyPENjQC4zPSVgZjMjP25pZjw1LUhNLT1RO0osQz0jOytwTklec0UiJk45Qi5xLzIqNFBwQG5CKEBATFhGJCw9bEc+OlFwRyFXQj5QWzw6QVQmaihkLDVaRV1wdEQpYiNDS2tcMmUzWCxxWkovYmsrISkqWCYjMEZLNk1MPyE1cjxlVihXRUpSTnVlJ1tzVUo2byJ0QmJfTmdHT0k4WlpvYVVQPEIrOyJqWyw6I0pUWU0mJFsyRF86aEQlWDllW1srWz1yKSxwNEFQSXJCMl8wKjBhPTdmWm4lVDBiSmU1Ny1CQ0A7c3M6MGMyWktsPmJmO3VOMnVeZVZORlMlWUVXITkuSiEwZlo/VUVsYkNCPGNnYGFESTpFUFY7YV9jZlhZXE9rQTxbUnM9VkQnbS5ac0JJXGYnJVthK2VSRVMqYGgqL15MUFFmJCRPbioxSlo+KFJVQmJbSlwqdUNCbkRvK0tUZTpIYFZfL1trImQlOzk2bjc5JjpOQ1w3JUYzZjZHdC9hb11yPz0mWy4mZjVZa1UyaGg8a0I2P25xLytNJkxkaVYlIVhyZDk8OyVQYyM+Xjk5P3NnN1BIXiJpU3RoREgnJ2o2aWsiVmJfcDlOa05HcFdZLW9ZIlFGSzttTzRMVGJwQjJnRi5TXDEyLzgnaF1NLUVcUkBYMEw2WGdfTydIUk4oPEUhLSx0JyRALVluQFVqSGImPC06ZTZCI0pdITxOP1EjN2UpISlsUz80blI9RVkxTTBMPktDWmhZMCVTYWowST1zVDszWWIwUlxKN28xR1chTyMqYUROI0dwS1ZALVNuWSU1N0NWaSNMODNHNW9aTiNcYCoqLUBAYGFgMlZlRSpCLiFebzdYUVFNWjoyVXBHLiQnKXVKRWIuWDZhZ2ppUlBGL1dxQU9rVm87N1laPjZmLDYzLWFaUkUzcC9pWm9tOUpEWEkqbURXLytUZ1peKDopXGMpQkFuKG8iaE5IJjZDIz5lbWAjL2hnOVQja04uZkZNI29xJVc6QFRKSH4+ZW5kc3RyZWFtCmVuZG9iagoxNCAwIG9iago8PAovRmlsdGVyIFsgL0FTQ0lJODVEZWNvZGUgL0ZsYXRlRGVjb2RlIF0gL0xlbmd0aCAxMzI2Cj4+CnN0cmVhbQpHYiEjWjlsbyZJJkFAc0JtJj10YyN0KzJMLF5ZR0pbbjRUMjM0PEY+ZDAxXjsmTVhHOyEsK2gicCJdZEJCZTJjWmUjInBkQTxAWFhgUC9oWSpsb0pEMnRQciIkSyxfLVlQcXFGJnN0OyVBUGlaXCRUT2NNSG9ZV1FiVGApcDBJXl83P0soQFhzNG81JWBoZnFJUlFPW2g2UFdXaUFRP2BhImMoXEBAbTp1JFg+Ii9kVz1QRW5PSmFnWyViJmBYcktYKyxgOm5fOVspMT5GWWZqXlYpMjFcMSEiLWU+JDVnYS0+YTVPMVpcNmVPTkROQSZbU2VeOShWJlBnUUw2QmRRWDJTdUQ7ZStRY0AvITlGRl1oVihFP2BsVHIoWy5ebyMwcGglVFQqbWVORC0+OzNvVGIhRExkKG9ZKCcza1MmbSo3Z0tOIkUvdStjUmFtVV1RVypIMkQnLExsV3VVSyFrPCE8ZUppSEc8ZXBwVE1dTy9Ebkdrcmg3alVpZEM5MDFDJUs9Jl1nLmgnOl51PXRfY1AsRSxYcnRXaSk7XUxUbz9FcVI0OWRySEowV1FPZyI4UGFtXSQiTStRJUYqXmtpRHViTCpWS2MnJ1VxXTkhSUozT21yJyswMUxeM2hIRCkuT2tYLktGRElvLixgLDAyMEBQVUA8WmtSRisjRGksSjBaTD4uSkhYRy5LQVIiaCl0JEBGOy91O0NhaFVOXHVPJGtjZDgyRkxpUStHP1FTPGNHT3RhOCZiMWRyW18jTTY4YiJPZ14mQTBIUF1rKE83NHM2K1FnQWZmTl9bNFQmMyxxcWRGMVo9MScvVVtVNjNFREM9aj9wQlpTZlIvQVdEPF5sNmInSkpMJmBBLDloYyUsI2NnOztRN2JmbHNlJVp1UE8+bTpzSkJkOkY4J3BgZWA+dF1FJjFucDo6QE5AVDowTUBRMSJLdSNEO05LX0pCbCRtcjpScjhWOCMzRUloNmQ7OD9cb29VaiItOnNrNHE0cmV0KFI2WEk6aSFaPnUqQjNAVXNaUE8sZmFINWlaaTw7ISVYaURNVV8tUWwuZD4tRzBEbiVHbDBjVEFNIzk+UWtzV090LnNMQ3U6KE5aZi1VWnVZMCxIXl9fMT1XUzprYjVMOTEudTBnSkQlZ2k/b2hoX2JucWFAc1VMYHFaam4tMUQsXU0/WkMkNVFmMEJAdDZjcSxPLFZOImpYPG5WYzwucnA2JFhHPlkyM19ZcSxCKUBDT1o6WGNNKHF1Y0IhOTJoT21pVVc+VT8wW1M6ZEdPPVVuRkVJYlEtYylLITxoODFlcFtMLWdEKnQ2VDJFai9qZClsWVFiJGkyMio6MyZjJlJqVmBvJiZkaF43aXIrcExvaShkSGxfNkUpcUoldUJeKGAtb2ErKWw1OWRCcDAjXDNLKmFMOHVXOioyUERQLSpjNFArYzFpXzJbNW0pXmxEbT9vNlJKbipXdEliQTMsbWRVbylWUTZaMDlhZEV1bysxZ0BGWEwmLVA+VyMiRTZLMjJjND5WKFBoXkNfPTRLaD1sbmpRRWpwYC1cZTdodFszUm8vUm8nXiVVN0xEITNoRSNRYSsnTSo2UUspbj1RLFolYic+I1JyMz8+MlpEUjRGcyw6NllWaEZBJz9sSy1uV0s1SypUT0VmTStvLyNWKEdoK0g+PkljXUs6YiRYJC1IamlTWixCVjNyOG5EVkJiS3BZZENCM084bkgtJFhKOXEzTykvOVNvRERLOmgjU0dXaSFtL3Mkfj5lbmRzdHJlYW0KZW5kb2JqCjE1IDAgb2JqCjw8Ci9GaWx0ZXIgWyAvQVNDSUk4NURlY29kZSAvRmxhdGVEZWNvZGUgXSAvTGVuZ3RoIDE4MTUKPj4Kc3RyZWFtCkdhdG07Pj9CUT0mOldlRGJUIW9ePy1ARD1sLHQuM1UiZjpmRCUjI1U/QXRYKS5eZyc7KTNdUWIxUXEtVThZRz0hLFpySCpBaHI3SzR1KVFzYFUqVyEhXVphZnFiSVcmITdOczRhR1hHUCVWTzdDZ0I2JG85ST0nU0VDcmttTCVFJEw9LFZfMVcsSV8kOkNkNV9cSiY7PFYxK2ZKcHV1PSpbXEpXYzcwWDwsT2VFTThqOUtVMnE/czA9OGJ1NTFEKT9uYFJgOVkqcmwhLFxHbC9EWkxqQmRlLG8odTBFS1NqM1UwYlZHLjgoLSVDVWUxQD9ibTchWU9jTywkRj4zPEtXcWQqWyFzY1lOZj09WE0pLUFFa0wjWVpEW2xNRClXNWdFWF5RcFxKQykpTVMlTDwoOmw2M1AlalUmJUs1VU0tNWdBYSw+UW1DcDk8UyZgTDhBXiNLPkxzdEIkJSkkN2ZPR0dURDJfIkVLXiJBMTItNEwnYGo2XzA3aVpiaWgoa1cqaiRSJVpPcjNpXEQvUGpOLWg2PmxiInJ1TmtOOmIwNkQpP09FakQ2TnReaUdsJm5DVydvLyVlRldqZDNzNTYhQTk8aFQ2YVFtIiddcCgqdGBMVSNDVzRDPHI6bnBmJGYwWXQ+MCI7L0Q4PC9nLFovY2ZRVCVDSW9ZL09rZDxVWy46byk+blpnK1BIT3FYKClEWCo6VT1KOk9UKyZaLjlMZW5CZltlVWkjL085JUBUVUxbKU4+L1xuRSksRTBGVTI1P2o9Jl1oQy83XT0yalIuM21xTkpocC9dc2JnXlZOX0MlOlMlL24/UFdVYFgnS0dmYzxZOS1SVHNsYDdhXFdEXG4nQChgT1skUFBNXWdHWERkLjRlJisnM1ctaSNTMG9wXicwUHVkT3QjS0FkSEA3Yl05QWFeWWxDczgtKT5qaUw4OXEhUjREXkxNW2Q3JixzLSlpcFIxIz5TKispTkMuY2YxUko8QkVtaGlwVnFAKDdtLktzR0Qkc0kpKm45T2o6Jy5WVGVcMm00VVg8IUwxW1w8O24qOilrLEtaJl1kUWpdYjgwa1IxMFE6J0xGVjo4VVpUMFhzXGUkPk4+NCpBISVRMkU2bkkuZlslOz1JY2czNGgrUzsyKWs+Wi9GODhEQXQ9KnFLOic3JydpaU4uKWZzaGpmMGInVVxIUHQxYy04Qm41MEdXJE9GSjxgTCI1Jl9vPE86ckdcWSkoQG8iXTpxTl0tXl45WylePW1GODkmYTFfYWNGYEFGNG45KFUwXkxPLSQjOTZeVSQxNWhydC1rL1ElbiNgIUwxKTJVdVgzPEpdZkdCWjcuWWVuSklHLzxqdExGMTBfVUNUXVA5KU5oPGhSYFlERllpV3NnQDg/ZE4raFBfN1lQQHFkKiQ3SXVjam49KWw/WCwnTTNuXV5gUW49QGs1NUlycVhuXmdXSjp1VDM6PnQ3Oz4vSHVsdDxSUHA5UWAjWmNLPE8vKTFVbVo5cGpcJ1dVRmZyUTgwLCg4XCFDOzBraE0nJ0AvWzt0R1JHcUNJT0JHWW9AYWFiMHBoUktoL1dDQDhuMi9fRixqJmdFbTgyJ2lKbG0tOiMrImVRJCNrLlk+Q2tSWzBiVmRyMjowKlkmQkhTajg1Rm1LKz8mcidgKGB1U1FcaG8kRW9xUnJTanJFXD5vSysvTzpnaHMhJDYsbjdLXDddIS9bNiZYJFYzKjpQI10lNGEublYoTTk9dEM4TzVTWXVBTkJZYmQoKCVZNF1LX3VGQGl1TFEoZWZvVmZVbVlpMSdHSTZvczs4cV5pa1prU3FdRUdzOytVKU8+ZEdJN0k8WWItNlRLT2wpSkNjJUtEZ0gsNko9SjFSb2pUXyw4RDFQJ3JeJ0FIUHBbIzVwdW5GQGM9PU5hMCJaLTNwcWknZ0NlWGJERE1oQ189SHFebG9MRUdYPi1LTXA9cDpXYVhUIWMmO0VGTVFsPlAzX2lmKC5XXzc9SWJpVEhVTSlCTTcwSm5bXVhJUEkkb0haR11GOTFzLixlTHIrMWdiYz1tWyVdcTg5YXBnSEZ1TWdUMjxJJkZqSVdbbm5HX01DOiNNLFtUUlUkSW9MQFleaXMyTjhMdTQ/cnIyWWdhMlFOVTg/Ty8tNGRdXWxGU1ZqNDBWIjxsR0hjMGZXRERucD09RTdHL046JyxSMGJOPWY6TyQ8QC4kPSZyWGI5JTgpcilvUSJtODpqRXRAOTAoY3JGZ0ZiJFhkNkY4Ml5XNm5VST41JiJDVCNeS1V0KlxXOm9QWFxEKHNISi1tJydWc1ItbUZKNFRLcDcqXD5cbWRiXT0xcmRJLktAMUZcX1pFOy9lS0QtcyxAKFY9YkYkP2dKVCxaPk1LQ0w5QEE0PHJtS2ArI3N0R0U5J1BMcGBJJG5CSyN+PmVuZHN0cmVhbQplbmRvYmoKMTYgMCBvYmoKPDwKL0ZpbHRlciBbIC9BU0NJSTg1RGVjb2RlIC9GbGF0ZURlY29kZSBdIC9MZW5ndGggMTgwNgo+PgpzdHJlYW0KR2IhI1xiPyFYXyZEY3BtW0AwSlchT2xXJUleIkhtVCVCQyVJTyVRRU1QREczKjZUcVdWInNudU9yayFdS1M3NlAjW2VmWTtVcklXXGc4M2hwYjtHKD9QMipma2Vsa0o9P3InMVosaGk6bmRnLz1TR2JFV2g0KU8tTV5fRWc6cWY5Mm4rdV86WEluZGlXUE9kVDUlWCppMD9tQlpiXDZiKFktRTZtOTw+QC41YlZDO0ZBJjUmaUIqS1VWb2E6dHFIJiYmNCtuSkZBKS9idVFBWSQsSlFvb0JhQVRYQ2tFI05saDBKMmZTVV1ZcTo2bDphWC4yJlg9R2JKUTAvUFNlVS1CVShZQkBSRDdjXkdvaWlrIkNrQV1ZIUJfVCgnRTlOOWJRVUBFWmdRaHAob0wnQ0lbPjoiXl1WKGI/QSlcNlRMPztbQWN0YkpBL3I1aU0+Jzc5Q1YnJFZYKzQwImw6REpSZWYyJ1doXG1vcENIUlpwKmYhRVA1Tk0hdSU9Y0JQO0crW1trMyVOaDcnaCtLL1RpS0o3ZmdTRFteWlpgc3BPRTpVPTlsamVKYW50cl1lJE5QWmRIITVsUFM5Im1WXjwqMDVQaUZQXixpRSh1IkFkVS1kR0hJTy5YYDAxX0J1a2BRYiQiNVdROGNEV1k0WXFaPG9sRDojP1EzYGM9Tk5RdEZrIjYkJVAlL1UxbUtNRE41c2RBKWI9KmpsQS8mJDw7PXFTbkNMT18oL0NjUC0na0JtZmxmLGAqTVspZ0AxS2JaImpvdVRDQDUubVhYbHImLjwvUSRyLjlHV0RXUz5cQj4nWW5OKWVHLnVTVXFuTDJUISppa2hXTmlCZUFIbkhsL011ITNFIyJfWClSUChiXTg9SSUyV3EhIV0xNF9ya0BXTkMyQmZeRD9gQmU+PTZlVjAqRk0vVEVPUG5nYT8vcD9HSU5adS5hVE9kQVA/YCpEbyFKMD8sT2xgJzpeanFZIjgoX2ZUdWVNLWtxXnUlSTAsXEQkQCoqTWRLcU0rU0taOFNhLGZbU100RVg3SVFvTWg0ZGEpSlllU1xDPkhqZU1YRWgyJVtWIVlfaWYlYSxIK3M2SVApLlFFQGlsWVRnJylDR1k6RmluTGgkX0pOXUs0QyxeV2knLEBcNm10OkRAa2U/bWZTVzs/Kltvc0BiRTlNQzw1M3BiQDNxSVBmPyFFWklwXiVLNHIjJTNHR2JhPjQ3KGhVZWJhVidTPzdlRl8kXCJZJVJtLmBralBJaC8pWXUyZ100RG1yQCQsIktiNChDW0k9Wi1rM2VeMmJVYTVfTW83aWBLKkoycCgjLEInU2chK1Q5YiQ9YDBCIypNPSdWKGVtLClRIj8xXThUXWFBc1FkbF5XNz03Yi1dMCVOZV44LFlSW1RQQ2ZYL1pfI2UyRSQ4UzpgZk1hS1NhJEsuNzpuTkRGbm9bRT9QbGAndClIL286dDFjZWk0VXFgLGktJytCVC4mOSRdSTdAZ29FNDBPVytqdEw3K2VkbT5IPE0+QCpLREU+dF1TLTZEQ3RRInBiSEBtPC50RzVKMkFWIWJdJj1HV09cXFQqVE4wcy03I0pQU0Unb21nN0U7ZnE8VnRxXzwubWtUb2pnPyFpXnBqJFloX2M0YV4sLXVFJFhwRXFGMy9kUC49VlsxUWRTXkJQb1dkJE9qXSRjRy0rMS80PDQ/NGJEUTFhUkUwJXExMj5EUTksQz9pV2c/MixEdVUrWyRncUJvTEdaWFR0YnE1ZlNCSWlgLVFBVSJzOD1dT19aSTtcKik/Jkg3X08tcXNGVXBVKGJpUSRKOXVkVEl0TSRDV1ptOSlhR008Mk91UW46KW9yK2pMVih1al9PMSRYPGlgLSNjTkohM0haNlQkXlYqciFtKSNXXTtqIzFbMipoV0Q4Sk1wNy8iMjonSE5bVGhDPVY6UEkybzklVUxHYmsiXG1cclBWdT9fPV4tIlRVbVRpYkdncSU8J2AqJ1BTXj4obHIrQztwbVFFZ3IiKjBVbDM9STs0KEAhPSlNa19kI0xqOWVlNicqcCIiUyYqSlM3PCpkRzZjKUdMJzthSilmX2hVISJLJkdXazcvbVgyOmlHTUJSOF4+VUYmSDY7blc+QXMycGNjc2VxVGM7N2oyW1A0RjIjSC1LbzU8M3FsYTU0cW0yRElaPVZ1PmJENiJiKFtcTzZ0aHQqSis8KTMwamZGQGQ0V18hbl8xVFA5OnMqKklbWSJMIVw9WzxrWktjKFtwZG9fU3BMZUtYZ2BjMzs6T0pROl1JIy9gOnJRcFZdajZdSVxlb2xzSGRhalZ0WWwyJDFDJidsYF9gU2Riay09NlxaTiElMUIjM0dmZD5dV0YpQ1onJ0NadG0+SmJYcFAiUlcmbTNyOUgnJiNzNH4+ZW5kc3RyZWFtCmVuZG9iagoxNyAwIG9iago8PAovRmlsdGVyIFsgL0FTQ0lJODVEZWNvZGUgL0ZsYXRlRGVjb2RlIF0gL0xlbmd0aCAxNDc0Cj4+CnN0cmVhbQpHYXRtOj8jdUpyJjpNbS5mWEpHX1IuPWVqRi5cdSJeIWZhKS1CMlkhU11RY3VaRTQ3ayxEbDluaHFvWFpFRDtVblI+SlxvVE8kclZGKjxuI0koVFJVUm9gISpGKmRqOFRITCcrUChNPkVCbXJNbms9OV9kNis4VjtHWjEnLnAvWU1ZXSdsZiZlUFU4TTQ0RVxNVGhlZyxpTUJdQjdpO2JzWGNORiRcPlw9QFVyXioqU0JJJDpeU1VgOGMvMlttUVsldENMYmFXIW9YamwzNT4xODEwXGRsP1tnNW1EN0cpSzQ/WldlVEkhaW9AKDonZW5FUyQiNVFsVmEoJUsyQ1JHJDJ1VFQ+UUpyLW1KRFtpR2ZdKmpBIj8pK29sPCYvYyUpZU1vSFQyWURBR2lSQzIlRTFzWldKZFVfRXJSbCs3bUMqUT0kUy5zayJCJVdpcldHR3RfKyUxQjdMYzRlOlBicSUnbyw1bWpoXy9BT01IPC1eajdlJWFDMWdeSSUsMlYzLSFgXCFGUS5YMSkqc1ZnaS01TTAxNixmK0UhUmxgUCJwWkQjPVJKTklXXDxdKEtXXVhHNz8oQ0NVJSdYRGJuMVRqXmsxcm4sUilfZmRKVjUnYyZrVS5fXGxgaWwoKmAtdW9QLj5LQzBBS15rWEVaOnVQTkg+SG40Tk5jND01PUFcXU9xYXJ1U0I/MjwvYmkoYTs8RWo5XUpjUkZDMyVjT3JeTilHZnFqN1FUOEByWSxxazlAYUxwX25kKVdsYExPUGJmOEBDQDQ0U21AZ1NyTy4sblVgWXNRR2JXKSJeJS00ZSZhPTk3M0FKVU5XdTwvTUs+Yi03OT9VT2FUailoXV09Z1ZGcyE1NToiTmdAOmEsLWBWR0daYjQ1WVIhJyEjMWNESSQ7YE9GOl0+WyIiWyIsWTs8QFBIZFdNJFNXaWw0LXVMNCdCcllbXDJOQiwmbE1rLSpBNXM9N1JPLmRdPHBdb0A4LiFXb2ltTD5DUz0+UFo3YWM+OVolYzZtJjNiST1mMTZDYEcsOiVsLVtHRVIwdC0tUjs9Y1JaNWExRTxmVW47OVlSQU1CWE0hXWozPSQsLF07W3RlZF0iLzw1Jy0mNDFQaUdMMUYlKmVePiFPRihPJzwyNnNzbU5NdUdjLyM3PXRmSTksOzVScjlhPVlHSy9UWEkyTjohJUVeXzswLzRUbmo/aWQsZjUyYEdzVmchSGQiKlJTRW46aSFBT19iPWEoO1ZxME48Qi9bO0VJbTxqTUJjPVptMFNUSGYjZjRicm1yXDNkb0BNWTVTXjUkQWNLNjRAYlNjPmZEUllfXWNcITdEaGR0V2hxb0VWL3FsTGA5KGpNLjxqYnVKOV1GWlpdYFgxQUkrcTE4Xm4mWWA7THBBaS1rYmk2aSJuIydYKDdtPSFxQmlGX1g/LT9jOiJsYlw8cmxMYFheLzlQOnBcJ0BbPy5FSDhpcFtONylfQ2szPmJpQTVRZUcuRE9HR09IVnFAZEEuVSFNMjVZdV03MlUsQVhMMic6aHA1bklHWmVkalZWTXRmVjNKSCxpSVNpb0xIVU9sXnFfLVsvOlVXSj9ndGJGJzdfMDhkdCMoalNWRzgpJnRZdC9EIS5gO1tAT1AlOjBLV2JlK0ErK1xyNlIoMjFOQj5eSEpmXTNra3AjKy5gOWBSUiRTPi9EPDEqaGJkX0tNJyxGWlQqUHE2KGonZi1qYEJQdVJDJlxZSUM6NipaQiZRbkBOaz9fWiU2dUokIWRBSChnWTRvZEBfUD9gVyE4S2kzZV9aJCdBSyY3USwlWXFzRE9HMjdhOW0hLkNvUSVeYk9TQl1kU25LQkkhZWw7bStqL3JLcUhxYlxtPVtNSDYkKUhcSF86S1NrLyxlO1ZsZHUnbVxFPWkqVks1XHIwYURIQiVWZl5wSzM6REYuJVJKSkdfXiEwMyYvUUFjJXMqVVFEWn4+ZW5kc3RyZWFtCmVuZG9iagp4cmVmCjAgMTgKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDYxIDAwMDAwIG4gCjAwMDAwMDAxMTIgMDAwMDAgbiAKMDAwMDAwMDIxOSAwMDAwMCBuIAowMDAwMDAwMzMxIDAwMDAwIG4gCjAwMDAwMDA1MjYgMDAwMDAgbiAKMDAwMDAwMDY0MSAwMDAwMCBuIAowMDAwMDAwODM2IDAwMDAwIG4gCjAwMDAwMDEwMzEgMDAwMDAgbiAKMDAwMDAwMTIyNiAwMDAwMCBuIAowMDAwMDAxNDIxIDAwMDAwIG4gCjAwMDAwMDE0OTEgMDAwMDAgbiAKMDAwMDAwMTgwMiAwMDAwMCBuIAowMDAwMDAxODg2IDAwMDAwIG4gCjAwMDAwMDMzMzIgMDAwMDAgbiAKMDAwMDAwNDc1MCAwMDAwMCBuIAowMDAwMDA2NjU3IDAwMDAwIG4gCjAwMDAwMDg1NTUgMDAwMDAgbiAKdHJhaWxlcgo8PAovSUQgCls8ZjY1YTdmMTdmNzVhZWNkYTdmMTcwNmNmYjI3OTQyZDE+PGY2NWE3ZjE3Zjc1YWVjZGE3ZjE3MDZjZmIyNzk0MmQxPl0KJSBSZXBvcnRMYWIgZ2VuZXJhdGVkIFBERiBkb2N1bWVudCAtLSBkaWdlc3QgKG9wZW5zb3VyY2UpCgovSW5mbyAxMSAwIFIKL1Jvb3QgMTAgMCBSCi9TaXplIDE4Cj4+CnN0YXJ0eHJlZgoxMDEyMQolJUVPRgo=","c9c084ca":"JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1lbnQgKG9wZW5zb3VyY2UpCjEgMCBvYmoKPDwKL0YxIDIgMCBSIC9GMiAzIDAgUiAvRjMgNSAwIFIKPj4KZW5kb2JqCjIgMCBvYmoKPDwKL0Jhc2VGb250IC9IZWx2ZXRpY2EgL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcgL05hbWUgL0YxIC9TdWJ0eXBlIC9UeXBlMSAvVHlwZSAvRm9udAo+PgplbmRvYmoKMyAwIG9iago8PAovQmFzZUZvbnQgL0hlbHZldGljYS1Cb2xkIC9FbmNvZGluZyAvV2luQW5zaUVuY29kaW5nIC9OYW1lIC9GMiAvU3VidHlwZSAvVHlwZTEgL1R5cGUgL0ZvbnQKPj4KZW5kb2JqCjQgMCBvYmoKPDwKL0NvbnRlbnRzIDEzIDAgUiAvTWVkaWFCb3ggWyAwIDAgNjEyIDc5MiBdIC9QYXJlbnQgMTIgMCBSIC9SZXNvdXJjZXMgPDwKL0ZvbnQgMSAwIFIgL1Byb2NTZXQgWyAvUERGIC9UZXh0IC9JbWFnZUIgL0ltYWdlQyAvSW1hZ2VJIF0KPj4gL1JvdGF0ZSAwIC9UcmFucyA8PAoKPj4gCiAgL1R5cGUgL1BhZ2UKPj4KZW5kb2JqCjUgMCBvYmoKPDwKL0Jhc2VGb250IC9IZWx2ZXRpY2EtT2JsaXF1ZSAvRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZyAvTmFtZSAvRjMgL1N1YnR5cGUgL1R5cGUxIC9UeXBlIC9Gb250Cj4+CmVuZG9iago2IDAgb2JqCjw8Ci9Db250ZW50cyAxNCAwIFIgL01lZGlhQm94IFsgMCAwIDYxMiA3OTIgXSAvUGFyZW50IDEyIDAgUiAvUmVzb3VyY2VzIDw8Ci9Gb250IDEgMCBSIC9Qcm9jU2V0IFsgL1BERiAvVGV4dCAvSW1hZ2VCIC9JbWFnZUMgL0ltYWdlSSBdCj4+IC9Sb3RhdGUgMCAvVHJhbnMgPDwKCj4+IAogIC9UeXBlIC9QYWdlCj4+CmVuZG9iago3IDAgb2JqCjw8Ci9Db250ZW50cyAxNSAwIFIgL01lZGlhQm94IFsgMCAwIDYxMiA3OTIgXSAvUGFyZW50IDEyIDAgUiAvUmVzb3VyY2VzIDw8Ci9Gb250IDEgMCBSIC9Qcm9jU2V0IFsgL1BERiAvVGV4dCAvSW1hZ2VCIC9JbWFnZUMgL0ltYWdlSSBdCj4+IC9Sb3RhdGUgMCAvVHJhbnMgPDwKCj4+IAogIC9UeXBlIC9QYWdlCj4+CmVuZG9iago4IDAgb2JqCjw8Ci9Db250ZW50cyAxNiAwIFIgL01lZGlhQm94IFsgMCAwIDYxMiA3OTIgXSAvUGFyZW50IDEyIDAgUiAvUmVzb3VyY2VzIDw8Ci9Gb250IDEgMCBSIC9Qcm9jU2V0IFsgL1BERiAvVGV4dCAvSW1hZ2VCIC9JbWFnZUMgL0ltYWdlSSBdCj4+IC9Sb3RhdGUgMCAvVHJhbnMgPDwKCj4+IAogIC9UeXBlIC9QYWdlCj4+CmVuZG9iago5IDAgb2JqCjw8Ci9Db250ZW50cyAxNyAwIFIgL01lZGlhQm94IFsgMCAwIDYxMiA3OTIgXSAvUGFyZW50IDEyIDAgUiAvUmVzb3VyY2VzIDw8Ci9Gb250IDEgMCBSIC9Qcm9jU2V0IFsgL1BERiAvVGV4dCAvSW1hZ2VCIC9JbWFnZUMgL0ltYWdlSSBdCj4+IC9Sb3RhdGUgMCAvVHJhbnMgPDwKCj4+IAogIC9UeXBlIC9QYWdlCj4+CmVuZG9iagoxMCAwIG9iago8PAovUGFnZU1vZGUgL1VzZU5vbmUgL1BhZ2VzIDEyIDAgUiAvVHlwZSAvQ2F0YWxvZwo+PgplbmRvYmoKMTEgMCBvYmoKPDwKL0F1dGhvciAoXChhbm9ueW1vdXNcKSkgL0NyZWF0aW9uRGF0ZSAoRDoyMDI2MDkxNzA5MzQyMyswMCcwMCcpIC9DcmVhdG9yIChcKHVuc3BlY2lmaWVkXCkpIC9LZXl3b3JkcyAoKSAvTW9kRGF0ZSAoRDoyMDI2MDkxNzA5MzQyMyswMCcwMCcpIC9Qcm9kdWNlciAoUmVwb3J0TGFiIFBERiBMaWJyYXJ5IC0gXChvcGVuc291cmNlXCkpIAogIC9TdWJqZWN0IChcKHVuc3BlY2lmaWVkXCkpIC9UaXRsZSAoUHJpY2UgQWN0aW9uIE9TIC0gVHJhZGVyIFBzeWNob2xvZ3kgR3VpZGUpIC9UcmFwcGVkIC9GYWxzZQo+PgplbmRvYmoKMTIgMCBvYmoKPDwKL0NvdW50IDUgL0tpZHMgWyA0IDAgUiA2IDAgUiA3IDAgUiA4IDAgUiA5IDAgUiBdIC9UeXBlIC9QYWdlcwo+PgplbmRvYmoKMTMgMCBvYmoKPDwKL0ZpbHRlciBbIC9BU0NJSTg1RGVjb2RlIC9GbGF0ZURlY29kZSBdIC9MZW5ndGggMTMyNQo+PgpzdHJlYW0KR2F0bTo5Nl0pTiZEbSIvQWxpa0dpYF5lWFIzbiM5OkQ3ZmNCZj1kLFtLKmVGNm1QXEBzOEokMGdCN2FSUmhIMzRCNGEhbEJxP01WaV48IzJaaXAuRF9sIzNpQFI3WCxpWVcwRD9YWFdaU2QyJ1JvTmY/OmhtLz8vUTpOdCRjbmtWIyUqb0Q4aWRrT0xBZi0mIyVOKj84aS07KzJebmg5Zl9XJ1VrWE9TSCZbOklqU1hNdGBKPj0wSUEmMG4iR1VCXjNwck9gLSlvUW0zTD06MyxiOj5majNvMVBvLD1AdCJjYjIwJiQiZWRcaWZIcG5mIWVxQTVRTENoMCJHLFlXOUdnTjtQTnJmYz8sci9tKmhySHAmSEA6PkdLVjw1bUZxMSkkSmNOUzVLal5iMV46LlxDJTAvbl0yZjxDbl51ZW5IWTxyRTs2VWRDYj5YNDY7XVQ2X01eNSYhVksvJCtHZW9fLlxEPzNgck9sbygkcClqXHJJT3NbRHIoLG9xKD1IY0QxNHBJVW9bL3FUXDVKcFs3VnAxRkllNWBVKFolLzA7dCpxQjFYN1QrYT09OlVqT1lqT1JWKTNIcTY4XV1aO21uYzg8Oj5GbDglITNRaVxNVF1GZSdUVEhCT1ohaz0xL0ZLXmc0UUhxPUMqPG5cPHN0SFwmaD1IXjs6b3BaMU09bStZRmw3US1xZ09aYF9WdTRZQipANV5EIz5hSmxhPjdoZSMqRTxOIVNEXHNTbEtraGByKWlMJyFCPmxATzltI19KMCI8JXBcaVI8al1iLXJeUSFqblZiZTVcMzhOYjBNbEIzM1JYOFVoOkUqVmJXalZtR1Q1MWRBK3RaMytuaURjRDBBXTZfLEgqcSltPltwPDMsbHR0SWs6OzU4XVxKXnNmKyRjVVQrQUU9PGhML25QRDY4ckc9cmtsSDM0YiMjMF5RUCY+TEVuKDkjT1lwWytlaVUvbylLIUdKYiMwV2cmaGFJUnVvV0UvSE8uaU1dZDtIV2EmalVBOFwvVkxpK3VRbmtqRU8hc2MyLWpaczcuNS91InJuWDZHRFJcYzZdIzltWkcicSNfZCldMklsZm5iQUorPDhDP2olTyJJLUE9WFtmYU8lRDstX2RWWihSPF5xP1A1KlJSIUJSPHRXbkk6VGduVmBPM287UC1mQG9WclM2Q19MPFYoamFeZUNlKGxyYFIoWj9FSEVIZjUhYiQ4RDo4c3JjJDtNKSM2VlUqSz1MZCQ1KTpJYG9dTUZnMT5LPjU2YWM6P3I/WmNDMy5jb0dbWF4jcDNTWmVsSWFcUENeJlRiM2hjSCsxUHRzSEs2OjI4XV0xSywwNjgkckgkNWhVITB1bCNkbDU/IWsrNjlFM1FQPiN1ZmhUZiwqVCUtdURoUSdTRUExSiszT2ddKVBVYUwlQkBETiJQI2UnSi4hRXNzNzRAY287WDIpSCFTXD8jW0piN2c9MzRBQ1EqNj0oW1ctPTQocXJoWCVAQTphNyNgTmplUkYwMjBAWUklPW9DcVY9cFphaVcia1koUSctZUVRTzVCWTVhLTlubFhZOV82OSJSWmlsWyNLNyUvLzVlN2hpJ1FmbFBrJ0Mob19fbHQpbiNMWis4XmlpX1JPNTNFRlZyQDhkVillcD5XVUhaM1hdI2h0Nz1XaWYxZzJJJDFybWVqPDkzOHRYMGZfTCpTc0BQRjEuM01MT2c3Njp1K2lTTi4pZyZfMkFCLjQwTFBGbUhvXUVdOk80VG4zOiIxaEE2fj5lbmRzdHJlYW0KZW5kb2JqCjE0IDAgb2JqCjw8Ci9GaWx0ZXIgWyAvQVNDSUk4NURlY29kZSAvRmxhdGVEZWNvZGUgXSAvTGVuZ3RoIDE4ODcKPj4Kc3RyZWFtCkdiIi8nPyEjY00mOk5fQ2JTckFEPl5daCYxdDNjciYvM2Y0ZzJsaGo4OEVSKVhBcE4rWTVATzNCNF1iUV5yMHFIVl9mdDBHLmYhKDQnLzIoQkBlSTwrNT9eU2s8dTRYcVlBbm5nUysuakNwMm1IcGxiTDZLOSQ5Mkg9WVhyIjtIT0UoIWs5RlJKKCo5Y3FMams8OU1PcE1rWU1lLV1DQzhOTXAuNjJSXk0zQExlUzNcXTFGXDlISUAxOkdpJjlqKEUzLCU2aU1dZ14lLGpSb00jc01GLjBGQko4PSU5QHRDQGlSQ01aQjlMOUA2OnM7ZiJmZDl0YkQtbVZmNSV0W0xZPzxkPWghR0MkYkxxSWxcdExLa28yVnJUOUxycjkiQ2xNPV8mZm5aSFJHbFdnY3U5NmwuXUNOTVgzO0FQKEVHQTBlR3E8QUwuVy5gVC0zLlAjS2htcWhocENcKGk0JzJtMjpSWVBWKyZxO1MpTF1bS3JXRWciKysoVCFLUzM1JGc6ZVBOUDEpYmkwI1gjIj5dJ0RxbC0tKF1fXlozWklDMmRuWEQjXSNQTFlscDs1PElvR1taKElCK0ZIQV8pVU5pT2wtYWpsMmwrOE0/IVdDWShVJ0lbaTlnPD9KL1I2bGNlQS4wcSo+a1U4W2xqTUhhXFhZL0kpJChYNUUsSzg3QXQ2L0JhJVRSbFhqbTMqaS5CJHEmKGltQlIlMjJAUFooXiQoST9AU0UsQF81ZS9SP0csUmwkdGU2JFouRWssY0xzO1g+QGkuXVJpZTsrKGprXCg+QW9PTmYqYSh1KnAmKjUtJWJpU1VudCknSDtXJ14wMDcmTW5QIy9bNXFHVD48TyFgJjYtLDdpJVNJRksrW3JbXHEqdWE7Nm1mdCFtKUZUJD09TElAW0UnZEwnSUc7XHBJQWRuUmBoXztlJ0YsJ3BDV0stXlphLUxEZ184MWNKRiFaPCZdK2s6XysuMDNnVV5HLk4kIXJVLCYoP1JkZlg4WSgvZWgoNFsucGNwWiRAO0taY2huUCQvU2FZUVIhT0NrRjM7bDckazJLUWhVPUhRNENUO1koJyVqQU0taFg8bypyOFAyaEAtS2xnUFVCTVBaQFdXPjkxLUQuN1dIcDBgPGxjJjV1UzRaTFI9TG1VOj9JJ1UwL2slKHNIM2FCZFY4a2o8b2YiOXVPJiE9KTJWcEFvLDlmTThnTFhYTV8sRicrZFl0TyZacExoP1dGQHItYGdHTjFoOTglRk5ETzw2Qj5xalhqRFBYN1xvTnAiPzpAczFcOnBcN25GP0JtJSpgLyNtYC05bGstSVh1MDhKUG9TWmpDQmY0OWM3RkBgcllxOUVBJV4lUypVcXBOYXE/aStbNlF1LHA2Lz4xW2RYJyZbKSozZ1ZsPjxkcmljOlBjaGZPP3AzcVNobUFHPkwpI1VSYkhdYEVyQTdualZDLSVVYFpPKUxtbjxnXk9ZLE5ocjcoRnBNVjAjMUE1KnEqPVB0XWRKR2A6PCtrKGNRTTRQRUduMGlkImJxIj5RXlNJSyJDTigyRFVkZmc3QFJdKVBqJ29RJkpiOkVVQSZIbTEwPG5IPWE5O0A6SEFdUExtQlU3cFo2YmtWYnMjTlkuXm5kXitSJTk8LjgucVxZWixkRSNWVExCQylSPEVaTW11cjAhZm0yUmVDZy9rXjc7PFMwSEU3bzxCPD8hIUxwI0M8ZENeUm50Z0MzPDI6UEcvaThTKlEtJVFjT2ZKZmgrWT4rb0ZENFhfQTtYViU3dW45LTMoXU8qQWZQMGRxJCIoPlU1PUJcSSFSTjw7KDpYUS5mV0Vja1ZkKTszdVs7ZWgnXHRLNmZeLnUvajlDYytJRSZmZC5QIjRqTnIlX1ZeW0UhX0QwMChwNGZMO21VRmddTDFQQTtoRzUiMGNlREE5LEhEREdlQG8nJV1EYiRnTWNmMipSJjdUIUJsNVZsJDwhI0wvNmVlKyJGOjRtKEpHQCc8JDY8UV5SMzE/Z11vYTMzOUIhIkI5Ql05LTFrXmNQXWFrckk/VFNVRXVdaHIjNSE+ZUxXcmZhPkRUUFNLP0xSYjZnWDNuOkwiT2dMWCtWXVBUYl9cL2krNXA9JmleY1M1RWFXKStWWyFhJF9QIlpBQ0dGRlhDZixhO2NQWW0qNyEkKyYxZkstPG9Aazd1REE8alwtYl4iRCEkUjxUcyhCMUJ0UkYwS0ZkLGFzQ1w9VVBhKnNANmUqaypqQjQjMG1GQF9PTzAkck9sQHBQQlBuPS0wUlxYUkBrLFRAXi8qbWNYXCklNSpbOCcyZUNNLlVCKUJFQSgiSTViXEIqQytFKShIWkdYcF40YSsjaU9gcztLPzs7Qk1bW0QpImA6Wk5NTV5XL0ZiSz1IJ2xtQk5GL2NjPVU7bE8yWnRPLFFFN14oZ2lPb2t1Ul1VVlVLOEBLam9kMlJkQmBfZ2pRXFJJLmpHZjs7SzsvUDxTZWpydUAxSXUnWTImMUJPalRCUDJkIyFBdGx+PmVuZHN0cmVhbQplbmRvYmoKMTUgMCBvYmoKPDwKL0ZpbHRlciBbIC9BU0NJSTg1RGVjb2RlIC9GbGF0ZURlY29kZSBdIC9MZW5ndGggMTU1Mgo+PgpzdHJlYW0KR2F1YFI9YGA9VSY6VzY3ZlhKRjBMI2pJYUlIZWhQUDwnQi9RWSYiRG5JJVs4Jm9BOEMhUk0yUkkyPCw3TWlwNHUtU3M6PUoybTcsbSFjUyEhLj1cS2sjbyVrVltOOmVAZlNlI01bRycoMmhUJ2MzKlQmdC1cNUtpYGEvXjxWUGY6ZWEqZmByUUJQYVhEbWtCKiloI2ZwJVBRIV01S1tFaT1yRnM2LiYnLm0rW2VlMUE0MyRhaU5LSnFMVyk+LHI+TkY0S0lCQEBKY1dpT3JCLGAyQWRnQzUrRyo5U0tHTlE+bjpGNz1RVlVTckFaI21sZGFwYzBMRGNLak44JCgnak1fbG82P0REKlteQ1xjXSc7U2AuKi11SnFNYy5jNjdwSSc3Vz5mUz9FS2g+MkZKOTErSSw4LiNxLykzJDpWaVlQbTxhYU8jMFVbMDd0T3AjN2gkQ18+ZTA/OTdpY01gcE0kSyNyPmRpUixRbT5wKTpHKC5RJGkoVGwyXmRlZGdub150QmtoRyQqW1o1Ry8+QDklOXJAZj9NSktZZkssQzcxUGpYOCpxLVVhTSNaaCNFWDszLEo4YCZfa3ElaVIrYlljO18nW19Ia1pGLzEwP1ZlVFAiQzktI1hbODluQDlmbnRCcT4mKkAvIy8pck9zZiQ8T11EWVhFWkBALipiTEBySSs6Kl1tISdORW86LjEhTFFtbCkvPz0wUGgpZ2FuQmVWXDNYWCJlYSYocFRlWFhZZjp0YCsrZVcuQmc5XCYhNSlJI0tQQE1OUjpZQERqXjlyc1V1ZTxnbiVwbzUkWFMiJC5SMT0yU2htKmNnWnEzPXEhK3JuY3ByQyRFVDhWQGRSNVUwMyMqZllsRE8tdDNxOWVWO1VxO05jRy8iLV4hSyg2NlVXbmwoXiUxO1owYytzK291T2daZWciVCQ6SSZYckQhXk1UXW07STgjT29QPHFuLmFwaWVEQWxEM0Q+OixdYiM4aVImRSppTWdTZFlcI3I8T1cxPCxXMTQ3USZccS9tKmFaXF8mOGdjIVRZPXRsck5RZzMzVCFRYVFbPT9hK1BeKEVnL0lrWTJkLWwyX2RNUE1oLiRpYWFSKzYmdUNZKXBqciRALG1OJV1kU14uRDZwVjNfZGpwKydjQm9kNlBPS3RoQWtEP2RJTDhOSHBdZ0UyO2d0T1JAcV43V0pHMW8sJmhhTj8vNiotKTNnUWN1RkkmMDQmay8tRTc0U1wlPnBzRGE5L0lCYk0nLE1HQ1I5V1ZdcHU6WD5jPFw1V3FUbVVVX0pBVD5dRms/ZUJTP1c4IVlNOEFeUFlMNUduXkM7ajguUEclc2A/YEM1XVZfcz5AIUdbUG4kQzRlJjU2JithdVpGWnUrZGlkaz4pImNrYlAndT1hVmlyMTlTITQxOiglKmglWkpdbD9sVTJRTmRGUF0pOTtcYW1NOSEiZElRS1wmZFtXPCooJ1whM2pEZz4vODw2VytSZCNfak1pY01ZPjQ4X09oUT5ZSnJVYCg2NnBENG1pQFoqaihDZGZiM2tJQWJSPUAyS2BGITlJam1yLUNtbl4wdFJLJVIrVTttPVA1UlNRYHI+Z0ZNY1k3O2pkYEEuI1AkaVU3LzI5XVUtaylzVVpEOSw9V2hQKk5LIjtsIzJtWFcyalBVX19OdVowYDtcdG1jUXNoXmxsJEZIaCU8VF9eJyViPGhMS2JQSk1jWyQ6SnIySnIzaydkNkc2Lm5SRTJGVSdNJz1rJy5ULzNyRTdfYXE6R3Byblhlc0hBK3JGOjJcKXJzP3BEbVN1bjtlPytOdDZYUT03S11BMmQ6KiUwIVc0UG05NkRpSTpca1dkQT1eYlRfT0tHcWheWFgkPWFxbGBcWF4mcj9yMElSQkdecGFsZlZPM3E/Wls9Kjw3aWNPQllzQSxeQW4wS24sMTNPc0w7TydealROb2VtXyokJlkvZURqRXNmb1hbWTgxYiEiPmpQOERTPG9NYzE6aEtvY2QwamkhTEw6ODhmNEknITJsPzAmaFlrNCRHR3BdYCQ0cjVUUkVTdC46TWQjO2Z1T09+PmVuZHN0cmVhbQplbmRvYmoKMTYgMCBvYmoKPDwKL0ZpbHRlciBbIC9BU0NJSTg1RGVjb2RlIC9GbGF0ZURlY29kZSBdIC9MZW5ndGggMTUzOQo+PgpzdHJlYW0KR2F0bTpnTihlJyY6TWwrb0YmJlhRJD1uPGBrdSFkbGtVOUwrakFOT243JDRZTiJUPk1QK0M6cW9tN3Q7Oj9JaWcnVV41cDhFckNAZicqUjsmMEwnNlFPVj9DIm9bcz0sOFNbOThMdC9cPi5nYWxNaiYnLENjRkZKSzhkKj1Mb211IUhLYHJRbD06UzxTUzVBWChmRCZwT1deOlpANkNJRGQ0OUtdU2VfY1c3TUlxVFouJk0yTi43YkUyKGAtOm9xMWBhTFBZLHQvS1JkKzFuPGE5NG1ZS1wsNloxQTctI0wsQ0pNJ1VaKVE1QmRcVSE4LlRRRjNWdXBgIklWPHJcYEZaQHVwIT5FVUInN2IkJWZGYzFRInNDI1BwaFFaL3JFXE8ociZKZE4qPUtQOSU+Ym1sWmJrMFlJVUAnZGFaK2k3USJGb0xALyVAUyohXUFfSzxgMm9xSDtDW1Nyc3NjUlc9Wk1VUj0zcWNFWCRGIz8oJDowRW1DTzNNP2peTlhxPSRwUVElKk8jSCdPXFc5V2ApLmVVUlFfZmtSYTBxakJ0c3BbbT5RQzFQbT1TZyk1REkyKV01IylWayclOUZDMDQpYGF1NEBsLldfMSxSYkVCNyszWEEnc2IvUSQ+UGg8U1BZSy5wYihYTUhFbGAjLCtzRVJbb1JvaU8kRkZlJD5EWko5cmspS1ZpcWQwYT9wQi9dWFRdR3AxQCRpL2g0IjVJKF50Tjc3LT1XNkslQzhiNzE/Mi0jTVJla3NcVGY6OUNXLU5vP3UnNCMxUydqR2huL2h0XF1NNFRQbW0hbTZJSyEzcWJyKV40SF07O1BcJSZXQUwjIjllUT5yZFpQaykjUl9BN01vXFM2Ql41SDokXmZpQmtpTUVOOWQ0LS89Z2EqVVxsRyddMkpkYDRrNS5aIVQ/cEVxR1NoUCREV14tMUlhWm5CQC85PGRAOTtyRV1jXyFrZD5gUUtlTGgpVkBUW25HWWplJ2E+ayk6MEJraElNajx0N14iKkUzLywybD9JXlBjYXMyUkdPYy9La09WRWBrWEVdPjIwLSU+JCU2RiUyZWNaKF9aYWczQiFoLlpUY0NAI1RjY11XISwpdG5vMFJjUEYoQVMydS5pZEAhK2JZLm0nNDYvNS5BJiZVRUNxRGo/R0M4PVNjWz1hJUBeWTRsLW80c0RyTiw5V2QucS5uSTkvZCgqXyFzNWUjMCUvR1hRLVdaRUZKalVrTDtxOio8ZWhPP0lwLT9cV3NJWDFtWWpLdDRIc01FOjlkPi9bUGQxdDldRGUtTFZcZWZjLCtSdEQnXEdZdFVJX1Jxb05XJl8tWChSYEZfQilqSXROMTA+K2oidSEhME1ASE0/UV5xQGtFNyFOVUpNTUJcNC5lSkBHNy9vbi0qaiZYR1RkOzNzPEknaSM+UWU2PDsiNSckOEEwRk5TcF0mNGIjJW9UX2NlW2ZyRkNUYDEkJ2hyNCYjWiY0Pk1bMkZWMCkxaUsiPjhaZ2VWLU9NPWYjJTtPajdXTGYsX2c6UmRyPypHNUhcSlw9JzpcRydtOlEybSxeIWxcRG9UPTE9a0o3LUJCVXREIy02Mm0ibS5xOUEqNV5bOm5vbiwxUVZhaVVeRWk/K2RqMUlucy1xXk9MPHBFT0o4W1sjIllLKmw/XlxDMj5QTiIhIUJoaS42Mmg2Vkp0LzwzX1YrWj4icWw1XVVAXmBCY3InRihdPCdCdCk2R09AcmtRckpFLDwnRCRgcGxkYUhiTyRRRkApVUsnM2ZMPkVpNmFXRChsJW5mSCFkYTdHXT9aaTI0JS0mK1ZtS1M3UFhGPUo6MSxjUTNIXltlSDlJUzEwbVhyI3FDRzVQWy1cODQnZGhCOFdqQGlQWi9xVjwjLFlUdUdEZ2ZBKnRPQGM0NDxZbEdPK247OGZbIl1nVGVNN2hpSmdlUT5baTJqM0tqJiYuOEQ8WU5ZZiZqXGg8RURnLy9hMUBmX1RSYENKXVNXRC07YC9KIk9mYywjSSpTOC5jbSJrWWFAYDllTEU/cStRI01zUThoI34+ZW5kc3RyZWFtCmVuZG9iagoxNyAwIG9iago8PAovRmlsdGVyIFsgL0FTQ0lJODVEZWNvZGUgL0ZsYXRlRGVjb2RlIF0gL0xlbmd0aCAyMDM1Cj4+CnN0cmVhbQpHYXVgU2dOKSUsJjpPOlNscyVuM2JfaTM2bSRsSlhSOlBZRChYNkpPUDhCVT4sZkN0JCFoXjssSUVxdGpBQlZIbG5QIkErJGosKSNTaXNbai4xUGQ7TDsuOmVvT15TLVQ7N11gMW4uRSk5U1BBY1Y7cDdGNTZrbV1GIyRBLTFuTzk9WkdIO1lOOCk8O15OOiRRQiImTmNXLylzZUJlXlhoIm1uUDcqa1VbaFU7PC01al5IPXBEIyYqKnIvRz1HQyVkRi5zK0tqM0t0TXFPQmxAUTopQUgsXXE6SVZcbHFPOVMyTl5FQVpfYUhyRlg6YTY3NCUxbEMraj51O0hnTCElaWBoVmdOaVJnclRDb2o0O2dRbUVlS0U6RjNLN0U/XkpXbjJycDt0P2RjRDdSdWt1Mz1aTERrZ2o8SU8uN3FuLzM5P0ZRVWA+ZWZlQC5SPVstLXNpT0EnQE4uPSo3PD4zIz8/bi86OCU2TW8qVERcJHFsZzxeQ0hMXFFQJGdwcS1iLTlWY08oUDk/YFhcZShcKExpTSlPXEVAWSloaFtpYHJsMGcjIzVDY1VtOUpHIjlJT2RlL1BTYCtMSkdPUGc4ZmBkUFMiLkhDPC1QN1hMdDk9aUhkPTBAcmlzQGo/Q2JCSDUsWEBQPThkW1I+V14xY0gxOShYP143OzNzTTMtYlFOPllLPW83a2ohLTdfQl9vZ0I6U1ZdJEBaRT9rOnBnaSIzN0tybiJqalkzIW9BWFk9LEtCRVNFMTtqKSNecDRCOWdUZ1FuRUVFQCFgLVhQKWJSS2EqPDhLRk8sbDFHVjNNLlljJkQocFFlLEUkRltJRWpURHNrSS1cO2ZHYlEkS2clKU9yJyc/JWMlMmtycihGdCYpcF9vVjk3Um5TbUVMTidqJzlmXShgPWhDVG4kL0wwdU1taFtOJTNmOG4tWExKM1M5NlJDbT86YFg5PzJMQXIvZU5lRVsrZ0NEK25lai4paVcwLTE+Qk45WHFGLTlyW2ZdcWYuOSFZQDFANVs0dTtbX3Q2NlJnP1EmWidQU0RlUVI7b05CYzk4ZypBWVlKUUVeanAyLDJDVk10JjRvVjZbP1BTIyI3P2pxNXI8MytjOisjVGZpIykhKjQ4X0ZYKGR1ImROTkpUIlBuRkg2JV1DIm09JV1XUFc8T3VybEIrPUFNc1AwQnBSYEgiX0NoWEZZK3Q0KVErdUkvP1xPLyNWUmFNPF4pQjAickZsJXRqPmxBYG9WJTs9RSpQcktRODVmUEFTbiVXOSRdTjRcSi0/MzwvLkVsNGJUQlc9SEJQPzI9YT9cYXJgLTpIRC9NVi85Ry49XVwwVVIhWzUsWCtaLG0rM2NMclslKE1iVyw2NzlYJV47ZklrK2hxRjpYQmcxTl1UZGlFRCI+bDNtSyZzazA4IjolSV9tX1UjNUlVTixnaHVsLSoqVEREW19LPTxHcmtJaXAkXWBYYFtIYz87Om43UzFgVGhnMUomZStpJ2w5PksuKlxnKmdrSUc5Jy9PZzwhaU41OUBeYVRhJSdAKmpgZmMsODUlJiNYcz5mdC1yNVpIIkdPP0pecj5iOCZNTz8tcWdJZjhFSUNQcEtRYkE4SUlEPEE/NEBPQChcMjYzKVc8Y05SJ3UqKiNiS241UCU0M20mWGpXRStTRSgxPV5qQzUvJEtdW09LQTtbUGpBPD5LMiFnI1plSWN1aF1jXnJTJmU5dGhsMFwiXSIjQGtVK2k6MT1oOm5SXGFPLiQyZFdYQlw9PVtSPUoyL1tpJipHL2VMIzleQDojVGI6SkxQcCgpT2siKWw5MEVKYDgkJDw4YDohNC86YHRHcD5lc0VNIl9qMDNAM2c6X24oWmd0aF8nPmJ1WlZjZUJzJEEzMy8oW2tGP2NeRFBcV2RVT25TR1swU1JvXVVqcWFgXkZHdTE3SGY+R2JBdUBXdWExVShLNS9GbCxYLlBGZEw7cyQmKG45bjA+QkdPWHBQa0FcKy0nK1xtLSk+bzgkaDYmbk90c1dkOTkkMGtFXmhdM3JTJVkvZTk6ajRXVWVocChxYHVYcVtbLXJBbD5BJW4zNnI1cG1ATTddYyNEQ2JASHVEJmY+YTBEKyQlYEMyL0dGWDJTdGJVXkUzQ19MMUpPPzBvYjxkOy9qIVgnTlUraFRhKUVGb19fSyReMFhOPW1bWUJuSypPUyU6TkQ1XzZZQSlTSydwZ2tNNi5PTjpZJClhN2AtXnBbN0ZbK2t1UE9GNnR1ZDkoKTRAZCxybU1iWkcvVV5uLVVjN0pyOyk7LWdOP3AzYiw+Qi1vK2xhcGopKmwkViQsbjRgZkkpNSoyWTNGQEUrOEhEU11pVHAoXzJZXzlER3BMXERmc3EoSFhsYz9QZlguKlNdck42VlUnWXE5Wk5dU11JP29DJyNaITFHcmdkXSErNGNJPypLLFIzYE10bUs2ZG1WM0JeRllyX1s+LyhJazBpVTFDIWhpKlgzbThTc1NEQkltI11aJlYsXVM6OmhuVGJRVDtXYixIPSZUIiwjZDBHOT1FQDBKWUozJVJrL3I2LDRDI2hWOnAxdWk6JW0hRXJZLWVvaSVFYy82QTpRTkhJRzFUPUJLST9oIyd0RkQ/Q0lOPSs6Mmc5blhJVXA4JGxZYlxncjRvJ3UnOzg+YTY6dHFrTlsuYDowamhpTzk2SklgLjUvN1hKSWhfN3AlSWooL34+ZW5kc3RyZWFtCmVuZG9iagp4cmVmCjAgMTgKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDYxIDAwMDAwIG4gCjAwMDAwMDAxMTIgMDAwMDAgbiAKMDAwMDAwMDIxOSAwMDAwMCBuIAowMDAwMDAwMzMxIDAwMDAwIG4gCjAwMDAwMDA1MjYgMDAwMDAgbiAKMDAwMDAwMDY0MSAwMDAwMCBuIAowMDAwMDAwODM2IDAwMDAwIG4gCjAwMDAwMDEwMzEgMDAwMDAgbiAKMDAwMDAwMTIyNiAwMDAwMCBuIAowMDAwMDAxNDIxIDAwMDAwIG4gCjAwMDAwMDE0OTEgMDAwMDAgbiAKMDAwMDAwMTgwMCAwMDAwMCBuIAowMDAwMDAxODg0IDAwMDAwIG4gCjAwMDAwMDMzMDEgMDAwMDAgbiAKMDAwMDAwNTI4MCAwMDAwMCBuIAowMDAwMDA2OTI0IDAwMDAwIG4gCjAwMDAwMDg1NTUgMDAwMDAgbiAKdHJhaWxlcgo8PAovSUQgCls8YzM3YTU3NGVhMTFjZmUyODYxYzdkMDk4YjQ1OTM5NDM+PGMzN2E1NzRlYTExY2ZlMjg2MWM3ZDA5OGI0NTkzOTQzPl0KJSBSZXBvcnRMYWIgZ2VuZXJhdGVkIFBERiBkb2N1bWVudCAtLSBkaWdlc3QgKG9wZW5zb3VyY2UpCgovSW5mbyAxMSAwIFIKL1Jvb3QgMTAgMCBSCi9TaXplIDE4Cj4+CnN0YXJ0eHJlZgoxMDY4MgolJUVPRgo="};
 </script>
 <style>
 /* v6 premium theme: Lucide icons + Spark chat */
