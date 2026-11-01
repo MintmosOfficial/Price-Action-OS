@@ -2820,11 +2820,11 @@ $("agOut").onclick=function(){localStorage.removeItem("vault_cache");auth.signOu
 $("agVerify").onclick=function(){auth.currentUser.reload().then(function(){check(auth.currentUser)})};
 $("agCodeBox").onsubmit=function(e){e.preventDefault();var u=auth.currentUser,code=$("agCode").value.trim().toUpperCase();if(!code||!u)return;msg("Checking…");
  var b=db.batch();b.update(db.collection("codes").doc(code),{used:true,usedBy:u.uid,usedAt:Date.now()});b.set(db.collection("members").doc(u.uid),{email:u.email.toLowerCase(),code:code,joined:Date.now()});
- b.commit().then(function(){check(u)}).catch(function(){msg("That code is invalid or already used. Check it and try again.",1)})};
+ u.getIdToken(true).then(function(){return b.commit()}).then(function(){check(u)}).catch(function(x){console.error("Code error:",x);var c=x&&x.code||"";msg(c==="permission-denied"?"That code is invalid or already used. If you are sure it is right, sign out, sign in again and retry.":"Could not check the code ("+(c||"error")+"). Check your connection and try again.",1)})};
 if(auth.isSignInWithEmailLink(location.href)){var pe=localStorage.getItem("el_pending")||prompt("Confirm your email to finish signing in");if(pe)auth.signInWithEmailLink(pe,location.href).then(function(){localStorage.removeItem("el_pending");history.replaceState(null,"",location.pathname)}).catch(function(x){msg(nice(x),1)})}
 async function check(u){
  if(!u){view("in");return}
- tok=await u.getIdToken();
+ tok=await u.getIdToken(true);
  var pw=u.providerData.length&&u.providerData[0].providerId==="password";
  if(pw&&!u.emailVerified){try{await u.sendEmailVerification()}catch(e){}view("verify");msg("We sent a verification link to "+u.email+". Click it, then press the button.");return}
  view("load");msg("Checking your access…");var m;
