@@ -1,7 +1,12 @@
+
 {
   "name": "mintmos-spark",
   "version": "1.0.0",
+  "private": true,
   "description": "Mintmos Spark T.L.S Co-Pilot Backend",
   "main": "api/spark.js",
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "firebase-admin": "^12.7.0"
+  }
 }
