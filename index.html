@@ -2791,7 +2791,7 @@ calcSC();calcExp();
 <form id="agForm"><input id="agEmail" type="email" placeholder="Email" autocomplete="email" required><input id="agPass" type="password" placeholder="Password (8+ characters)" autocomplete="current-password" minlength="8"><button class="pri" id="agGo" type="submit">Sign in</button></form>
 <button id="agGoogle" type="button">Continue with Google</button><button id="agLink" type="button">Email me a sign-in link</button>
 <button class="lnk" id="agToggle" type="button">Create an account</button><button class="lnk" id="agReset" type="button">Forgot password?</button>
-<form id="agCodeBox" hidden><input id="agCode" placeholder="XXXX-XXXX-XXXX" autocomplete="off" required><button class="pri" type="submit">Unlock course</button></form>
+<form id="agCodeBox" hidden><input id="agCode" placeholder="Paste your license key" autocomplete="off" required><button class="pri" type="submit">Unlock course</button></form>
 <button id="agVerify" type="button" hidden>I have verified my email</button><button class="lnk" id="agOut" type="button" hidden>Sign out</button>
 <div id="agMsg" role="status"></div></div></div>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -2807,7 +2807,7 @@ firebase.initializeApp(FB_CONFIG);var auth=firebase.auth(),db=firebase.firestore
 window.paosAuthHeader=function(){return tok?{Authorization:"Bearer "+tok}:{}};
 function msg(t,bad){$("agMsg").textContent=t;$("agMsg").className=bad?"e":""}
 var V={in:["agForm","agGoogle","agLink","agToggle","agReset"],verify:["agVerify","agOut"],code:["agCodeBox","agOut"],load:[]},ALL=["agForm","agGoogle","agLink","agToggle","agReset","agCodeBox","agVerify","agOut"];
-var TX={in:["Sign in to Price Action OS","Create an account or sign in. You will need the access code from your purchase email."],verify:["Verify your email","Open the link we emailed you, then come back."],code:["Enter your access code","Paste the code from your purchase email. You only do this once."],load:["Loading your course…",""]};
+var TX={in:["Sign in to Price Action OS","Create an account or sign in. You will need the access code from your purchase email."],verify:["Verify your email","Open the link we emailed you, then come back."],code:["Enter your license key","Paste the license key from your Gumroad receipt email. You only do this once."],load:["Loading your course…",""]};
 function view(v){ALL.forEach(function(i){$(i).hidden=V[v].indexOf(i)<0});$("agTitle").textContent=TX[v][0];$("agSub").textContent=TX[v][1];document.documentElement.classList.add("auth-lock");$("authGate").hidden=false}
 function nice(e){var c=e&&e.code||"";if(/invalid-credential|wrong-password|user-not-found/.test(c))return"Wrong email or password.";if(c==="auth/email-already-in-use")return"That email already has an account. Sign in instead.";if(c==="auth/weak-password")return"Use at least 8 characters.";if(c==="auth/too-many-requests")return"Too many attempts. Wait a minute and try again.";if(c==="auth/popup-closed-by-user")return"";return(e&&e.message)||"Something went wrong."}
 function mode(u){up=u;$("agGo").textContent=u?"Create account":"Sign in";$("agToggle").textContent=u?"I already have an account":"Create an account";$("agPass").autocomplete=u?"new-password":"current-password";msg("")}
@@ -2819,6 +2819,7 @@ $("agReset").onclick=function(){var em=$("agEmail").value.trim();if(!em){msg("Ty
 $("agOut").onclick=function(){localStorage.removeItem("vault_cache");auth.signOut()};
 $("agVerify").onclick=function(){auth.currentUser.reload().then(function(){check(auth.currentUser)})};
 $("agCodeBox").onsubmit=function(e){e.preventDefault();var u=auth.currentUser,code=$("agCode").value.trim().toUpperCase();if(!code||!u)return;msg("Checking…");
+ if(code.length>16){u.getIdToken(true).then(function(t){return fetch("/api/redeem",{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+t},body:JSON.stringify({key:code})})}).then(function(r){return r.json().then(function(j){return{ok:r.ok,j:j}})}).then(function(o){if(o.ok)check(u);else msg(o.j.error||"That key could not be verified.",1)}).catch(function(){msg("Could not reach the server. Try again.",1)});return}
  var b=db.batch();b.update(db.collection("codes").doc(code),{used:true,usedBy:u.uid,usedAt:Date.now()});b.set(db.collection("members").doc(u.uid),{email:u.email.toLowerCase(),code:code,joined:Date.now()});
  u.getIdToken(true).then(function(){return b.commit()}).then(function(){check(u)}).catch(function(x){console.error("Code error:",x);var c=x&&x.code||"";msg(c==="permission-denied"?"That code is invalid or already used. If you are sure it is right, sign out, sign in again and retry.":"Could not check the code ("+(c||"error")+"). Check your connection and try again.",1)})};
 if(auth.isSignInWithEmailLink(location.href)){var pe=localStorage.getItem("el_pending")||prompt("Confirm your email to finish signing in");if(pe)auth.signInWithEmailLink(pe,location.href).then(function(){localStorage.removeItem("el_pending");history.replaceState(null,"",location.pathname)}).catch(function(x){msg(nice(x),1)})}
