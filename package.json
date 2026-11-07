@@ -6,7 +6,8 @@
   "description": "Mintmos Spark T.L.S Co-Pilot Backend",
   "main": "api/spark.js",
   "type": "module",
-  "dependencies": {
+   "dependencies": {
+     "something-else": "1.0.0",
     "firebase-admin": "^12.7.0"
   }
 }
