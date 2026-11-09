@@ -7,7 +7,6 @@
   "main": "api/spark.js",
   "type": "module",
    "dependencies": {
-     "something-else": "1.0.0",
     "firebase-admin": "^12.7.0"
   }
 }
