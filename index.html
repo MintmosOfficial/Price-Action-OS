@@ -2839,7 +2839,7 @@ async function loadVault(){
  if(c&&c.v===meta.v)docs=c.docs;else{docs={};await Promise.all(meta.ids.map(function(id){return db.collection("vault").doc(id).get().then(function(d){docs[id]=d.data().j})}));try{localStorage.setItem("vault_cache",JSON.stringify({v:meta.v,docs:docs}))}catch(e){}}
  var P=function(k){return JSON.parse(docs[k])};
  modules.length=0;Object.keys(docs).filter(function(k){return/^m\d+$/.test(k)}).sort().forEach(function(k){modules.push(P(k))});
- executionPanel.length=0;P("panel").forEach(function(x){executionPanel.push(x)});setupCards.length=0;P("setups").forEach(function(x){setupCards.push(x)});Object.assign(PDFB64,P("pdfs"))}
+ executionPanel.length=0;P("panel").filter(Boolean).forEach(function(x){executionPanel.push(x)});setupCards.length=0;P("setups").filter(Boolean).forEach(function(x){setupCards.push(x)});Object.assign(PDFB64,P("pdfs"))}
 auth.onAuthStateChanged(check);setInterval(function(){if(auth.currentUser)auth.currentUser.getIdToken().then(function(t){tok=t})},3000000);
 function unlock(u){
  document.documentElement.classList.remove("auth-lock");$("authGate").hidden=true;if(started)return;started=true;
