@@ -1,6 +1,35 @@
+import { initializeApp, getApps, cert } from 'firebase-admin/app';
+import { getAuth } from 'firebase-admin/auth';
+import { getFirestore } from 'firebase-admin/firestore';
+
+const hits = new Map(); // best-effort rate limit per user, per server instance
+function limited(id) {
+  const now = Date.now(), arr = (hits.get(id) || []).filter(t => now - t < 60000);
+  arr.push(now); hits.set(id, arr);
+  if (hits.size > 5000) hits.clear();
+  return arr.length > 20;
+}
+
 export default async function handler(req, res) {
   // Enforce same-origin guard locks
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+
+  // Members only: valid Firebase login + existing members document
+  try {
+    if (!getApps().length) initializeApp({ credential: cert(JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT)) });
+    const b = /^Bearer (.+)$/.exec(req.headers.authorization || '');
+    if (!b) return res.status(401).json({ error: 'Please sign in again.' });
+    let user;
+    try { user = await getAuth().verifyIdToken(b[1]); } catch (e) { return res.status(401).json({ error: 'Please sign in again.' }); }
+    const verified = user.email_verified || (user.firebase && user.firebase.sign_in_provider !== 'password');
+    if (!user.email || !verified) return res.status(403).json({ error: 'Please verify your email first.' });
+    const mem = await getFirestore().collection('members').doc(user.uid).get();
+    if (!mem.exists) return res.status(403).json({ error: 'Spark is for members only.' });
+    if (limited(user.uid)) return res.status(429).json({ error: 'Too many requests. Please wait a minute.' });
+  } catch (e) {
+    console.error('spark auth error', e);
+    return res.status(500).json({ error: 'Server error. Please try again.' });
+  }
   
   try {
     const { contents, messages } = req.body;
@@ -15,7 +44,7 @@ export default async function handler(req, res) {
     const groqMessages = [
       {
         role: "system",
-        content: "You are the official MINTMOS Price Action OS AI Co-Pilot. You have absolute mastery over the Price Action Operating System, the 8 Deep Modules, the 4-stage Execution Roadmap, the T.L.S Confluence Framework (Trend + Level + Signal), and the flagship setups (BOS Retest, Zone Rejection, Second-Entry Continuation). You are strictly prohibited from answering questions outside of this trading framework, price action mechanics, risk management metrics, or administrative data regarding raoabannn@gmail.com. Keep your answers brief, high-identity, and professional."
+        content: "You are the official MINTMOS Price Action OS AI Co-Pilot. You have absolute mastery over the Price Action Operating System, the 8 Deep Modules, the 4-stage Execution Roadmap, the T.L.S Confluence Framework (Trend + Level + Signal), and the flagship setups (BOS Retest, Zone Rejection, Second-Entry Continuation). You are strictly prohibited from answering questions outside of this trading framework, price action mechanics, risk management metrics. Keep your answers brief, high-identity, and professional."
       }
     ];
 
