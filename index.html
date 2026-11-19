@@ -702,7 +702,7 @@ document.readyState==='loading'?document.addEventListener('DOMContentLoaded',go)
     </div>
     <div class="panel-card "><div class="chrome"><i></i><i></i><i></i><span class="tp-label">Your first 15 minutes</span></div><div class="welcome-steps">
         <div class="welcome-step"><span>1</span>Read Modules 1–4 once, fully, before touching a chart.</div>
-        <div class="welcome-step"><span>2</span>Open the Risk Calc tab and run three practice position sizes, then open the Lab tab and score a chart you have already marked.</div>
+        <div class="welcome-step"><span>2</span>Open the Risk Calc tab and run three practice position sizes, then open the Lab tab and record the Scorecard for a setup that has already qualified.</div>
         <div class="welcome-step"><span>3</span>Save the Checklist tab — you will use it every single session.</div>
         <div class="welcome-step"><span>4</span>Come back to this roadmap and start Stage 1 below.</div>
       </div></div>
@@ -743,7 +743,7 @@ document.readyState==='loading'?document.addEventListener('DOMContentLoaded',go)
             <h4>Simulation</h4>
             <span class="roadmap-badge">Module 05 + Demo Account</span>
           </div>
-          <p>Open a demo/paper trading account. Execute the three setups only — BOS Retest, Zone Rejection, Second-Entry Continuation — running the full Pre-Execution Checklist before every single entry, no exceptions.</p>
+          <p>Open a demo/paper trading account. Execute the three setups only — Major Break Retest, Zone Rejection, Second-Entry Continuation — running the full Pre-Execution Checklist before every single entry, no exceptions.</p>
           <div class="roadmap-check">
             <div class="check-box" onclick="this.classList.toggle('checked');this.textContent=this.classList.contains('checked')?'✓':''"></div>
             <span>Self-check: 20 demo trades logged, checklist completed on all 20, zero impulse entries.</span>
@@ -962,7 +962,7 @@ document.readyState==='loading'?document.addEventListener('DOMContentLoaded',go)
 <div class="lab-card"><h3>Today</h3><p class="sub">Sessions in UTC, plus your limits from the journal (limits are advice, not locks).</p><div id="pjSess"></div><div class="lab-out" id="pjDay"></div></div>
 </div>
 <div class="lab-card" style="margin-top:20px"><h3>Log a trade</h3><div class="pj-g">
-<label class="pj-l">Date<input id="pj-date" class="lab-in" type="date" ></label><label class="pj-l">Pair / symbol<input id="pj-pair" class="lab-in" type="text" maxlength="20" placeholder="EURUSD"></label><label class="pj-l">Direction<select id="pj-dir" class="lab-in"><option>Long</option><option>Short</option></select></label><label class="pj-l">Setup<select id="pj-setup" class="lab-in"><option>BOS Retest</option><option>Zone Rejection</option><option>Second-Entry Continuation</option><option>Other</option></select></label><label class="pj-l">Result (R)<input id="pj-r" class="lab-in" type="number" step="0.1" placeholder="2 or -1"></label><label class="pj-l">P&amp;L ($)<input id="pj-pnl" class="lab-in" type="number" step="0.01"></label><label class="pj-l">Risk ($)<input id="pj-risk" class="lab-in" type="number" step="0.01" min="0"></label><label class="pj-l">Rules followed?<select id="pj-rules" class="lab-in"><option>Yes</option><option>Partially</option><option>No</option></select></label><label class="pj-l">Emotion before<select id="pj-emo" class="lab-in"><option>Calm</option><option>Focused</option><option>Anxious</option><option>Greedy</option><option>Revenge</option><option>Fearful</option></select></label><label class="pj-l">Mistake<select id="pj-mk" class="lab-in"><option>None</option><option>Forced trade</option><option>Revenge trade</option><option>Ignored a filter</option><option>Moved SL/TP</option><option>Oversized</option><option>Traded into news</option><option>Panic exit</option></select></label></div><label class="pj-l">Note (optional)<input id="pj-note" class="lab-in" type="text" maxlength="500"></label>
+<label class="pj-l">Date<input id="pj-date" class="lab-in" type="date" ></label><label class="pj-l">Pair / symbol<input id="pj-pair" class="lab-in" type="text" maxlength="20" placeholder="EURUSD"></label><label class="pj-l">Direction<select id="pj-dir" class="lab-in"><option>Long</option><option>Short</option></select></label><label class="pj-l">Setup<select id="pj-setup" class="lab-in"><option>Major Break Retest</option><option>Zone Rejection</option><option>Second-Entry Continuation</option><option>Other</option></select></label><label class="pj-l">Result (R)<input id="pj-r" class="lab-in" type="number" step="0.1" placeholder="2 or -1"></label><label class="pj-l">P&amp;L ($)<input id="pj-pnl" class="lab-in" type="number" step="0.01"></label><label class="pj-l">Risk ($)<input id="pj-risk" class="lab-in" type="number" step="0.01" min="0"></label><label class="pj-l">Rules followed?<select id="pj-rules" class="lab-in"><option>Yes</option><option>Partially</option><option>No</option></select></label><label class="pj-l">Emotion before<select id="pj-emo" class="lab-in"><option>Calm</option><option>Focused</option><option>Anxious</option><option>Greedy</option><option>Revenge</option><option>Fearful</option></select></label><label class="pj-l">Mistake<select id="pj-mk" class="lab-in"><option>None</option><option>Forced trade</option><option>Revenge trade</option><option>Ignored a filter</option><option>Moved SL/TP</option><option>Oversized</option><option>Traded into news</option><option>Panic exit</option></select></label></div><label class="pj-l">Note (optional)<input id="pj-note" class="lab-in" type="text" maxlength="500"></label>
 <div style="margin-top:12px"><button type="button" class="pj-b pri" id="pj-add">Add trade</button><button type="button" class="pj-b" id="pj-cancel" hidden>Cancel edit</button></div></div>
 <div class="lab-card" style="margin-top:20px"><h3>Performance</h3><div id="pjStats" class="pj-t"></div><div id="pjEq"></div></div>
 <div class="lab-card" style="margin-top:20px"><h3>Trade history</h3>
@@ -976,19 +976,86 @@ document.readyState==='loading'?document.addEventListener('DOMContentLoaded',go)
 <section class="band band-a py-24">
   <div class="wrap">
     <p class="tp-label tracking-widest text-[11px] font-mono text-zinc-500 uppercase"><b>05c</b> &nbsp;/&nbsp; Lab</p>
-    <h2 class="sec-heading font-medium text-white">The Lab — Score It, Prove It, Drill It</h2>
-    <p class="lede">Three tools that turn Modules 9–12 into practice: grade a setup before you take it, test your own expectancy, and run scored decision drills with answers.</p>
-    <div class="lab-grid">
-      <div class="lab-card"><h3>Confluence Scorecard</h3><p class="sub">Tick only what is visibly true on your chart. T.L.S. gate: higher-timeframe bias, a Level, and displacement are all required.</p><div id="scRows"></div><div class="lab-out" id="scOut"></div></div>
-      <div class="lab-card"><h3>Expectancy &amp; Proof Calculator</h3><p class="sub">Enter your own backtest or journal numbers (Module 11, Proof Protocol).</p>
-        <div class="lab-row"><span>Win rate %</span><input class="lab-in" style="width:90px" type="number" id="exW" value="45" min="1" max="99" oninput="calcExp()"></div>
-        <div class="lab-row"><span>Average win (R)</span><input class="lab-in" style="width:90px" type="number" id="exAW" value="2" step="0.1" min="0.1" oninput="calcExp()"></div>
-        <div class="lab-row"><span>Average loss (R)</span><input class="lab-in" style="width:90px" type="number" id="exAL" value="1" step="0.1" min="0.1" oninput="calcExp()"></div>
-        <div class="lab-row"><span>Number of trades in sample</span><input class="lab-in" style="width:90px" type="number" id="exN" value="50" min="1" oninput="calcExp()"></div>
-        <div class="lab-out" id="exOut"></div></div>
+    <h2 class="sec-heading font-medium text-white">The Lab: Record the Evidence, Test the Numbers</h2>
+    <p class="lede">Two tools from Modules 11 and 12. Record the supporting evidence for an opportunity that has already qualified, then calculate expectancy from your own recorded results. Neither tool is an entry signal, and neither changes your position size.</p>
+    <div class="lab-flow" aria-label="Order of operations"><span>T.L.S.</span><i>&rarr;</i><span>Setup qualification</span><i>&rarr;</i><span>Disqualifier check</span><i>&rarr;</i><span class="on">Scorecard</span><i>&rarr;</i><span>Module 06 risk check</span></div>
+
+    <div class="lab-card lab-wide" id="scCard">
+      <h3>Confluence Scorecard <span class="lab-tag">Provisional &middot; 11 points &middot; version 1.0</span></h3>
+      <p class="sub">Module 11. The Scorecard records supporting evidence <b>after</b> an opportunity has passed T.L.S., its PA.OS setup and the mandatory disqualifier check. It is a descriptive research label. It does not decide whether a setup exists, does not authorize entry, and does not change position size.</p>
+
+      <div class="lab-step"><b>1</b> Candidate</div>
+      <div class="lab-two">
+        <label class="lab-fld">Candidate opportunity (optional label)<input class="lab-in" id="sc_name" type="text" maxlength="80" placeholder="e.g. EURUSD 15M bullish zone rejection, hypothetical" autocomplete="off"></label>
+        <label class="lab-fld">PA.OS setup being evaluated<select class="lab-in" id="sc_setup"><option value="">Choose the setup...</option><option value="1">Setup One: Major Break Retest</option><option value="2">Setup Two: Institutional Zone Rejection</option><option value="3">Setup Three: Second-Entry Continuation</option></select></label>
+      </div>
+
+      <div class="lab-step"><b>2</b> T.L.S. gate and setup conditions <span>All three T.L.S. factors are required. Two out of three is watch-only.</span></div>
+      <div id="scTls"></div>
+
+      <div class="lab-step"><b>3</b> Mandatory disqualifiers <span>Tick any that applies. A disqualifier overrides the score, however high.</span></div>
+      <div id="scDq"></div>
+
+      <div class="lab-qual" id="scQual" role="status" aria-live="polite"></div>
+
+      <fieldset class="lab-fs" id="scFs">
+        <legend><b>4</b> Scorecard evidence <span id="scLock"></span></legend>
+        <h4 class="lab-h">A. Trend context <em>0 to 2</em></h4>
+        <p class="lab-note">The T.L.S. Trend gate was decided in step 2. Only the strength of broader support is scored here. A zero never grants permission to trade when T.L.S. Trend fails.</p>
+        <div id="scTrend"></div>
+        <h4 class="lab-h">B. Level and location <em>0 to 7</em></h4>
+        <p class="lab-note">Each point needs evidence that independently meets its own definition. Record the reason for every point you award.</p>
+        <div id="scLv"></div>
+        <h4 class="lab-h">C. Signal support <em>0 to 2</em></h4>
+        <div id="scSg"></div>
+        <div class="lab-calc"><b>Displacement ratio helper</b> <span>Body &divide; mean body of the previous 10 completed candles (current candle excluded). A ratio of 2 or more is one part of the assessment, not the whole of it.</span>
+          <div class="lab-two"><label class="lab-fld">Current candle body<input class="lab-in" id="sc_dcur" type="number" inputmode="decimal" min="0" step="any"></label><label class="lab-fld">Mean body of previous 10 completed candles<input class="lab-in" id="sc_dmean" type="number" inputmode="decimal" min="0" step="any"></label></div>
+          <div class="lab-sm" id="sc_dout"></div></div>
+      </fieldset>
+
+      <div class="lab-out" id="scOut" aria-live="polite"></div>
+      <div class="lab-btns"><button type="button" class="pj-b" id="scSave">Save to scorecard record</button><button type="button" class="pj-b" id="scReset">Reset scorecard</button><span class="lab-sm" id="scMsg"></span></div>
+      <h4 class="lab-h" style="margin-top:22px">Scorecard record <em id="scCount"></em></h4>
+      <p class="lab-note">Saved records are descriptive evidence for your Proof Protocol file. Rejected candidates are recorded as not scored. They are never counted as executed trades.</p>
+      <div class="lab-tw"><table class="lab-t" id="scRecT"><thead><tr><th>Date</th><th>Candidate</th><th>Setup</th><th>Decision</th><th>Score</th><th>Grade</th><th></th></tr></thead><tbody id="scRecB"></tbody></table></div>
     </div>
-    <h2 class="sec-heading font-medium text-white sm" style="margin-top:56px">Decision Drills — Answer First, Then Reveal</h2>
-    <div id="drills"></div>
+
+    <div class="lab-card lab-wide" id="exCard" style="margin-top:20px">
+      <h3>Expectancy &amp; Proof Calculator <span class="lab-tag">Module 11 definitions</span></h3>
+      <p class="sub">Calculate from your own recorded executed trades. It describes the sample you enter. It does not predict the next trade and does not prove an edge. Skipped or missed opportunities are not executed trades, so leave them out.</p>
+      <div class="lab-two">
+        <label class="lab-fld">Input method<select class="lab-in" id="ex_mode"><option value="list">List of executed trade results (R)</option><option value="sum">Summary figures (rates and averages)</option></select></label>
+        <label class="lab-fld">Are your R values net of costs?<select class="lab-in" id="ex_net"><option value="net">Net: costs already included</option><option value="gross">Gross: subtract the cost per trade below</option></select></label>
+      </div>
+      <label class="lab-fld" id="ex_costW" hidden>Average cost per executed trade, in R (spread, commission, slippage)<input class="lab-in" id="ex_cost" type="number" inputmode="decimal" min="0" step="any" value="0"></label>
+
+      <div id="ex_listBox">
+        <label class="lab-fld">Net or gross result of each executed trade, in R, in the order they closed<textarea class="lab-in" id="ex_list" rows="6" spellcheck="false" placeholder="One result per line, or separated by spaces or semicolons. Use a dot for decimals.&#10;Example: +2  +1  -1  0  -0.5"></textarea></label>
+        <div class="lab-btns"><button type="button" class="pj-b" id="ex_ex">Load hypothetical example (Module 11, Solution 7)</button><button type="button" class="pj-b" id="ex_clr">Clear</button></div>
+        <label class="lab-fld" style="margin-top:10px">Longest losing streak: how is a breakeven trade treated?<select class="lab-in" id="ex_be"><option value="break">A breakeven trade breaks a losing streak</option><option value="skip">A breakeven trade is ignored (does not break the streak)</option></select></label>
+      </div>
+      <div id="ex_sumBox" hidden>
+        <div class="lab-three">
+          <label class="lab-fld">Win rate, % of all executed trades<input class="lab-in" id="ex_w" type="number" inputmode="decimal" min="0" max="100" step="any" value="40"></label>
+          <label class="lab-fld">Breakeven rate, % of all executed trades<input class="lab-in" id="ex_b" type="number" inputmode="decimal" min="0" max="100" step="any" value="0"></label>
+          <label class="lab-fld">Loss rate (calculated)<input class="lab-in" id="ex_l" type="text" readonly tabindex="-1"></label>
+          <label class="lab-fld">Average win (R)<input class="lab-in" id="ex_aw" type="number" inputmode="decimal" min="0" step="any" value="2.5"></label>
+          <label class="lab-fld">Average loss (R, positive number)<input class="lab-in" id="ex_al" type="number" inputmode="decimal" min="0" step="any" value="1"></label>
+        </div>
+        <p class="lab-note">Win, breakeven and loss rates are shares of all executed trades and must total 100%. Formula: E = (W &times; AW) &minus; (L &times; AL), minus average cost per trade if your averages are gross.</p>
+      </div>
+      <div class="lab-out" id="exOut" aria-live="polite"></div>
+    </div>
+
+    <div class="lab-grid" style="margin-top:20px">
+      <div class="lab-card"><h3>Proof Protocol: the eight steps</h3><p class="sub">Module 11, Part 6. Rehearsal tools such as this Lab do not replace the protocol.</p>
+        <ol class="lab-ol"><li>Blind marking drills</li><li>Historical backtesting</li><li>Calculate expectancy</li><li>Additional performance metrics</li><li>Compare Scorecard grades (A+ and A separately, with sample sizes)</li><li>Correlated evidence and overfitting</li><li>Forward-testing (demo, then controlled live)</li><li>Rule-version control</li></ol>
+        <p class="lab-note">Keep backtest, forward-test, demo and live results separate. A positive initial sample is a reason to keep investigating, not permission to claim a proven edge.</p>
+        <button type="button" class="pj-b" data-open-mod="10">Open Module 11</button></div>
+      <div class="lab-card"><h3>Decision drills</h3><p class="sub">The twelve Module 12 decision drills (12.9) live in the Module 12 lesson. Decide first, then compare your answer with the explanation and the rule it rests on.</p>
+        <p class="lab-note">A completed drill set is evidence of curriculum application, not proof of profitability.</p>
+        <button type="button" class="pj-b" data-open-mod="11">Open Module 12</button></div>
+    </div>
   </div>
 </section>
 </div>
@@ -1294,7 +1361,7 @@ function buildModules() {
               <div class="lesson-item-text"><span class="lesson-dot"></span>${l.t}</div>
               <span class="lesson-tag">${l.tag}</span>
             </div>
-            ${l.body ? `<p class="lesson-body">${l.body}</p>` : ''}
+            ${l.body ? `<p class="lesson-body">${l.rich?prevText(l.body):l.body}</p>` : ''}
             ${l.diagram ? l.diagram : ''}
             ${l.crossRef ? `<div class="cross-ref">${l.crossRef}</div>` : ''}
             ${l.pdfRef ? l.pdfRef : ''}
@@ -1662,7 +1729,7 @@ calcRisk();
       `<p class="rd-kicker">Module ${m.num} · ${m.sub}</p><h1 class="rd-title">${m.title}</h1>`+
       `<div class="rd-block rd-intro"><p>${m.intro}</p></div>`+
       m.lessons.map(l=>`<section class="rd-block"><div class="rd-lh"><h2>${l.t}</h2><span class="rd-tag">${l.tag}</span></div>`+
-        (l.body?`<p class="rd-p">${l.body}</p>`:'')+(l.diagram||'')+
+        (l.body?`<div class="rd-p rd-rich">${l.body}</div>`:'')+(l.diagram||'')+(l.quiz?quizHTML(l.quiz):'')+(l.sheet?sheetHTML(l.sheet):'')+
         (l.crossRef?`<div class="cross-ref">${l.crossRef}</div>`:'')+(l.pdfRef||'')+`</section>`).join('');
     $('rdNav').innerHTML=
       (i>0?`<button class="rd-btn" data-go="${i-1}">← Module ${modules[i-1].num}</button>`:'<span></span>')+
@@ -1837,7 +1904,7 @@ calcRisk();
   const modText=i=>{ const m=modules[i]; return cap(`MODULE ${m.num}: ${strip(m.title)}\n${strip(m.sub)}\n${strip(m.intro)}\n`+m.lessons.map(l=>`\n• ${strip(l.t)} [${l.tag}]\n${strip(l.body)} ${strip(l.diagram||'')}${l.crossRef?'\n(Ref: '+strip(l.crossRef)+')':''}`).join('')); };
   const secText=id=>{ const p=document.getElementById('tab-'+id); return cap(p?p.textContent.replace(/\s+/g,' ').trim():''); };
 
-  const QUICK=[['list-checks','Pre-trade check','Run the T.L.S. gate with me before I enter','Run a pre-trade check with me using the T.L.S. framework. Ask me the gate items one at a time (trend, level, signal, R:R, risk, news, session, emotion), then tell me CLEAR or BLOCKED and why.'],['chart-candlestick','Classify my chart','Attach a screenshot: structure, level, signal','Classify the attached chart with this system\u2019s rules: structure (trending, ranging or transitioning), the relevant Level, and whether a valid Signal exists. Say which setup (BOS Retest, Zone Rejection or Second-Entry Continuation), if any, applies and which conditions are missing.'],['notebook-pen','Review my journal','Find my biggest leak','Review my journal summary. Find my biggest leak, my most common mistake and one rule change to test next. Be specific.'],['calculator','Check my risk','Is this position sized right?','Check my current risk calculator setup against the 1-2% rule and the 1:2 minimum. Tell me if it is sensible and what to change.']];
+  const QUICK=[['list-checks','Pre-trade check','Run the T.L.S. gate with me before I enter','Run a pre-trade check with me using the T.L.S. framework. Ask me the gate items one at a time (trend, level, signal, R:R, risk, news, session, emotion), then tell me CLEAR or BLOCKED and why.'],['chart-candlestick','Classify my chart','Attach a screenshot: structure, level, signal','Classify the attached chart with this system\u2019s rules: structure (trending, ranging or transitioning), the relevant Level, and whether a valid Signal exists. Say which setup (Major Break Retest, Zone Rejection or Second-Entry Continuation), if any, applies and which conditions are missing.'],['notebook-pen','Review my journal','Find my biggest leak','Review my journal summary. Find my biggest leak, my most common mistake and one rule change to test next. Be specific.'],['calculator','Check my risk','Is this position sized right?','Check my current risk calculator setup against the 1-2% rule and the 1:2 minimum. Tell me if it is sensible and what to change.']];
 function journalText(){ let rows=[]; try{ rows=JSON.parse(localStorage.getItem('paos_journal_v1')||'[]'); }catch(e){} if(!Array.isArray(rows)||!rows.length) return 'The trader has no journal entries yet.'; const n=rows.length, tot=rows.reduce((a,r)=>a+(+r.r||0),0), wins=rows.filter(r=>r.r!==0?r.r>0:r.pnl>0).length, ok=rows.filter(r=>r.rules==='Yes').length, tg={}; rows.forEach(r=>{ if(r.mk&&r.mk!=='None') tg[r.mk]=(tg[r.mk]||0)+1; }); return 'JOURNAL SUMMARY ('+n+' trades): net '+tot.toFixed(1)+'R, win rate '+Math.round(wins/n*100)+'%, rules followed '+Math.round(ok/n*100)+'%. Mistakes: '+(Object.keys(tg).map(k=>k+' x'+tg[k]).join(', ')||'none')+'.\nLAST 20 TRADES (newest first):\n'+rows.slice(-20).reverse().map(r=>[r.d,r.p,r.dir,r.s,(r.r>0?'+':'')+r.r+'R','rules '+r.rules,'emotion '+r.emo,r.mk&&r.mk!=='None'?'mistake '+r.mk:''].filter(Boolean).join(' | ')).join('\n'); }
   function rcText(){ const g=id=>{const e=document.getElementById(id);return e?(e.value||e.textContent):'';}, mk=document.getElementById('rMkt'); return 'RISK CALCULATOR SETUP: market '+(mk&&mk.options[mk.selectedIndex]?mk.options[mk.selectedIndex].text:'Forex')+'; account $'+g('rAcctN')+'; risk '+g('rPctN')+'%; reward:risk 1:'+g('rRRN')+'; stop '+(g('rSLN')||g('rStopN'))+'; entry '+g('rEntryN')+'; risk amount '+g('rDollar')+'; position '+g('rLots')+'; take-profit '+g('rTP')+'; potential profit '+g('rProfit')+'; break-even win rate '+g('rWR')+'.'; }
   function addExtra(k){ if(S.ctx.some(x=>x.key===k)||S.ctx.length>=4) return;
@@ -1870,8 +1937,8 @@ function journalText(){ let rows=[]; try{ rows=JSON.parse(localStorage.getItem('
   /* ---- backend call ---- */
   const endpoint=()=>window.SPARK_API_URL||'/api/spark';
   const STOPW=new Set('the and for with how what why does can are this that from about when which you your was has have into use using show tell explain give'.split(' ')); let IDX=null;
-  function related(q){ if(!IDX){ IDX=[]; modules.forEach(m=>m.lessons.forEach(l=>{ const lab='Module '+m.num+' · '+strip(l.t), tx=strip(l.t)+'. '+strip(l.body); IDX.push({lab:lab.toLowerCase(),label:lab,text:tx,low:tx.toLowerCase()}); })); }
-    const k=((q||'').toLowerCase().match(/[a-z0-9.]{3,}/g)||[]).filter(w=>!STOPW.has(w)); if(!k.length) return ''; const top=IDX.map(d=>{ let n=0; k.forEach(w=>{ if(d.lab.indexOf(w)>=0) n+=3; n+=Math.min(4,d.low.split(w).length-1); }); return {d,n}; }).filter(x=>x.n>=4).sort((a,b)=>b.n-a.n).slice(0,2);
+  function related(q){ if(!IDX){ IDX=[]; modules.forEach(m=>m.lessons.forEach(l=>{ const lab='Module '+m.num+' · '+strip(l.t), full=strip(String(l.body||'').replace(/<svg[\s\S]*?<\/svg>/g,' ')), ps=full.split(/(?<=[.!?])\s+/); let cur=''; const push=()=>{ if(cur.trim()){ const tx=strip(l.t)+'. '+cur.trim(); IDX.push({lab:lab.toLowerCase(),label:lab,text:tx,low:tx.toLowerCase()}); cur=''; } }; ps.forEach(p=>{ if((cur+p).length>900) push(); cur+=p+' '; }); push(); })); }
+    const k=((q||'').toLowerCase().match(/[a-z0-9.]{3,}/g)||[]).filter(w=>!STOPW.has(w)); if(!k.length) return ''; const top=IDX.map(d=>{ let n=0; k.forEach(w=>{ if(d.lab.indexOf(w)>=0) n+=3; n+=Math.min(4,d.low.split(w).length-1); }); return {d,n}; }).filter(x=>x.n>=4).sort((a,b)=>b.n-a.n).slice(0,3);
     return top.length?'Reference material from the course (use it, and say so if it does not cover the question):\n'+top.map(x=>'=== '+x.d.label+' ===\n'+x.d.text.slice(0,1200)).join('\n\n')+'\n\n=== QUESTION ===\n':''; }
   async function ask(messages,signal){
     const ctl=new AbortController(); let to=false; const tm=setTimeout(()=>{ to=true; ctl.abort(); },60000); if(signal) signal.addEventListener('abort',()=>ctl.abort());
@@ -2633,43 +2700,299 @@ For questions, concerns, or privacy requests, contact:
   restoreChecks();
 })();
 </script>
+<style id="labCss">
+#tab-lab [hidden]{display:none!important}
+#tab-lab .lab-wide{grid-column:1/-1;margin-top:28px}
+#tab-lab .lab-card h3{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.lab-tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:#a1a1aa;border:1px solid var(--line2);border-radius:999px;padding:3px 10px;font-weight:400}
+.lab-flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:22px;font-size:12.5px;color:#a1a1aa}
+.lab-flow span{border:1px solid var(--line2);border-radius:999px;padding:6px 12px;background:#0a0a0a}
+.lab-flow span.on{border-color:var(--lime);color:var(--lime)}
+.lab-flow i{font-style:normal;color:#52525b}
+.lab-step{margin:22px 0 8px;font-size:13.5px;color:#fff;display:flex;flex-wrap:wrap;gap:8px;align-items:baseline}
+.lab-step b{font-family:var(--mono);color:var(--lime);font-size:12px}
+.lab-step span{color:#71717a;font-size:12.5px}
+.lab-two{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:6px}
+.lab-three{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:6px}
+.lab-fld{display:flex;flex-direction:column;gap:6px;font-size:12.5px;color:#a1a1aa;margin-top:10px}
+.lab-fld .lab-in,.lab-fld select,.lab-fld textarea{font-size:14px}
+#tab-lab textarea.lab-in{font-family:var(--mono);resize:vertical;min-height:110px}
+#tab-lab select.lab-in{appearance:auto}
+#tab-lab .lab-row label{align-items:flex-start;flex:1}
+#tab-lab .lab-row label input{margin-top:4px;flex:none}
+#tab-lab .lab-row small{display:block;color:#71717a;font-size:12px;line-height:1.5;margin-top:2px}
+#tab-lab .lab-row b{white-space:nowrap}
+#tab-lab .lab-row label b{font-family:inherit;font-size:inherit;color:#fff;white-space:normal;font-weight:500}
+#tab-lab .lab-row.off{opacity:.45}
+.lab-qual{margin:16px 0;padding:12px 14px;border-radius:12px;font-size:14px;line-height:1.5;border:1px solid var(--line2);background:#0a0a0a;color:#e4e4e7}
+.lab-qual.ok{border-color:var(--lime);color:var(--lime)}
+.lab-qual.no{border-color:#ef4444;color:#fca5a5}
+.lab-qual.mid{border-color:#a1a1aa}
+.lab-fs{border:1px solid var(--line2);border-radius:14px;padding:6px 16px 16px;margin:0;min-width:0}
+.lab-fs legend{padding:0 8px;font-size:13.5px;color:#fff}
+.lab-fs legend b{font-family:var(--mono);color:var(--lime);font-size:12px;margin-right:6px}
+.lab-fs legend span{color:#71717a;font-size:12px;margin-left:8px}
+.lab-fs.locked{opacity:.5}
+.lab-h{font-size:14px;color:#fff;font-weight:500;margin:18px 0 4px}
+.lab-h em{font-style:normal;font-family:var(--mono);font-size:11px;color:#71717a;margin-left:8px}
+.lab-note{font-size:12.5px;color:#71717a;line-height:1.55;margin:4px 0 8px}
+.lab-ev{margin:2px 0 10px 26px;width:calc(100% - 26px);font-size:13px}
+.lab-calc{margin-top:16px;padding:12px 14px;border:1px dashed var(--line2);border-radius:12px;font-size:12.5px;color:#a1a1aa}
+.lab-calc b{color:#e4e4e7;display:block;margin-bottom:2px}
+.lab-sm{font-size:12.5px;color:#a1a1aa;line-height:1.55;margin-top:8px}
+.lab-fine{font-size:11.5px;color:#71717a;line-height:1.55;margin-top:12px;border-top:1px solid var(--line);padding-top:10px}
+.lab-grade{display:inline-block;font-family:var(--mono);font-size:12px;border-radius:999px;padding:4px 12px;margin-left:10px;vertical-align:middle}
+.lab-grade.hi{color:var(--lime);border:1px solid var(--lime)}
+.lab-grade.lo{color:#d4d4d8;border:1px solid #52525b}
+.lab-parts{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;font-size:12.5px;color:#d4d4d8}
+.lab-parts span{border:1px solid var(--line2);border-radius:8px;padding:4px 10px}
+.lab-warn{margin-top:12px;padding:10px 12px;border:1px solid #713f12;border-radius:10px;background:#1a1204;color:#fde68a;font-size:12.5px;line-height:1.55}
+.lab-warn ul{margin:6px 0 0 18px;padding:0}
+.lab-btns{display:flex;flex-wrap:wrap;align-items:center;gap:4px;margin-top:10px}
+.lab-tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.lab-t{width:100%;border-collapse:collapse;font-size:13px;color:#d4d4d8}
+.lab-t th,.lab-t td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.lab-t th{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:#71717a;font-weight:400;white-space:nowrap}
+.lab-st td:first-child{color:#a1a1aa;width:42%}
+.lab-st small{color:#71717a}
+.lab-ol{margin:0 0 10px 20px;padding:0;color:#d4d4d8;font-size:13.5px;line-height:1.7}
+@media(max-width:640px){#tab-lab .lab-card{padding:16px}.lab-ev{margin-left:0;width:100%}.lab-st td:first-child{width:auto}}
+</style>
 <script>
 (function(){
-var SC=[["t1","Higher-timeframe bias confirmed (required)",1],["t2","Mid timeframe also aligned",1],["l1","Fresh zone or order block",1],["l2","FVG Filters 1-4 passed",1],["l3","Swept Tier A/B pool beforehand",2],["l4","Fibonacci OTE overlap",1],["l5","50 EMA overlap",1],["l6","Wyckoff phase agrees",1],["s1","Displacement of 2x average or more (required)",1],["s2","Volume / participation agrees",1],["s3","London or New York window",1],["dq","Disqualifier present (news within 30 min, zone touched 3+ times, confirmation body under 50%, ambiguous HTF, off-session)",0]];
-var box=document.getElementById("scRows");
-box.innerHTML=SC.map(function(r){return '<div class="lab-row"><label><input type="checkbox" id="sc_'+r[0]+'" onchange="calcSC()"> '+r[1]+'</label><b>'+(r[2]?'+'+r[2]:'STOP')+'</b></div>';}).join("");
-window.calcSC=function(){
- var g=function(k){return document.getElementById("sc_"+k).checked;},pts=0;
- SC.forEach(function(r){if(g(r[0])&&r[2])pts+=r[2];});
- var gate=g("t1")&&(g("l1")||g("l3"))&&g("s1"),o=document.getElementById("scOut"),v,c;
- if(g("dq")){v="NO TRADE - a disqualifying condition overrides any score.";c="lab-bad";}
- else if(!gate){v="NO TRADE - T.L.S. gate not met (need bias, a Level and displacement).";c="lab-bad";}
- else if(pts>=9){v="A+ setup - risk up to 2%.";c="lab-good";}
- else if(pts>=6){v="A setup - risk 1%.";c="lab-good";}
- else {v="Below 6 - no trade.";c="lab-bad";}
- o.innerHTML='<span class="lab-big">'+pts+' / 12</span><br><span class="'+c+'">'+v+'</span>';
-};
-window.calcExp=function(){
- var w=+document.getElementById("exW").value/100,a=+document.getElementById("exAW").value,l=+document.getElementById("exAL").value,n=+document.getElementById("exN").value;
- var e=w*a-(1-w)*l,be=l/(a+l)*100,st=Math.max(1,Math.round(Math.log(n)/-Math.log(1-w))),v;
- if(n<50)v="Sample under 50 trades: too small to trust.";else if(e>=0.2)v="Meets the +0.2R Proof Protocol threshold.";else if(e>0)v="Positive but thin; spreads and slippage may erase it.";else v="Negative expectancy: do not trade this live.";
- document.getElementById("exOut").innerHTML='<span class="lab-big '+(e>0?'lab-good':'lab-bad')+'">'+e.toFixed(2)+'R per trade</span><br>Break-even win rate: '+be.toFixed(1)+'%<br>About '+(e*100).toFixed(0)+'R per 100 trades (about '+(e*100).toFixed(0)+'% of the account at 1% risk, before compounding)<br>Likely longest losing streak in this sample: about '+st+'<br><b>'+v+'</b>';
-};
-var D=[
-["A 15M candle closes above a swing high with a 35% body and a long upper wick. Valid confirmation?","No. A body under 50% of range with a dominant wick is a rejection, not displacement (Module 04)."],
-["Price returns to a demand zone for the third time. Take the long?","No. A third touch means the resting orders are likely depleted; delete the zone (Module 05)."],
-["4H is bullish. The 15M prints a perfect bearish BOS retest. Trade it?","No. It is against the higher-timeframe bias; the lower timeframe setup is real but the higher timeframe participant is more real (Module 02)."],
-["Price sweeps equal highs by 6 pips, then displaces down. You were about to buy the breakout. What now?","Do not buy. That was the sweep. If the higher timeframe permits, wait for the retest and take the short (Module 03)."],
-["A bullish FVG sits above the 0.5 level of the leg. Take it?","No. Filter 4 requires longs in discount; this is premium (Module 04)."],
-["A textbook setup triggers at 03:00 New York time. Take it?","No. It is outside the London and New York windows, which is a disqualifier (Module 05)."],
-["The structural stop only allows a 1:1.6 reward. Can you tighten the stop to get 1:2?","No. A stop moved off the structural level is no longer logical, so skip the trade (Module 06)."],
-["Account $8,000, risk 1%, stop 25 pips. Position size per pip?","$80 / 25 = $3.20 per pip (Module 06)."],
-["A doji prints in the middle of a range with no level nearby. Signal?","No. Without a Level and a close, location makes it noise (Module 09)."],
-["Win rate 45%, average win 2R, average loss 1R. Expectancy?","0.45 x 2 - 0.55 x 1 = +0.35R per trade (Module 11)."],
-["HTF aligned, mid TF aligned, swept Tier A pool, fresh zone, 2x displacement, London session. Score and risk?","1+1+2+1+1+1 = 7, grade A, risk 1% (Module 11)."],
-["You have lost three trades in a row, all by the rules. What changes?","Cut risk to 0.5% per trade until two consecutive winners, and review the Journal; the rules do not change (Module 06)."]];
-document.getElementById("drills").innerHTML=D.map(function(d,i){return '<details class="lab-drill"><summary><b>Drill '+(i+1)+'.</b> '+d[0]+'</summary><div>'+d[1]+'</div></details>';}).join("");
-calcSC();calcExp();
+/* ===== PURE LOGIC (no DOM) : PAOS_LAB_PURE_START ===== */
+var LV=[
+ ["Fresh, qualifying supply/demand zone or order block",1,"Passes the Module 05 freshness and touch rules; an order block meets the Module 10 standard. Not selected after the fact. A revisited zone is not untouched."],
+ ["Valid FVG",1,"Passes the Module 04 definition and filters. Record the exact candle sequence."],
+ ["Relevant liquidity sweep and reclaim (Tier A or Tier B pool)",2,"Tier under the Module 03 classification. Record the level, why it qualifies for its tier, the move beyond it, the reclaim close, timeframe and date. If the tier cannot be established, award nothing."],
+ ["Qualifying zone overlaps the Fibonacci OTE band (0.618 to 0.786)",1,"Needs a qualifying zone (first criterion). Anchors chosen before the overlap was evaluated. Golden Pocket and OTE are one point, not two."],
+ ["Qualifying zone overlaps the 50 EMA",1,"Needs a qualifying zone (first criterion). Record the timeframe from your testing protocol and the zone boundaries."],
+ ["Supported Wyckoff phase interpretation agrees with the direction",1,"A sequence of relevant observations, not a single spring, upthrust or range-boundary break. If the phase is ambiguous, award zero."]
+];
+var SG=[
+ ["Qualifying displacement supports the direction",1,"Module 04 definition: body at least twice the mean body of the previous 10 completed candles (current excluded), plus direction, close, structural consequence and follow-through. It is not a substitute for the mandatory confirmation."],
+ ["Reliable participation evidence supports the direction",1,"Volume or delta appropriate to the instrument, from an identified, reliable source. Record the source, timeframe, measurement and what it shows. Unavailable or unreliable data scores zero."]
+];
+var TR=[
+ [2,"Higher- and mid-timeframe structure both align with the proposed direction"],
+ [1,"One timeframe clearly aligns; the other is neutral or adds no alignment"],
+ [0,"Broader structure is conflicting, unclear or adds no directional support"]
+];
+var TLS=[["Trend","The required directional context is present for the candidate setup."],["Level","Price is at a qualifying location."],["Signal","The required confirmation is present."]];
+var SETUPS={"1":"Major Break Retest","2":"Institutional Zone Rejection","3":"Second-Entry Continuation"};
+var DQ=[
+ "A zone fails the applicable Module 05 freshness or touch-eligibility rule",
+ "A confirmation condition fails the applicable Module 04 or Module 05 rule",
+ "Structural invalidation has occurred",
+ "A Module 06 risk restriction applies",
+ "A Module 08 daily or session restriction applies",
+ "An applicable news restriction under the course rules applies"
+];
+function evalSC(S){
+ var tlsN=(S.tls[0]?1:0)+(S.tls[1]?1:0)+(S.tls[2]?1:0),dq=0,i;
+ for(i=0;i<DQ.length;i++)if(S.dq[i])dq++;
+ var r={tlsN:tlsN,dqN:dq,status:"",msg:"",score:null,parts:null,grade:null,meaning:"",notes:[],corr:[],missing:[]};
+ if(tlsN<2){r.status="no_trade";r.msg="No trade. T.L.S. has not passed ("+tlsN+" of 3). The process stops here. Do not score or look for more confluence."}
+ else if(tlsN===2){r.status="watch";r.msg="Watch only. Two out of three T.L.S. factors is not permission to enter. The Scorecard is not applied."}
+ else if(!S.setup){r.status="incomplete";r.msg="Choose the PA.OS setup being evaluated before the Scorecard can be applied."}
+ else if(!S.setupOk){r.status="not_qualified";r.msg="Not qualified. Setup "+S.setup+" ("+SETUPS[S.setup]+") must meet every applicable Module 05 condition first. The Scorecard is not applied."}
+ else if(dq>0){r.status="dq";r.msg="No trade. A mandatory disqualifier applies ("+dq+" ticked). A high score cannot override it, so the Scorecard is not applied."}
+ else{r.status="qualified";r.msg="Qualified for evidence recording. T.L.S. passed, Setup "+S.setup+" ("+SETUPS[S.setup]+") conditions are met and no disqualifier is ticked. Score the evidence below."}
+ if(r.status!=="qualified")return r;
+ var tr=S.trend===2?2:(S.trend===1?1:0),lv=0,sg=0,lvOn=[],sgOn=[];
+ for(i=0;i<LV.length;i++){var on=!!S.lv[i];if((i===3||i===4)&&!S.lv[0])on=false;lvOn[i]=on;if(on)lv+=LV[i][1]}
+ for(i=0;i<SG.length;i++){sgOn[i]=!!S.sg[i];if(sgOn[i])sg+=SG[i][1]}
+ r.parts={trend:tr,level:lv,signal:sg};r.score=tr+lv+sg;r.lvOn=lvOn;r.sgOn=sgOn;
+ if(r.score>=9){r.grade="A+";r.meaning="More supporting evidence recorded"}
+ else if(r.score>=6){r.grade="A";r.meaning="Moderate supporting evidence recorded"}
+ else{r.grade="Below A";r.meaning="Less supporting evidence recorded (below the proposed grade bands)"}
+ if(lvOn[0]&&lvOn[1])r.corr.push("The zone or order block and the FVG may come from the same displacement. Keep both points only if each meets its own definition and the evidence is genuinely distinct. They are not two independent confirmations.");
+ if(lvOn[3]&&lvOn[4])r.corr.push("Fibonacci and 50 EMA both overlap the same zone. Record them as correlated location context, not two independent reactions.");
+ if(lvOn[3])r.corr.push("The Fibonacci point records a location relationship. It does not validate the zone.");
+ if(lvOn[2]&&lvOn[5])r.corr.push("If the Wyckoff spring or upthrust is the same event as the liquidity sweep, the Wyckoff point needs broader phase evidence beyond renaming that sweep.");
+ if(sgOn[0])r.corr.push("Displacement is not the mandatory confirmation. This point does not validate the Module 04 or Module 05 confirmation, even if the same candle is involved.");
+ for(i=0;i<LV.length;i++)if(lvOn[i]&&!(S.ev&&String(S.ev["lv"+i]||"").trim()))r.missing.push(LV[i][0]);
+ for(i=0;i<SG.length;i++)if(sgOn[i]&&!(S.ev&&String(S.ev["sg"+i]||"").trim()))r.missing.push(SG[i][0]);
+ if(tr>0&&!(S.ev&&String(S.ev.tr||"").trim()))r.missing.push("Trend context ("+tr+" point"+(tr>1?"s":"")+")");
+ return r;
+}
+function parseR(text){
+ var toks=String(text||"").split(/[\s;]+/).filter(function(x){return x!==""}),vals=[],errs=[];
+ for(var i=0;i<toks.length;i++){
+  var t=toks[i].replace(/−/g,"-");
+  if(/^[+\-]?(\d+\.?\d*|\.\d+)R?$/i.test(t)){var v=parseFloat(t.replace(/R$/i,""));if(isFinite(v))vals.push(v);else errs.push(toks[i])}
+  else errs.push(toks[i]);
+ }
+ return{vals:vals,errs:errs,count:toks.length};
+}
+function statsR(vals,o){
+ o=o||{};var cost=o.gross?(o.cost||0):0,net=vals.map(function(v){var x=v-cost;return Math.abs(x)<1e-9?0:x});
+ var n=net.length,w=0,l=0,b=0,gp=0,gl=0,tot=0,streak=0,best=0,cum=0,peak=0,dd=0,i;
+ for(i=0;i<n;i++){var x=net[i];tot+=x;
+  if(x>0){w++;gp+=x;streak=0}
+  else if(x<0){l++;gl+=-x;streak++;if(streak>best)best=streak}
+  else{b++;if(o.beBreaks!==false)streak=0}
+  cum+=x;if(cum>peak)peak=cum;if(peak-cum>dd)dd=peak-cum;}
+ return{n:n,w:w,l:l,b:b,total:tot,exp:n?tot/n:null,winRate:(w+l)?w/(w+l)*100:null,aw:w?gp/w:null,al:l?gl/l:null,
+  pf:gl>0?gp/gl:null,pfUndefined:gl===0,gp:gp,gl:gl,streak:best,dd:dd,shareW:n?w/n*100:null,shareL:n?l/n*100:null,shareB:n?b/n*100:null};
+}
+function summaryE(i){
+ var W=i.w,B=i.b,AW=i.aw,AL=i.al,cost=i.gross?(i.cost||0):0,errs=[];
+ [["Win rate",W],["Breakeven rate",B],["Average win",AW],["Average loss",AL]].forEach(function(p){if(!isFinite(p[1]))errs.push(p[0]+" must be a number.")});
+ if(isFinite(W)&&(W<0||W>100))errs.push("Win rate must be between 0 and 100.");
+ if(isFinite(B)&&(B<0||B>100))errs.push("Breakeven rate must be between 0 and 100.");
+ if(isFinite(AW)&&AW<0)errs.push("Average win cannot be negative. Enter it as a positive R value.");
+ if(isFinite(AL)&&AL<0)errs.push("Average loss must be entered as a positive R value.");
+ if(!isFinite(cost)||cost<0)errs.push("Cost per trade must be zero or more.");
+ if(errs.length)return{errs:errs};
+ var L=100-W-B;
+ if(L<-1e-9)return{errs:["Win rate and breakeven rate add up to more than 100%."]};
+ if(L<0)L=0;
+ var gross=(W/100)*AW-(L/100)*AL,net=gross-cost;
+ return{errs:[],L:L,gross:gross,net:net,cost:cost};
+}
+/* ===== PURE LOGIC END ===== */
+if(typeof document==="undefined"){module.exports={evalSC:evalSC,parseR:parseR,statsR:statsR,summaryE:summaryE,LV:LV,SG:SG,DQ:DQ};return}
+
+var $=function(i){return document.getElementById(i)};
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function lg(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function ls(k,v){try{localStorage.setItem(k,v);return true}catch(e){return false}}
+var DK="paos_lab_sc_draft_v1",RK="paos_lab_sc_v1",EK="paos_lab_ex_v1",MAXREC=100;
+function f2(x,d){return(x>=0?"+":"-")+Math.abs(x).toFixed(d==null?2:d)}
+
+/* ---------- Scorecard UI ---------- */
+function build(){
+ $("scTls").innerHTML=TLS.map(function(t,i){return'<div class="lab-row"><label><input type="checkbox" data-k="tls" data-i="'+i+'"> <span><b>'+t[0]+'</b> passes <small>'+t[1]+'</small></span></label><b>REQUIRED</b></div>'}).join("")+
+  '<div class="lab-row"><label><input type="checkbox" id="sc_setupOk"> <span>Every applicable <b>Module 05 condition</b> for the selected setup is met <small>Break/retest/confirmation for Setup One, zone and rejection for Setup Two, second-pullback counting for Setup Three, and the setup\'s own entry rules.</small></span></label><b>REQUIRED</b></div>';
+ $("scDq").innerHTML=DQ.map(function(t,i){return'<div class="lab-row"><label><input type="checkbox" data-k="dq" data-i="'+i+'"> <span>'+t+'</span></label><b>STOP</b></div>'}).join("");
+ $("scTrend").innerHTML=TR.map(function(t){return'<div class="lab-row"><label><input type="radio" name="sc_trend" value="'+t[0]+'"'+(t[0]===0?" checked":"")+'> <span>'+t[1]+'</span></label><b>+'+t[0]+'</b></div>'}).join("")+ev("tr");
+ $("scLv").innerHTML=LV.map(function(t,i){return'<div class="lab-crit"><div class="lab-row"><label><input type="checkbox" data-k="lv" data-i="'+i+'"> <span>'+t[0]+' <small>'+t[2]+'</small></span></label><b>+'+t[1]+'</b></div>'+ev("lv"+i)+'</div>'}).join("");
+ $("scSg").innerHTML=SG.map(function(t,i){return'<div class="lab-crit"><div class="lab-row"><label><input type="checkbox" data-k="sg" data-i="'+i+'"> <span>'+t[0]+' <small>'+t[2]+'</small></span></label><b>+'+t[1]+'</b></div>'+ev("sg"+i)+'</div>'}).join("");
+}
+function ev(k){return'<input class="lab-in lab-ev" type="text" maxlength="200" data-ev="'+k+'" placeholder="Evidence for this point (what you saw, which level, which candles)" autocomplete="off">'}
+function readS(){
+ var S={name:$("sc_name").value.slice(0,80),setup:$("sc_setup").value,tls:[],dq:[],lv:[],sg:[],ev:{},trend:0,setupOk:$("sc_setupOk").checked,dcur:$("sc_dcur").value,dmean:$("sc_dmean").value};
+ document.querySelectorAll('#scCard input[data-k]').forEach(function(e){S[e.dataset.k][+e.dataset.i]=e.checked});
+ document.querySelectorAll('#scCard input[data-ev]').forEach(function(e){if(e.value)S.ev[e.dataset.ev]=e.value.slice(0,200)});
+ var t=document.querySelector('input[name="sc_trend"]:checked');S.trend=t?+t.value:0;
+ return S;
+}
+function writeS(S){
+ if(!S||typeof S!=="object")return;
+ $("sc_name").value=String(S.name||"").slice(0,80);$("sc_setup").value=SETUPS[S.setup]?S.setup:"";$("sc_setupOk").checked=!!S.setupOk;
+ $("sc_dcur").value=S.dcur||"";$("sc_dmean").value=S.dmean||"";
+ document.querySelectorAll('#scCard input[data-k]').forEach(function(e){var a=S[e.dataset.k];e.checked=!!(a&&a[+e.dataset.i])});
+ document.querySelectorAll('#scCard input[data-ev]').forEach(function(e){e.value=(S.ev&&S.ev[e.dataset.ev])||""});
+ var tv=(S.trend===1||S.trend===2)?S.trend:0,rd=document.querySelector('input[name="sc_trend"][value="'+tv+'"]');if(rd)rd.checked=true;
+}
+function drawSC(){
+ var S=readS(),r=evalSC(S);
+ var lb=$("scLv").querySelectorAll('input[data-k="lv"]');
+ var zoneOn=!!S.lv[0];
+ [3,4].forEach(function(i){lb[i].disabled=!zoneOn;lb[i].closest(".lab-row").classList.toggle("off",!zoneOn)});
+ var q=$("scQual");q.className="lab-qual "+(r.status==="qualified"?"ok":(r.status==="incomplete"?"mid":"no"));q.textContent=r.msg;
+ document.querySelectorAll('#scCard input[data-ev]').forEach(function(e){var k=e.dataset.ev,on;if(k==="tr")on=S.trend>0;else on=!!(S[k.slice(0,2)]&&S[k.slice(0,2)][+k.slice(2)]);e.hidden=!on});
+ var locked=r.status!=="qualified";$("scFs").disabled=locked;$("scFs").classList.toggle("locked",locked);
+ $("scLock").textContent=locked?"Locked until steps 1 to 3 pass":"Open";
+ var h;
+ if(locked){h='<span class="lab-big">Not scored</span><br><span class="lab-bad">'+esc(r.msg)+'</span>'}
+ else{
+  h='<span class="lab-big">'+r.score+' / 11</span> <span class="lab-grade '+(r.grade==="Below A"?"lo":"hi")+'">'+(r.grade==="Below A"?"Below A":"Grade "+r.grade)+'</span>'+
+   '<div class="lab-parts"><span>Trend '+r.parts.trend+' / 2</span><span>Level and location '+r.parts.level+' / 7</span><span>Signal '+r.parts.signal+' / 2</span></div>'+
+   '<div class="lab-sm">'+esc(r.meaning)+'. Bands: 9 to 11 = A+, 6 to 8 = A, 0 to 5 = below the proposed grade bands.</div>';
+  if(r.score<=5)h+='<div class="lab-sm">A score of 5 or below does not by itself invalidate a setup that passed T.L.S., its setup requirements and the disqualifier check. The grade is not a trade-selection threshold.</div>';
+  if(r.corr.length)h+='<div class="lab-warn"><b>Possible double-counting</b><ul>'+r.corr.map(function(c){return"<li>"+esc(c)+"</li>"}).join("")+'</ul></div>';
+  if(r.missing.length)h+='<div class="lab-warn"><b>Record the reason for each awarded point.</b> No evidence written for: '+r.missing.map(esc).join("; ")+'.</div>';
+ }
+ h+='<div class="lab-fine">Scorecard version 1.0, provisional. A descriptive research label only: not an entry signal, not a risk tier. Position size comes only from the Module 06 risk policy, whatever the grade. A hard disqualifier always overrides the score.</div>';
+ $("scOut").innerHTML=h;
+ ls(DK,JSON.stringify(S));
+ return{S:S,r:r};
+}
+function dispHelper(){
+ var c=parseFloat($("sc_dcur").value),m=parseFloat($("sc_dmean").value),o=$("sc_dout");
+ if($("sc_dcur").value===""&&$("sc_dmean").value===""){o.textContent="";return}
+ if(!(c>=0)||!(m>0)){o.textContent="Enter a current body of 0 or more and a mean body above 0.";return}
+ var x=c/m;o.textContent="Ratio "+x.toFixed(2)+"x. "+(x>=2?"This meets the 2x ratio. Direction, close, structural consequence and follow-through must still support it.":"Below 2x, so the displacement point is not earned on this measure.");
+}
+function recs(){try{var a=JSON.parse(lg(RK)||"[]");return Array.isArray(a)?a:[]}catch(e){return[]}}
+function drawRecs(){
+ var a=recs();$("scCount").textContent="("+a.length+" saved)";
+ $("scRecB").innerHTML=a.length?a.slice().reverse().map(function(x,j){var i=a.length-1-j;return"<tr><td>"+esc(x.d)+"</td><td>"+esc(x.name||"(unlabelled)")+"</td><td>"+esc(SETUPS[x.setup]||"n/a")+"</td><td>"+esc(x.decision)+"</td><td>"+(x.score==null?"not scored":x.score+" / 11")+"</td><td>"+esc(x.grade||"n/a")+'</td><td><button type="button" class="pj-b" data-del="'+i+'">Delete</button></td></tr>'}).join(""):'<tr><td colspan="7">No records yet.</td></tr>';
+}
+function saveRec(){
+ var o=drawSC(),S=o.S,r=o.r,a=recs(),m=$("scMsg");
+ if(a.length>=MAXREC){m.textContent="Record is full ("+MAXREC+"). Delete older records first.";return}
+ if(r.status==="incomplete"){m.textContent="Choose the setup first.";return}
+ var dec={qualified:"Qualified; score recorded after qualification",no_trade:"No trade (T.L.S. failed)",watch:"Watch only (2 of 3 T.L.S.)",not_qualified:"Not qualified (setup conditions)",dq:"No trade (disqualifier applies)"}[r.status];
+ var rec={d:new Date().toISOString().slice(0,16).replace("T"," "),name:S.name,setup:S.setup,tls:S.tls.map(Boolean),setupOk:!!S.setupOk,dq:S.dq.map(Boolean),decision:dec,score:r.score,grade:r.grade,parts:r.parts,pts:r.status==="qualified"?{tr:r.parts.trend,lv:r.lvOn,sg:r.sgOn}:null,ev:r.status==="qualified"?S.ev:{},corr:r.corr,v:"1.0"};
+ a.push(rec);
+ if(ls(RK,JSON.stringify(a))){m.textContent="Saved.";drawRecs()}else{a.pop();m.textContent="Could not save: browser storage is full or blocked."}
+ setTimeout(function(){m.textContent=""},2500);
+}
+function resetSC(){
+ if(!confirm("Reset the whole scorecard form? Saved records are not affected."))return;
+ writeS({});$("sc_dcur").value="";$("sc_dmean").value="";drawSC();dispHelper();
+}
+
+/* ---------- Expectancy UI ---------- */
+function drawEx(){
+ var mode=$("ex_mode").value,gross=$("ex_net").value==="gross",out=$("exOut"),h="";
+ $("ex_costW").hidden=!gross;$("ex_listBox").hidden=mode!=="list";$("ex_sumBox").hidden=mode!=="sum";
+ var cost=parseFloat($("ex_cost").value);
+ if(gross&&(!isFinite(cost)||cost<0)){out.innerHTML='<span class="lab-bad">Enter a cost per trade of 0 or more (in R), or switch to "Net".</span>';return}
+ if(mode==="list"){
+  var p=parseR($("ex_list").value);
+  if(p.errs.length){out.innerHTML='<span class="lab-bad">Cannot calculate. These entries are not valid R results: '+p.errs.slice(0,8).map(esc).join(", ")+(p.errs.length>8?", ...":"")+'.</span><div class="lab-sm">Use numbers such as 2, +1.5, -1, 0 or -0.5R. Separate results with spaces, new lines or semicolons, and use a dot for decimals (not a comma).</div>';return}
+  if(p.vals.length>10000){out.innerHTML='<span class="lab-bad">Too many results (limit 10,000).</span>';return}
+  if(!p.vals.length){out.innerHTML='<span class="lab-big">No executed trades</span><div class="lab-sm">Enter at least one executed trade result. With zero trades there is nothing to average, so expectancy is not defined. Skipped or missed opportunities do not count as trades.</div>';return}
+  var s=statsR(p.vals,{gross:gross,cost:cost,beBreaks:$("ex_be").value==="break"}),good=s.exp>0;
+  h='<span class="lab-big '+(good?"lab-good":(s.exp<0?"lab-bad":""))+'">'+f2(s.exp,3)+'R per executed trade</span>'+
+   '<div class="lab-sm">Expectancy = total '+(gross?"net (after your cost)":"net")+' R &divide; number of executed trades = '+f2(s.total)+' &divide; '+s.n+'. Breakeven trades stay in the count.</div>'+
+   '<table class="lab-t lab-st"><tbody>'+
+   '<tr><td>Executed trades</td><td><b>'+s.n+'</b> ('+s.w+' wins, '+s.l+' losses, '+s.b+' breakeven)</td></tr>'+
+   '<tr><td>Win rate (wins &divide; wins + losses)</td><td>'+(s.winRate==null?"not defined (no wins or losses)":s.winRate.toFixed(1)+"%")+' <small>Breakeven trades are excluded here and reported separately.</small></td></tr>'+
+   '<tr><td>Share of all executed trades</td><td>wins '+s.shareW.toFixed(1)+'% &middot; losses '+s.shareL.toFixed(1)+'% &middot; breakeven '+s.shareB.toFixed(1)+'%</td></tr>'+
+   '<tr><td>Average win</td><td>'+(s.aw==null?"n/a (no winning trades)":f2(s.aw)+"R")+'</td></tr>'+
+   '<tr><td>Average loss (positive magnitude)</td><td>'+(s.al==null?"n/a (no losing trades)":s.al.toFixed(2)+"R")+'</td></tr>'+
+   '<tr><td>Profit factor (gross profit &divide; gross loss)</td><td>'+(s.pfUndefined?"undefined: no losing trades, not meaningfully estimable from this sample":s.pf.toFixed(2))+'</td></tr>'+
+   '<tr><td>Longest losing streak</td><td>'+s.streak+' <small>(breakeven '+($("ex_be").value==="break"?"breaks":"is ignored in")+' a streak)</small></td></tr>'+
+   '<tr><td>Maximum drawdown</td><td>'+s.dd.toFixed(2)+'R <small>closed trades, in the order entered, in net R, measured from a starting point of 0</small></td></tr>'+
+   '</tbody></table>';
+  if(s.n<2)h+='<div class="lab-sm">One trade tells you almost nothing about a process.</div>';
+  if(s.pfUndefined&&s.n>0)h+='<div class="lab-sm">A sample with no losing trades is not evidence of an exceptional strategy.</div>';
+ }else{
+  var W=parseFloat($("ex_w").value),B=parseFloat($("ex_b").value),AW=parseFloat($("ex_aw").value),AL=parseFloat($("ex_al").value);
+  var Lc=isFinite(W)&&isFinite(B)?100-W-B:NaN;$("ex_l").value=isFinite(Lc)?(Lc<0?"invalid":Lc.toFixed(2)+"%"):"";
+  var m=summaryE({w:W,b:B,aw:AW,al:AL,gross:gross,cost:cost});
+  if(m.errs.length){out.innerHTML='<span class="lab-bad">Cannot calculate.</span><ul class="lab-sm">'+m.errs.map(function(e){return"<li>"+esc(e)+"</li>"}).join("")+"</ul>";return}
+  var tot=m.net;
+  h='<span class="lab-big '+(tot>0?"lab-good":(tot<0?"lab-bad":""))+'">'+f2(tot,3)+'R per executed trade</span>'+
+   '<div class="lab-sm">'+(gross?"Gross expectancy "+f2(m.gross,3)+"R, minus average cost "+m.cost.toFixed(3)+"R = net "+f2(m.net,3)+"R. ":"")+'E = ('+(W/100).toFixed(4).replace(/0+$/,"").replace(/\.$/,"")+' &times; '+AW+') &minus; ('+(m.L/100).toFixed(4).replace(/0+$/,"").replace(/\.$/,"")+' &times; '+AL+') with win, loss and breakeven rates taken over all executed trades. Breakeven trades contribute 0R.</div>';
+ }
+ h+='<div class="lab-fine">This describes the figures you entered. It does not predict the next trade or prove an edge. There is no universal trade count that guarantees statistical confidence; a positive initial sample is a reason to keep investigating, not permission to claim a proven edge (Module 11, 11.41). Use the same gross or net convention throughout a sample and do not subtract costs twice.</div>';
+ out.innerHTML=h;
+ saveEx();
+}
+function saveEx(){ls(EK,JSON.stringify({mode:$("ex_mode").value,net:$("ex_net").value,cost:$("ex_cost").value,list:$("ex_list").value.slice(0,50000),be:$("ex_be").value,w:$("ex_w").value,b:$("ex_b").value,aw:$("ex_aw").value,al:$("ex_al").value}))}
+function loadEx(){
+ var d;try{d=JSON.parse(lg(EK)||"null")}catch(e){d=null}if(!d)return;
+ ["mode","net","cost","list","be","w","b","aw","al"].forEach(function(k){var e=$("ex_"+k);if(e&&d[k]!=null)e.value=d[k]});
+}
+
+/* ---------- wire up ---------- */
+build();
+var draft;try{draft=JSON.parse(lg(DK)||"null")}catch(e){draft=null}
+writeS(draft);loadEx();
+$("scCard").addEventListener("input",function(e){if(e.target.id==="sc_dcur"||e.target.id==="sc_dmean")dispHelper();drawSC()});
+$("scCard").addEventListener("change",drawSC);
+$("scSave").onclick=saveRec;$("scReset").onclick=resetSC;
+$("scRecB").addEventListener("click",function(e){var b=e.target.closest("[data-del]");if(!b)return;var a=recs(),i=+b.dataset.del;if(!a[i])return;if(!confirm("Delete this saved record?"))return;a.splice(i,1);ls(RK,JSON.stringify(a));drawRecs()});
+["ex_mode","ex_net","ex_cost","ex_list","ex_be","ex_w","ex_b","ex_aw","ex_al"].forEach(function(i){$(i).addEventListener("input",drawEx);$(i).addEventListener("change",drawEx)});
+$("ex_ex").onclick=function(){$("ex_mode").value="list";$("ex_net").value="net";$("ex_list").value="+2\n+1\n-1\n0\n-0.5";drawEx()};
+$("ex_clr").onclick=function(){$("ex_list").value="";drawEx()};
+drawSC();dispHelper();drawRecs();drawEx();
 })();
 </script>
 <style>
@@ -3148,6 +3471,43 @@ body.legal-open #aiDrawer{z-index:20250}
 <style>
 .sp-code{position:relative;margin:10px 0}.sp-code pre{margin:0}.sp-code button{position:absolute;top:8px;right:8px;background:#18181b;color:#a1a1aa;border:1px solid #27272a;border-radius:8px;font-size:11.5px;padding:3px 10px;cursor:pointer}.sp-code button:hover{color:#fff}
 .sp-body a{color:#4ade80;text-decoration:underline;text-underline-offset:2px}.sp-body ul ul,.sp-body ol ul,.sp-body ul ol,.sp-body ol ol{margin:4px 0}.sp-body del{opacity:.6}.sp-body input[type=checkbox]{margin-right:6px;accent-color:#4ade80;vertical-align:-1px}
+</style>
+<style>
+.rd-rich p{margin:0 0 14px}.rd-rich h3{font-size:17px;color:#fff;font-weight:600;margin:26px 0 10px;letter-spacing:-.01em}.rd-rich ul,.rd-rich ol{margin:0 0 14px;padding-left:22px}.rd-rich li{margin:5px 0}
+.rd-rich table,.sh-t{width:100%;border-collapse:collapse;font-size:13.5px;margin:12px 0 18px;display:block;overflow-x:auto}.rd-rich th,.rd-rich td,.sh-t th,.sh-t td{border:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}.rd-rich th,.sh-t th{background:#0a0a0a;color:#d4d4d8;font-weight:500}
+.rd-callout{border-left:3px solid var(--lime);background:#0a0a0a;border-radius:0 12px 12px 0;padding:14px 18px;margin:16px 0;color:#e4e4e7}.rd-callout b{color:var(--lime)}.rd-step{border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:14px 0;background:#050505}
+.rd-rich .lesson-diagram,.rd-p+.lesson-diagram{margin:18px 0}.dg-cap{font-size:12.5px;color:#a1a1aa;margin:10px 0 0;line-height:1.5}
+.qz{border:1px solid var(--line);border-radius:14px;padding:18px;background:#09090b}.qz-head{display:flex;justify-content:space-between;gap:10px;font:11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#a1a1aa;margin-bottom:14px}.qz-best{color:var(--lime)}
+.qz-q{padding:14px 0;border-top:1px solid #18181b}.qz-q:first-of-type{border-top:0;padding-top:4px}.qz-part{font:11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--lime);margin:8px 0 6px}.qz-t{font-size:15px;font-weight:500;color:#fff;margin:0 0 10px;line-height:1.5}
+.qz-opts{display:flex;flex-direction:column;gap:8px}.qz-opt{text-align:left;background:#0a0a0a;border:1px solid var(--line);color:#d4d4d8;border-radius:10px;padding:10px 14px;font-size:14px;cursor:pointer;line-height:1.5}.qz-opt b{color:#71717a;margin-right:8px}.qz-opt:hover:not(:disabled){border-color:#52525b}.qz-opt.ok{border-color:var(--lime);background:rgba(74,222,128,.08);color:#fff}.qz-opt.bad{border-color:#e0506b;background:rgba(224,80,107,.08)}
+.qz-fb{margin-top:10px;font-size:13.5px;line-height:1.6;color:#d4d4d8}.qz-foot{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:14px;font-size:14px;color:#fff}.qz-score b{color:var(--lime)}
+.sh-t textarea{width:100%;background:transparent;border:0;color:#fff;font:inherit;resize:none;min-height:24px}.sh-t textarea:focus{outline:1px solid var(--lime)}
+</style>
+<script>
+(function(){
+var esc=function(s){return String(s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})},LG=function(k){try{return localStorage.getItem(k)}catch(e){return null}},LS=function(k,v){try{localStorage.setItem(k,v)}catch(e){}};
+window.prevText=function(h,n){var t=String(h||"").replace(/<svg[\s\S]*?<\/svg>/g," ").replace(/<[^>]+>/g," ").replace(/\s+/g," ").trim();n=n||240;return t.length>n?t.slice(0,n).replace(/\s\S*$/,"")+"…":t};
+var QZ={};
+window.quizHTML=function(q){QZ[q.id]=q;var b=LG("paos_quiz_"+q.id);return'<div class="lesson-diagram qz" data-qz="'+q.id+'"><div class="qz-head"><span>'+esc(q.title||"Check your understanding")+'</span><span class="qz-best">'+(b?"Best: "+esc(b):"")+'</span></div>'+q.items.map(function(it,qi){return'<div class="qz-q" data-qi="'+qi+'">'+(it.part?'<p class="qz-part">'+esc(it.part)+'</p>':'')+'<p class="qz-t">'+(qi+1)+'. '+it.q+'</p>'+(it.chart||'')+'<div class="qz-opts">'+it.o.map(function(t,oi){return'<button type="button" class="qz-opt" data-oi="'+oi+'"><b>'+String.fromCharCode(65+oi)+'</b> '+t+'</button>'}).join('')+'</div><div class="qz-fb" hidden></div></div>'}).join('')+'<div class="qz-foot"><span class="qz-score"></span><button type="button" class="qz-retry pj-b" hidden>Try again</button></div></div>'};
+window.sheetHTML=function(s){var d={};try{d=JSON.parse(LG("paos_sheet_"+s.id)||"{}")}catch(e){}return'<div class="lesson-diagram sh" data-sh="'+s.id+'"><div class="qz-head"><span>'+esc(s.title)+'</span></div><table class="sh-t"><tbody>'+s.fields.map(function(f,i){return'<tr><th>'+esc(f)+'</th><td><textarea rows="1" data-f="'+i+'" aria-label="'+esc(f)+'">'+esc(d[i]||"")+'</textarea></td></tr>'}).join('')+'</tbody></table><div class="qz-foot"><button type="button" class="pj-b" data-shact="copy">Copy as text</button><button type="button" class="pj-b" data-shact="print">Print</button><button type="button" class="pj-b" data-shact="clear">Clear sheet</button></div></div>'};
+document.addEventListener("click",function(e){var T=e.target;if(!T.closest)return;var o=T.closest(".qz-opt"),r=T.closest(".qz-retry");
+ if(r){var bx=r.closest(".qz");bx.querySelectorAll(".qz-q").forEach(function(q){q.classList.remove("done");q.querySelectorAll(".qz-opt").forEach(function(b){b.className="qz-opt";b.disabled=false});q.querySelector(".qz-fb").hidden=true});bx.querySelector(".qz-score").textContent="";r.hidden=true;return}
+ if(o){var box=o.closest(".qz"),qq=o.closest(".qz-q");if(qq.classList.contains("done"))return;var Q=QZ[box.dataset.qz],it=Q.items[+qq.dataset.qi],pick=+o.dataset.oi;
+  qq.classList.add("done");qq.querySelectorAll(".qz-opt").forEach(function(b,i){b.disabled=true;if(i===it.a)b.classList.add("ok");else if(i===pick)b.classList.add("bad")});
+  var fb=qq.querySelector(".qz-fb");fb.hidden=false;fb.innerHTML="<b>"+(pick===it.a?"Correct.":"Not quite.")+"</b> "+(it.why||"");
+  var all=box.querySelectorAll(".qz-q");if(box.querySelectorAll(".qz-q.done").length===all.length){var c=0;all.forEach(function(q){if(!q.querySelector(".qz-opt.bad"))c++});var pct=Math.round(c/all.length*100),pass=Q.pass||80;
+   box.querySelector(".qz-score").innerHTML="<b>"+c+" / "+all.length+" ("+pct+"%)</b> "+(pct>=pass?"Passed.":"Below the "+pass+"% standard. Review the lessons and retry.");var b0=parseInt(LG("paos_quiz_"+Q.id));if(isNaN(b0)||pct>b0){LS("paos_quiz_"+Q.id,pct+"%");box.querySelector(".qz-best").textContent="Best: "+pct+"%"}box.querySelector(".qz-retry").hidden=false}return}
+ var b=T.closest("[data-shact]");if(!b)return;var sh=b.closest(".sh"),a=b.dataset.shact,rows=[].slice.call(sh.querySelectorAll("tr"));
+ if(a==="copy"){var tx=rows.map(function(x){return x.querySelector("th").textContent+": "+x.querySelector("textarea").value}).join("\n");Promise.resolve().then(function(){return navigator.clipboard.writeText(tx)}).then(function(){b.textContent="Copied";setTimeout(function(){b.textContent="Copy as text"},1400)}).catch(function(){})}
+ else if(a==="print"){var w=window.open("","_blank");if(w){w.document.write("<title>Sheet</title><body style='font:14px sans-serif;padding:24px'><h2>"+esc(sh.querySelector(".qz-head span").textContent)+"</h2><table border=1 cellpadding=8 style='border-collapse:collapse;width:100%'>"+rows.map(function(x){return"<tr><th align=left>"+esc(x.querySelector("th").textContent)+"</th><td>"+esc(x.querySelector("textarea").value).replace(/\n/g,"<br>")+"</td></tr>"}).join("")+"</table>");w.document.close();w.print()}}
+ else if(a==="clear"&&confirm("Clear every field on this sheet?")){sh.querySelectorAll("textarea").forEach(function(x){x.value=""});LS("paos_sheet_"+sh.dataset.sh,"{}")}});
+document.addEventListener("input",function(e){var t=e.target;if(!t.matches||!t.matches(".sh textarea"))return;var sh=t.closest(".sh"),d={};sh.querySelectorAll("textarea").forEach(function(x){if(x.value)d[x.dataset.f]=x.value});LS("paos_sheet_"+sh.dataset.sh,JSON.stringify(d));t.style.height="auto";t.style.height=t.scrollHeight+"px"});
+})();
+</script>
+<style>
+.rd-pending{border:1px dashed var(--line);border-radius:12px;padding:14px 16px;background:#050505}.rd-pending .dg-cap{margin:0;color:#a1a1aa}.rd-pending .dg-cap::after{content:" · illustration in preparation";color:#52525b}
+.rd-reveal{border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin:12px 0;background:#09090b}.rd-reveal summary{cursor:pointer;color:var(--lime);font-weight:500}.rd-reveal[open] summary{margin-bottom:10px}
+.rd-h{font-size:14px;color:#fff;margin:18px 0 8px;font-weight:600}
 </style>
 </body>
 </html>
