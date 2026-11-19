@@ -705,7 +705,7 @@ document.readyState==='loading'?document.addEventListener('DOMContentLoaded',go)
         <div class="welcome-step"><span>2</span>Open the Risk Calc tab and run three practice position sizes, then open the Lab tab and record the Scorecard for a setup that has already qualified.</div>
         <div class="welcome-step"><span>3</span>Save the Checklist tab — you will use it every single session.</div>
         <div class="welcome-step"><span>4</span>Come back to this roadmap and start Stage 1 below.</div>
-      </div></div>
+      </div><div class="prog-overall prog-compact" data-prog="overall"></div></div>
   </div>
 </section>
 
@@ -818,6 +818,7 @@ document.readyState==='loading'?document.addEventListener('DOMContentLoaded',go)
     </div></div>
     </div>
     <div class="below">
+      <div class="prog-overall" data-prog="overall"></div>
       <div class="module-grid" id="moduleGrid"></div>
     </div>
   </div>
@@ -1602,7 +1603,7 @@ function fallbackCopy(text, onSuccess, onFailure) {
 }
 
 /* ── INIT (runs after the vault unlocks) ── */
-window.paosInit=function(){buildModules();buildWorkflow();buildExecutionPanel();buildSetupCards();buildFAQ();updateProgress();if(window.paosSparkMenu)window.paosSparkMenu();};
+window.paosInit=function(){buildModules();buildWorkflow();buildExecutionPanel();buildSetupCards();buildFAQ();updateProgress();if(window.paosSparkMenu)window.paosSparkMenu();if(window.paosRestoreChecks)try{paosRestoreChecks()}catch(e){}if(window.paosProg)try{paosProg.refresh()}catch(e){}};
 calcRisk();
 </script>
 <!-- ═════════ PA.OS ADD-ON: READING MODE + AI CO-PILOT ═════════ -->
@@ -1674,7 +1675,7 @@ calcRisk();
 <!-- Reading Mode modal -->
 <div id="readerModal" role="dialog" aria-modal="true" aria-label="Module reader">
   <div class="rd-bar">
-    <div class="rd-left"><div class="rd-kicker-bar" id="rdBarLabel">Reading Mode</div>
+    <div class="rd-left"><div class="rd-kicker-bar" id="rdBarLabel">Reading Mode</div><div class="prog-rd" id="rdProg" aria-live="polite"></div>
       <div class="rd-timer" id="rdTimer" title="25-minute focus session"><span>⏱</span><b id="rdTime">25:00</b><button id="rdTimerGo" aria-label="Start or pause timer">▶</button><button id="rdTimerReset" aria-label="Reset timer">↺</button></div></div>
     <div class="rd-tools">
       <button class="rd-btn" id="rdMinus" aria-label="Decrease font size">A−</button>
@@ -1736,6 +1737,7 @@ calcRisk();
       (i<modules.length-1?`<button class="rd-btn" data-go="${i+1}">Module ${modules[i+1].num} →</button>`:'<span></span>');
     scroll.style.scrollBehavior='auto'; scroll.scrollTop=0; scroll.style.scrollBehavior='';
     stopSpeech(); loadNotes(); applyHighlights();
+    if(window.paosProg)try{paosProg.decorate(content,i)}catch(e){}
     update();
   }
   function update(){
@@ -2684,18 +2686,43 @@ For questions, concerns, or privacy requests, contact:
 
 
 <script>
-/* ═════════ LOCAL CHECKLIST PERSISTENCE (no login, no cloud) ═════════ */
+/* ═════════ LOCAL CHECKLIST PERSISTENCE (synced with the rest of paos_* by the account sync) ═════════
+   workflow + roadmap: saved as DOM indices (their DOM is static and stable), key names unchanged.
+   Execution Panel: saved by item identity in paos_chk_panel_v2 (entry number + text hash). The old index-based
+   paos_chk_panel key is left untouched and is NOT restored, because Stage 2 changed the item counts of entries 05/06
+   and old indices could tick the wrong items.
+   A group is only saved/restored when its DOM exists, so an early click can never overwrite a saved group with []. */
 (function(){
-  const groups=[['paos_chk_workflow','.workflow-step'],['paos_chk_panel','.panel-check-item'],['paos_chk_roadmap','.roadmap .check-box']];
+  const groups=[['paos_chk_workflow','.workflow-step'],['paos_chk_roadmap','.roadmap .check-box']];
+  const PK='paos_chk_panel_v2';
   const isOn=el=>el.classList.contains('checked');
-  function saveChecks(){ groups.forEach(([k,sel])=>{ const on=[]; document.querySelectorAll(sel).forEach((el,i)=>{ if(isOn(el)) on.push(i); }); try{ localStorage.setItem(k,JSON.stringify(on)); }catch(e){} }); }
+  const hash=s=>{let h=5381;for(let i=0;i<s.length;i++)h=((h<<5)+h+s.charCodeAt(i))|0;return (h>>>0).toString(36)};
+  function panelItems(){
+    const out=[];
+    document.querySelectorAll('.panel-module-card').forEach(card=>{
+      const nm=card.querySelector('.module-num'), num=nm?nm.textContent.trim():'', seen={};
+      card.querySelectorAll('.panel-check-item').forEach(el=>{
+        const tx=el.children[1]?el.children[1].textContent:el.textContent;
+        const h=hash(String(tx).replace(/\s+/g,' ').trim()), base=num+'|'+h; seen[base]=(seen[base]||0)+1;
+        out.push({el:el,id:base+'|'+seen[base]});
+      });
+    });
+    return out;
+  }
+  function saveChecks(){
+    groups.forEach(([k,sel])=>{ const nodes=document.querySelectorAll(sel); if(!nodes.length) return; const on=[];
+      nodes.forEach((el,i)=>{ if(isOn(el)) on.push(i); }); try{ localStorage.setItem(k,JSON.stringify(on)); }catch(e){} });
+    const it=panelItems(); if(it.length){ try{ localStorage.setItem(PK,JSON.stringify(it.filter(x=>isOn(x.el)).map(x=>x.id))); }catch(e){} }
+  }
   function restoreChecks(){
-    groups.forEach(([k,sel])=>{ let on=[]; try{ on=JSON.parse(localStorage.getItem(k)||'[]'); }catch(e){}
+    groups.forEach(([k,sel])=>{ let on=[]; try{ on=JSON.parse(localStorage.getItem(k)||'[]'); }catch(e){} if(!Array.isArray(on)) on=[];
       document.querySelectorAll(sel).forEach((el,i)=>{ const v=on.indexOf(i)>=0; el.classList.toggle('checked',v);
-        if(sel==='.panel-check-item'){ const b=el.querySelector('.check-box'); if(b) b.textContent=v?'✓':''; }
         if(sel==='.roadmap .check-box') el.textContent=v?'✓':''; }); });
+    let pv=null; try{ pv=JSON.parse(localStorage.getItem(PK)||'null'); }catch(e){}
+    if(Array.isArray(pv)) panelItems().forEach(x=>{ const v=pv.indexOf(x.id)>=0; x.el.classList.toggle('checked',v); const b=x.el.querySelector('.check-box'); if(b) b.textContent=v?'✓':''; });
     try{ checkedCount=document.querySelectorAll('.workflow-step.checked').length; updateProgress(); }catch(e){}
   }
+  window.paosRestoreChecks=restoreChecks;
   document.addEventListener('click',e=>{ if(e.target.closest('.workflow-step,.panel-check-item,.roadmap .check-box,[onclick*="resetChecklist"]')) setTimeout(saveChecks,30); });
   restoreChecks();
 })();
@@ -3488,7 +3515,7 @@ body.legal-open #aiDrawer{z-index:20250}
 var esc=function(s){return String(s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})},LG=function(k){try{return localStorage.getItem(k)}catch(e){return null}},LS=function(k,v){try{localStorage.setItem(k,v)}catch(e){}};
 window.prevText=function(h,n){var t=String(h||"").replace(/<svg[\s\S]*?<\/svg>/g," ").replace(/<[^>]+>/g," ").replace(/\s+/g," ").trim();n=n||240;return t.length>n?t.slice(0,n).replace(/\s\S*$/,"")+"…":t};
 var QZ={};
-window.quizHTML=function(q){QZ[q.id]=q;var b=LG("paos_quiz_"+q.id);return'<div class="lesson-diagram qz" data-qz="'+q.id+'"><div class="qz-head"><span>'+esc(q.title||"Check your understanding")+'</span><span class="qz-best">'+(b?"Best: "+esc(b):"")+'</span></div>'+q.items.map(function(it,qi){return'<div class="qz-q" data-qi="'+qi+'">'+(it.part?'<p class="qz-part">'+esc(it.part)+'</p>':'')+'<p class="qz-t">'+(qi+1)+'. '+it.q+'</p>'+(it.chart||'')+'<div class="qz-opts">'+it.o.map(function(t,oi){return'<button type="button" class="qz-opt" data-oi="'+oi+'"><b>'+String.fromCharCode(65+oi)+'</b> '+t+'</button>'}).join('')+'</div><div class="qz-fb" hidden></div></div>'}).join('')+'<div class="qz-foot"><span class="qz-score"></span><button type="button" class="qz-retry pj-b" hidden>Try again</button></div></div>'};
+window.quizHTML=function(q){QZ[q.id]=q;var b=LG("paos_quiz_"+q.id);return'<div class="lesson-diagram qz" data-qz="'+q.id+'"><div class="qz-head"><span>'+esc(q.title||"Check your understanding")+'</span><span class="qz-best">'+(window.paosProg?paosProg.quizLabel(q):(b?"Best: "+esc(b):""))+'</span></div>'+q.items.map(function(it,qi){return'<div class="qz-q" data-qi="'+qi+'">'+(it.part?'<p class="qz-part">'+esc(it.part)+'</p>':'')+'<p class="qz-t">'+(qi+1)+'. '+it.q+'</p>'+(it.chart||'')+'<div class="qz-opts">'+it.o.map(function(t,oi){return'<button type="button" class="qz-opt" data-oi="'+oi+'"><b>'+String.fromCharCode(65+oi)+'</b> '+t+'</button>'}).join('')+'</div><div class="qz-fb" hidden></div></div>'}).join('')+'<div class="qz-foot"><span class="qz-score"></span><button type="button" class="qz-retry pj-b" hidden>Try again</button></div></div>'};
 window.sheetHTML=function(s){var d={};try{d=JSON.parse(LG("paos_sheet_"+s.id)||"{}")}catch(e){}return'<div class="lesson-diagram sh" data-sh="'+s.id+'"><div class="qz-head"><span>'+esc(s.title)+'</span></div><table class="sh-t"><tbody>'+s.fields.map(function(f,i){return'<tr><th>'+esc(f)+'</th><td><textarea rows="1" data-f="'+i+'" aria-label="'+esc(f)+'">'+esc(d[i]||"")+'</textarea></td></tr>'}).join('')+'</tbody></table><div class="qz-foot"><button type="button" class="pj-b" data-shact="copy">Copy as text</button><button type="button" class="pj-b" data-shact="print">Print</button><button type="button" class="pj-b" data-shact="clear">Clear sheet</button></div></div>'};
 document.addEventListener("click",function(e){var T=e.target;if(!T.closest)return;var o=T.closest(".qz-opt"),r=T.closest(".qz-retry");
  if(r){var bx=r.closest(".qz");bx.querySelectorAll(".qz-q").forEach(function(q){q.classList.remove("done");q.querySelectorAll(".qz-opt").forEach(function(b){b.className="qz-opt";b.disabled=false});q.querySelector(".qz-fb").hidden=true});bx.querySelector(".qz-score").textContent="";r.hidden=true;return}
@@ -3496,7 +3523,7 @@ document.addEventListener("click",function(e){var T=e.target;if(!T.closest)retur
   qq.classList.add("done");qq.querySelectorAll(".qz-opt").forEach(function(b,i){b.disabled=true;if(i===it.a)b.classList.add("ok");else if(i===pick)b.classList.add("bad")});
   var fb=qq.querySelector(".qz-fb");fb.hidden=false;fb.innerHTML="<b>"+(pick===it.a?"Correct.":"Not quite.")+"</b> "+(it.why||"");
   var all=box.querySelectorAll(".qz-q");if(box.querySelectorAll(".qz-q.done").length===all.length){var c=0;all.forEach(function(q){if(!q.querySelector(".qz-opt.bad"))c++});var pct=Math.round(c/all.length*100),pass=Q.pass||80;
-   box.querySelector(".qz-score").innerHTML="<b>"+c+" / "+all.length+" ("+pct+"%)</b> "+(pct>=pass?"Passed.":"Below the "+pass+"% standard. Review the lessons and retry.");var b0=parseInt(LG("paos_quiz_"+Q.id));if(isNaN(b0)||pct>b0){LS("paos_quiz_"+Q.id,pct+"%");box.querySelector(".qz-best").textContent="Best: "+pct+"%"}box.querySelector(".qz-retry").hidden=false}return}
+   box.querySelector(".qz-score").innerHTML="<b>"+c+" / "+all.length+" ("+pct+"%)</b> "+(pct>=pass?"Passed.":"Below the "+pass+"% standard. Review the lessons and retry.");var b0=parseInt(LG("paos_quiz_"+Q.id));if(isNaN(b0)||pct>b0){LS("paos_quiz_"+Q.id,pct+"%");box.querySelector(".qz-best").textContent="Best: "+pct+"%"}if(window.paosProg)try{paosProg.quizDone(Q,pct,box)}catch(_e){}box.querySelector(".qz-retry").hidden=false}return}
  var b=T.closest("[data-shact]");if(!b)return;var sh=b.closest(".sh"),a=b.dataset.shact,rows=[].slice.call(sh.querySelectorAll("tr"));
  if(a==="copy"){var tx=rows.map(function(x){return x.querySelector("th").textContent+": "+x.querySelector("textarea").value}).join("\n");Promise.resolve().then(function(){return navigator.clipboard.writeText(tx)}).then(function(){b.textContent="Copied";setTimeout(function(){b.textContent="Copy as text"},1400)}).catch(function(){})}
  else if(a==="print"){var w=window.open("","_blank");if(w){w.document.write("<title>Sheet</title><body style='font:14px sans-serif;padding:24px'><h2>"+esc(sh.querySelector(".qz-head span").textContent)+"</h2><table border=1 cellpadding=8 style='border-collapse:collapse;width:100%'>"+rows.map(function(x){return"<tr><th align=left>"+esc(x.querySelector("th").textContent)+"</th><td>"+esc(x.querySelector("textarea").value).replace(/\n/g,"<br>")+"</td></tr>"}).join("")+"</table>");w.document.close();w.print()}}
@@ -3509,5 +3536,151 @@ document.addEventListener("input",function(e){var t=e.target;if(!t.matches||!t.m
 .rd-reveal{border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin:12px 0;background:#09090b}.rd-reveal summary{cursor:pointer;color:var(--lime);font-weight:500}.rd-reveal[open] summary{margin-bottom:10px}
 .rd-h{font-size:14px;color:#fff;margin:18px 0 8px;font-weight:600}
 </style>
+<style id="progCss">
+/* Stage 3: progress tracking */
+.prog-overall{border:1px solid var(--line2);background:#0a0a0a;border-radius:14px;padding:18px 20px;margin:0 0 22px}
+.prog-overall.prog-compact{margin:18px 0 0}
+.prog-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:10px}
+.prog-title{font:500 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#a1a1aa}
+.prog-pct{font:500 22px var(--mono);color:#fff}
+.prog-track{height:4px;background:#18181b;border-radius:4px;overflow:hidden}
+.prog-track i{display:block;height:100%;width:0;background:#fff;border-radius:4px;transition:width .3s ease}
+.prog-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:14px}
+.prog-stats div{background:#050505;border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.prog-stats b{display:block;font:500 17px var(--mono);color:#fff}
+.prog-stats span{font-size:11.5px;color:#a1a1aa}
+.prog-mod{margin-top:8px;max-width:360px}
+.prog-mod-txt{display:block;font:11.5px var(--mono);color:#a1a1aa;margin-bottom:5px}
+.prog-mod.complete .prog-mod-txt{color:var(--lime)}
+.prog-mod.complete .prog-track i{background:var(--lime)}
+.prog-mod-q{display:block;font-size:11.5px;color:#71717a;margin-top:5px}
+.lesson-item.prog-done .lesson-dot{background:var(--lime)}
+.prog-rd{display:flex;align-items:center;gap:8px;font:11px var(--mono);color:#a1a1aa;margin-top:4px}
+.prog-rd .prog-track{width:70px}
+.prog-mark-wrap{margin-top:22px;padding-top:14px;border-top:1px solid var(--line2)}
+.prog-mark{font:500 13px var(--mono);letter-spacing:.02em;line-height:1.4;text-align:left;color:#e4e4e7;background:#0a0a0a;border:1px solid #3f3f46;border-radius:10px;padding:10px 16px;cursor:pointer}
+.prog-mark:hover{border-color:#71717a}
+.prog-mark::after{content:"Mark lesson complete"}
+.prog-mark[aria-pressed="true"]{border-color:var(--lime);color:var(--lime)}
+.prog-mark[aria-pressed="true"]::after{content:"Completed \2713   (click to undo)"}
+.prog-mark.auto{cursor:default}
+.prog-mark.auto::after{content:"Completed \2713   (Knowledge Check passed)"}
+@media (max-width:560px){.prog-overall{padding:14px}.prog-pct{font-size:19px}.prog-rd .prog-track{width:44px}.prog-stats{gap:6px}.prog-stats div{padding:8px 9px}.prog-stats b{font-size:14px}.prog-stats span{font-size:10.5px;line-height:1.3;display:block}}
+</style>
+<script>
+/* ═════════ STAGE 3: PROGRESS TRACKING ═════════
+   Keys (all paos_*, so the existing account sync carries them; the sync itself is unchanged):
+     paos_pl_<moduleKey>_<titleSlug>  "c:<ms>" completed | "u:<ms>" un-completed   (one key per lesson)
+     paos_qr_<quizId>                 JSON {last,best,n,t}  quiz result record
+   paos_quiz_<quizId> (best score, "NN%") is read here but NEVER written by this code.
+   All totals are derived from the loaded `modules` array; nothing is hardcoded. */
+(function(){
+  var LG=function(k){try{return localStorage.getItem(k)}catch(e){return null}};
+  var LSET=function(k,v){try{localStorage.setItem(k,v);return true}catch(e){return false}};
+  var P=window.paosProg={}, cur=-1;
+  var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+
+  P.slug=function(t){return String(t||"").toLowerCase().replace(/&/g,"and").replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"")};
+  P.mkey=function(mi){var m=modules[mi];return m?"m"+m.num:""};
+  P.key=function(mi,li){var m=modules[mi];return m&&m.lessons[li]?"paos_pl_"+P.mkey(mi)+"_"+P.slug(m.lessons[li].t):""};
+  P.manual=function(mi,li){var k=P.key(mi,li);if(!k)return null;var v=LG(k);if(!v)return null;var c=v.charAt(0);return(c==="c"||c==="u")&&v.charAt(1)===":"?c:null};
+
+  /* quiz info: best = max(old paos_quiz_ value, record best); pass standard comes from the vault (same default as the quiz handler) */
+  function readRec(id){var r=null;try{r=JSON.parse(LG("paos_qr_"+id)||"null")}catch(e){}return r&&typeof r==="object"?r:null}
+  function num(x){x=parseInt(x);return isNaN(x)?null:x}
+  P.quizInfo=function(q){
+    var id=q.id,rec=readRec(id),old=num(LG("paos_quiz_"+id)),rb=rec?num(rec.best):null,best=null;
+    if(old!==null)best=old;if(rb!==null&&(best===null||rb>best))best=rb;
+    var pass=q.pass||80;
+    return{best:best,last:rec?num(rec.last):null,n:rec?num(rec.n):null,pass:pass,passed:best!==null&&best>=pass};
+  };
+  P.quizLabel=function(q){
+    var i=P.quizInfo(q);if(i.best===null)return"";
+    var p=[];if(i.last!==null)p.push("Last "+i.last+"%");p.push("Best "+i.best+"%");if(i.n)p.push("Attempts "+i.n);
+    p.push(i.passed?"Passed":"Below "+i.pass+"%");return p.join(" · ");
+  };
+  P.quizDone=function(Q,pct,box){
+    var rec=readRec(Q.id)||{},old=num(LG("paos_quiz_"+Q.id)),best=pct;
+    if(old!==null&&old>best)best=old;var rb=num(rec.best);if(rb!==null&&rb>best)best=rb;
+    LSET("paos_qr_"+Q.id,JSON.stringify({last:pct,best:best,n:(num(rec.n)||0)+1,t:Date.now()}));
+    var el=box&&box.querySelector(".qz-best");if(el)el.textContent=P.quizLabel(Q);
+    P.refresh();P.syncReader();
+  };
+
+  /* lesson state. Knowledge Check lessons are also complete when the quiz best meets the pass standard (no double count: the quiz is part of the lesson) */
+  P.byQuiz=function(mi,li){var l=modules[mi]&&modules[mi].lessons[li];return!!(l&&l.quiz&&P.quizInfo(l.quiz).passed)};
+  P.lessonDone=function(mi,li){return P.manual(mi,li)==="c"||P.byQuiz(mi,li)};
+  P.set=function(mi,li,on){var k=P.key(mi,li);if(!k)return false;return LSET(k,(on?"c:":"u:")+Date.now())};
+
+  P.module=function(mi){
+    var m=modules[mi],total=m?m.lessons.length:0,done=0,qT=0,qP=0,q=null;
+    for(var li=0;li<total;li++){if(P.lessonDone(mi,li))done++;var l=m.lessons[li];if(l.quiz){qT++;q=P.quizInfo(l.quiz);if(q.passed)qP++}}
+    return{done:done,total:total,pct:total?(done===total?100:Math.floor(done/total*100)):0,
+      status:!total?"empty":done===total?"complete":done?"progress":"new",quizTotal:qT,quizPassed:qP,quiz:q};
+  };
+  P.overall=function(){
+    var o={done:0,total:0,pct:0,modulesDone:0,modulesTotal:modules.length,quizPassed:0,quizTotal:0};
+    for(var mi=0;mi<modules.length;mi++){var s=P.module(mi);o.done+=s.done;o.total+=s.total;o.quizPassed+=s.quizPassed;o.quizTotal+=s.quizTotal;if(s.status==="complete")o.modulesDone++}
+    o.pct=o.total?(o.done===o.total?100:Math.floor(o.done/o.total*100)):0;return o;
+  };
+
+  /* ---------- UI ---------- */
+  function overallHTML(){
+    var o=P.overall();
+    return'<div class="prog-head"><span class="prog-title">Course progress</span><span class="prog-pct">'+o.pct+'%</span></div>'+
+      '<div class="prog-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="'+o.pct+'" aria-label="Overall course progress"><i style="width:'+o.pct+'%"></i></div>'+
+      '<div class="prog-stats"><div><b>'+o.done+' / '+o.total+'</b><span>Lessons completed</span></div>'+
+      '<div><b>'+o.modulesDone+' / '+o.modulesTotal+'</b><span>Modules complete</span></div>'+
+      '<div><b>'+o.quizPassed+' / '+o.quizTotal+'</b><span>Knowledge Checks passed</span></div></div>';
+  }
+  var STAT={complete:"Complete",progress:"In progress","new":"Not started",empty:""};
+  function quizLine(s){
+    if(!s.quizTotal)return"";var i=s.quiz;
+    if(i.best===null)return"Knowledge Check: not attempted";
+    return"Knowledge Check: best "+i.best+"% · "+(i.passed?"passed":"below the "+i.pass+"% standard");
+  }
+  P.refresh=function(){
+    if(!modules.length)return;
+    $$('[data-prog="overall"]').forEach(function(el){el.innerHTML=overallHTML()});
+    $$("#moduleGrid .module-card").forEach(function(card,mi){
+      if(!modules[mi])return;var s=P.module(mi),t=card.querySelector(".module-title");if(!t)return;
+      var b=t.querySelector(".prog-mod");
+      if(!b){b=document.createElement("div");b.className="prog-mod";b.innerHTML='<span class="prog-mod-txt"></span><div class="prog-track"><i></i></div><span class="prog-mod-q"></span>';t.appendChild(b)}
+      b.classList.toggle("complete",s.status==="complete");
+      b.querySelector(".prog-mod-txt").textContent=s.done+" / "+s.total+" lessons · "+STAT[s.status];
+      b.querySelector(".prog-track i").style.width=s.pct+"%";
+      var q=b.querySelector(".prog-mod-q");q.textContent=quizLine(s);q.hidden=!s.quizTotal;
+      $$(".lesson-item",card).forEach(function(li,j){li.classList.toggle("prog-done",P.lessonDone(mi,j))});
+    });
+  };
+
+  /* reader: one toggle per lesson, no text nodes (labels are CSS-generated) so saved highlight offsets, Listen and selection are unaffected */
+  P.decorate=function(content,mi){
+    cur=mi;var m=modules[mi];if(!m)return;
+    $$("section.rd-block",content).forEach(function(sec,li){
+      if(!m.lessons[li])return;
+      var w=document.createElement("div");w.className="prog-mark-wrap";
+      var b=document.createElement("button");b.type="button";b.className="prog-mark";b.setAttribute("data-mi",mi);b.setAttribute("data-li",li);
+      b.setAttribute("aria-label","Lesson complete: "+m.lessons[li].t);w.appendChild(b);sec.appendChild(w);
+    });
+    P.syncReader();
+  };
+  P.syncReader=function(){
+    if(cur<0||!modules[cur])return;
+    $$("#rdContent .prog-mark").forEach(function(b){
+      var mi=+b.getAttribute("data-mi"),li=+b.getAttribute("data-li"),auto=P.byQuiz(mi,li);
+      b.setAttribute("aria-pressed",P.lessonDone(mi,li)?"true":"false");b.classList.toggle("auto",auto);
+      if(auto)b.setAttribute("aria-disabled","true");else b.removeAttribute("aria-disabled");
+    });
+    var el=document.getElementById("rdProg");
+    if(el){var s=P.module(cur);el.innerHTML="<span>"+s.done+" / "+s.total+" lessons</span><div class=\"prog-track\"><i style=\"width:"+s.pct+"%\"></i></div>"}
+  };
+  document.addEventListener("click",function(e){
+    var b=e.target.closest&&e.target.closest(".prog-mark");if(!b||b.classList.contains("auto"))return;
+    var mi=+b.getAttribute("data-mi"),li=+b.getAttribute("data-li");
+    if(P.set(mi,li,!P.lessonDone(mi,li))){P.syncReader();P.refresh()}
+  });
+})();
+</script>
 </body>
 </html>
