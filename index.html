@@ -1053,9 +1053,11 @@ document.readyState==='loading'?document.addEventListener('DOMContentLoaded',go)
         <ol class="lab-ol"><li>Blind marking drills</li><li>Historical backtesting</li><li>Calculate expectancy</li><li>Additional performance metrics</li><li>Compare Scorecard grades (A+ and A separately, with sample sizes)</li><li>Correlated evidence and overfitting</li><li>Forward-testing (demo, then controlled live)</li><li>Rule-version control</li></ol>
         <p class="lab-note">Keep backtest, forward-test, demo and live results separate. A positive initial sample is a reason to keep investigating, not permission to claim a proven edge.</p>
         <button type="button" class="pj-b" data-open-mod="10">Open Module 11</button></div>
-      <div class="lab-card"><h3>Decision drills</h3><p class="sub">The twelve Module 12 decision drills (12.9) live in the Module 12 lesson. Decide first, then compare your answer with the explanation and the rule it rests on.</p>
+      <div class="lab-card"><h3>Decision drills</h3><p class="sub">The twelve decision drills are in the Module 12 lesson &ldquo;The Twelve Decision Drills&rdquo;. Decide first, lock in your answer, then compare it with the explanation and the rule it rests on.</p>
+        <p class="dr-labcount"><b data-dr-count>0 / 12 completed</b></p>
+        <p class="lab-note" data-dr-warn hidden>Progress could not be saved in this browser. It will be lost when you refresh.</p>
         <p class="lab-note">A completed drill set is evidence of curriculum application, not proof of profitability.</p>
-        <button type="button" class="pj-b" data-open-mod="11">Open Module 12</button></div>
+        <button type="button" class="pj-b" data-open-drills>Open the drills</button></div>
     </div>
   </div>
 </section>
@@ -1722,6 +1724,10 @@ calcRisk();
   try{ size=parseInt(localStorage.getItem('paos_reader_size'))||20; }catch(e){}
   const applySize=()=>{ content.style.fontSize=size+'px'; try{localStorage.setItem('paos_reader_size',size)}catch(e){} };
   const pad=n=>String(n).padStart(2,'0');
+  /* Stage 4: a lesson that holds the vault's reveal blocks (the Module 12 drills) is NEVER rendered as raw <details>: that would put the answers in the DOM.
+     It becomes a placeholder; paosDrills.mount() replaces it with the interactive drills. If the drills script is missing, only an error card is shown. */
+  const drBody=(b,li)=>/rd-reveal/.test(b)?(window.paosDrills?paosDrills.placeholder(b,li):'<div data-hl-skip class="dr-err" role="alert">The decision drills could not be loaded. Refresh the page.</div>'):b;
+  const listenBody=b=>/rd-reveal/.test(b)?(window.paosDrills?paosDrills.listenHTML(b):''):String(b||'').replace(/<svg\b[^>]*\bdata-hl-skip\b[\s\S]*?<\/svg>/g,'');   // Stage 5: pilot diagram SVG labels are not read aloud (their caption still is)
 
   function render(i){
     const m=modules[i]; current=i; window.__rdIdx=i; if(!m) return;
@@ -1729,12 +1735,13 @@ calcRisk();
     content.innerHTML=
       `<p class="rd-kicker">Module ${m.num} · ${m.sub}</p><h1 class="rd-title">${m.title}</h1>`+
       `<div class="rd-block rd-intro"><p>${m.intro}</p></div>`+
-      m.lessons.map(l=>`<section class="rd-block"><div class="rd-lh"><h2>${l.t}</h2><span class="rd-tag">${l.tag}</span></div>`+
-        (l.body?`<div class="rd-p rd-rich">${l.body}</div>`:'')+(l.diagram||'')+(l.quiz?quizHTML(l.quiz):'')+(l.sheet?sheetHTML(l.sheet):'')+
+      m.lessons.map((l,li)=>`<section class="rd-block"><div class="rd-lh"><h2>${l.t}</h2><span class="rd-tag">${l.tag}</span></div>`+
+        (l.body?`<div class="rd-p rd-rich">${drBody(l.body,li)}</div>`:'')+(l.diagram||'')+(l.quiz?quizHTML(l.quiz):'')+(l.sheet?sheetHTML(l.sheet):'')+
         (l.crossRef?`<div class="cross-ref">${l.crossRef}</div>`:'')+(l.pdfRef||'')+`</section>`).join('');
     $('rdNav').innerHTML=
       (i>0?`<button class="rd-btn" data-go="${i-1}">← Module ${modules[i-1].num}</button>`:'<span></span>')+
       (i<modules.length-1?`<button class="rd-btn" data-go="${i+1}">Module ${modules[i+1].num} →</button>`:'<span></span>');
+    if(window.paosDrills)try{paosDrills.mount(content,i)}catch(e){console.error(e)}
     scroll.style.scrollBehavior='auto'; scroll.scrollTop=0; scroll.style.scrollBehavior='';
     stopSpeech(); loadNotes(); applyHighlights();
     if(window.paosProg)try{paosProg.decorate(content,i)}catch(e){}
@@ -1784,19 +1791,44 @@ calcRisk();
   ta.addEventListener('input',()=>{ clearTimeout(nt); nt=setTimeout(()=>{ store.set('paos_notes_'+mkey(),ta.value); const s=$('rdNoteSaved'); s.classList.add('on'); setTimeout(()=>s.classList.remove('on'),1200); },300); });
   // highlighter (saved as text offsets per module)
   const hlKey=()=>'paos_hl_'+mkey(), getHL=()=>{try{return JSON.parse(store.get(hlKey())||'[]')}catch(e){return[]}};
-  function wrap(a,b){
-    const w=document.createTreeWalker(content,NodeFilter.SHOW_TEXT), nodes=[]; let pos=0, n;
-    while(n=w.nextNode()){ const L=n.nodeValue.length; if(pos<b&&pos+L>a&&!n.parentNode.closest('.rd-hl')) nodes.push([n,Math.max(a-pos,0),Math.min(b-pos,L)]); pos+=L; }
+  /* Stage 4: saved highlights are [start,end] offsets over the lesson text AS IT WAS BEFORE the drills became interactive ("legacy offsets").
+     One shared walker defines that offset space: every text node counts, EXCEPT anything under [data-hl-skip] (new UI text, length 0);
+     an empty element [data-hl-gap="N"] stands for N characters of legacy text that is hidden or removed. Saved data format and keys are unchanged. */
+  function hlWalk(fn){
+    const w=document.createTreeWalker(content,NodeFilter.SHOW_TEXT|NodeFilter.SHOW_ELEMENT,{acceptNode:x=>{
+      if(x.nodeType===3) return NodeFilter.FILTER_ACCEPT;
+      if(x.hasAttribute('data-hl-skip')) return NodeFilter.FILTER_REJECT;
+      return x.hasAttribute('data-hl-gap')?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_SKIP; }});
+    let n; while(n=w.nextNode()){
+      if(n.nodeType===3){ if(fn(n,n.nodeValue.length,null)===true) return; }
+      else if(fn(null,parseInt(n.getAttribute('data-hl-gap'))||0,n)===true) return;
+    }
+  }
+  function wrap(a,b){   // L>0: zero-length text nodes (left behind by surroundContents) must never be wrapped, or every re-apply would multiply empty marks
+    const nodes=[]; let pos=0;
+    hlWalk((n,L)=>{ if(n&&L>0&&pos<b&&pos+L>a&&!n.parentNode.closest('.rd-hl')) nodes.push([n,Math.max(a-pos,0),Math.min(b-pos,L)]); pos+=L; if(pos>=b) return true; });
     nodes.forEach(([n,s0,e0])=>{ const r=document.createRange(); r.setStart(n,s0); r.setEnd(n,e0); const m=document.createElement('mark'); m.className='rd-hl'; m.dataset.id=a+'-'+b; r.surroundContents(m); });
   }
   function applyHighlights(){ getHL().forEach(h=>{try{wrap(h[0],h[1])}catch(e){}}); }
+  window.paosReapplyHL=applyHighlights;   // used by the drills after a reveal (idempotent: already-marked text is skipped)
+  function hlPoint(c,o){   // DOM boundary point -> legacy offset
+    const r=document.createRange(); r.setStart(content,0); r.setEnd(c,o); let pos=0;
+    hlWalk((n,L,g)=>{
+      if(n){ if(r.comparePoint(n,L)<=0){ pos+=L; return; } if(n===c&&r.comparePoint(n,0)<=0) pos+=o; return true; }
+      const p=g.parentNode, ix=Array.prototype.indexOf.call(p.childNodes,g);
+      if(r.comparePoint(p,ix+1)<=0){ pos+=L; return; } return true; });
+    return pos;
+  }
+  function hiddenGaps(){ const out=[]; let pos=0; hlWalk((n,L,g)=>{ if(g&&g.hasAttribute('data-hl-hidden')&&L>0) out.push([pos,pos+L]); pos+=L; }); return out; }
   function addHighlight(){
     if(!modal.classList.contains('hl-on')) return;
     const sel=getSelection(); if(!sel.rangeCount||sel.isCollapsed) return; const r=sel.getRangeAt(0);
     if(!content.contains(r.commonAncestorContainer)) return;
-    const pre=document.createRange(); pre.selectNodeContents(content); pre.setEnd(r.startContainer,r.startOffset);
-    const a=pre.toString().length, b=a+r.toString().length; if(b<=a) return;
-    sel.removeAllRanges(); wrap(a,b); const l=getHL(); l.push([a,b]); store.set(hlKey(),JSON.stringify(l));
+    const a=hlPoint(r.startContainer,r.startOffset), b=hlPoint(r.endContainer,r.endOffset); if(b<=a) return;
+    let pieces=[[a,b]];   // never store text of an answer the student has not revealed: cut the selection around hidden gaps
+    hiddenGaps().forEach(([s,e])=>{ const nx=[]; pieces.forEach(([x,y])=>{ if(y<=s||x>=e){ nx.push([x,y]); return; } if(x<s) nx.push([x,s]); if(y>e) nx.push([e,y]); }); pieces=nx; });
+    pieces=pieces.filter(p=>p[1]>p[0]); sel.removeAllRanges(); if(!pieces.length) return;
+    const l=getHL(); pieces.forEach(p=>{ wrap(p[0],p[1]); l.push([p[0],p[1]]); }); store.set(hlKey(),JSON.stringify(l));
   }
   content.addEventListener('mouseup',()=>setTimeout(addHighlight,0)); content.addEventListener('touchend',()=>setTimeout(addHighlight,200));
   content.addEventListener('click',e=>{ const m=e.target.closest('.rd-hl'); if(!m||!modal.classList.contains('hl-on')) return;
@@ -1810,7 +1842,7 @@ calcRisk();
     if(!tts){ alert('Your browser does not support audio mode.'); return; }
     if(this.getAttribute('aria-pressed')==='true'){ stopSpeech(); return; }
     const strip=h=>{const d=document.createElement('div'); d.innerHTML=h||''; return d.textContent.trim();}, m=modules[current];
-    const text=[m.title,strip(m.intro)].concat(m.lessons.map(l=>l.t+'. '+strip(l.body))).join('. ');
+    const text=[m.title,strip(m.intro)].concat(m.lessons.map(l=>l.t+'. '+strip(listenBody(l.body)))).join('. ');
     const chunks=text.match(/[^.!?]+[.!?]*/g)||[text], parts=[]; let buf='';
     chunks.forEach(c=>{ if((buf+c).length>200){ if(buf) parts.push(buf); buf=c; } else buf+=c; }); if(buf) parts.push(buf);
     const vs=tts.getVoices().filter(v=>/^en/i.test(v.lang)), v=vs.find(v=>/natural|neural|online/i.test(v.name))||vs.find(v=>/google|samantha|daniel/i.test(v.name))||vs[0];
@@ -1859,7 +1891,7 @@ calcRisk();
   const $=(s,r)=>(r||document).querySelector(s), $$=(s,r)=>[...(r||document).querySelectorAll(s)];
   const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
   const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-  const strip=h=>{const d=document.createElement('div');d.innerHTML=h||'';return d.textContent.replace(/\s+/g,' ').trim();};
+  const strip=h=>{const d=document.createElement('div');d.innerHTML=h||'';d.querySelectorAll('svg[data-hl-skip]').forEach(x=>x.remove());return d.textContent.replace(/\s+/g,' ').trim();};   /* Stage 5: pilot diagram SVG labels stay out of Spark text */
   const SVG='<svg viewBox="0 0 24 24" aria-hidden="true"><use href="#sparkMark"/></svg>';
   const ic=(n,c)=>'<i data-lucide="'+n+'"'+(c?' class="'+c+'"':'')+'></i>';
   const SECTIONS=[['start','Start Here'],['modules','Modules'],['checklist','Execution Checklist'],['risk','Risk Calculator'],['journal','Journal & Gate'],['lab','Lab'],['bonuses','Bonuses'],['mindset','Mindset & Psychology'],['faq','FAQ']];
@@ -3680,6 +3712,406 @@ document.addEventListener("input",function(e){var t=e.target;if(!t.matches||!t.m
     var mi=+b.getAttribute("data-mi"),li=+b.getAttribute("data-li");
     if(P.set(mi,li,!P.lessonDone(mi,li))){P.syncReader();P.refresh()}
   });
+})();
+</script>
+<style id="drCss">
+/* Stage 4: Module 12 decision drills */
+.dr-gap{display:none}
+.dr-strip,.dr-box,.dr-err{letter-spacing:0;font-size:15px;line-height:1.55;color:#d4d4d8}
+.dr-strip{border:1px solid var(--line2);background:#0a0a0a;border-radius:12px;padding:12px 16px;margin:0 0 18px;font-size:14px}
+.dr-strip b{color:#fff;font-weight:600}.dr-strip .dr-count{color:var(--lime)}
+.dr-warn{margin-top:6px;color:#e0506b;font-size:13px}.dr-warn[hidden]{display:none}
+.dr-box{border:1px solid var(--line);background:#09090b;border-radius:12px;padding:14px 16px;margin:14px 0}
+.dr-fs{border:0;margin:0;padding:0;min-width:0;display:flex;flex-direction:column;gap:8px}
+.dr-opt{display:flex;align-items:flex-start;gap:10px;min-height:44px;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:#0a0a0a;cursor:pointer;color:#d4d4d8}
+.dr-opt:hover{border-color:#52525b}.dr-opt input{margin-top:5px;accent-color:#4ade80;flex:none}.dr-opt b{color:#71717a;flex:none;font-weight:600}
+.dr-opt:focus-within{outline:2px solid var(--lime);outline-offset:2px}
+.dr-opt.ok{border-color:var(--lime);background:rgba(74,222,128,.08);color:#fff}.dr-opt.bad{border-color:#e0506b;background:rgba(224,80,107,.08);color:#fff}
+.dr-t{min-width:0;overflow-wrap:anywhere}
+.dr-num{display:flex;flex-direction:column;gap:6px;margin-bottom:4px}.dr-cap{color:#a1a1aa;font-size:13px}
+.dr-in{background:#0a0a0a;border:1px solid var(--line);border-radius:10px;color:#fff;font:inherit;font-size:16px;padding:10px 14px;width:100%;max-width:220px;min-height:44px;box-sizing:border-box}
+.dr-in:focus{outline:2px solid var(--lime);outline-offset:2px}.dr-in.ok{border-color:var(--lime)}.dr-in.bad{border-color:#e0506b}
+.dr-act{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-top:12px}
+.dr-lock:disabled{opacity:.45;cursor:not-allowed}.dr-msg{font-size:13.5px;color:#fbbf24}
+.dr-retry{margin-top:12px}
+.dr-res{margin-top:12px;padding:10px 14px;border-left:3px solid var(--line);background:#0a0a0a;border-radius:0 10px 10px 0}
+.dr-res[hidden],.dr-retry[hidden],.dr-lock[hidden]{display:none}
+.dr-res.ok{border-left-color:var(--lime);color:#fff}.dr-res.bad{border-left-color:#e0506b;color:#fff}
+.dr-rev{border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin:12px 0;background:#09090b}
+.dr-lbl{font:11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--lime);margin:0 0 8px}
+.dr-formula{font-family:var(--mono);color:#fff;background:#0a0a0a;border:1px solid var(--line);border-radius:8px;padding:8px 12px;overflow-wrap:anywhere}
+.dr-picked{color:#fff}.dr-pick{display:inline-block;font:11px var(--mono);color:#e0506b;border:1px solid #e0506b;border-radius:999px;padding:1px 8px;margin-left:6px;white-space:nowrap}
+.dr-err{border:1px dashed #e0506b;border-radius:12px;padding:12px 16px;margin:12px 0;background:#0a0a0a;color:#fca5a5}
+.dr-sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.dr-labcount{font:500 15px var(--mono);color:#fff;margin:12px 0 4px}
+@media (max-width:560px){.dr-box{padding:12px}.dr-strip{padding:10px 12px}.dr-rev{padding:10px 12px}.dr-act{gap:8px}}
+</style>
+<script>
+/* ═════════ STAGE 4: MODULE 12 DECISION DRILLS (predict, lock in, then reveal) ═════════
+   Where: ONLY the Module 12 lesson that contains the vault's `details.rd-reveal` blocks ("The Twelve Decision Drills").
+   Storage: paos_dr_d01 .. paos_dr_d12 = JSON {n,ct,first,last,p,t}
+       n     attempts (number of locked-in answers)
+       ct    time (ms) of the first completed attempt; a drill is "completed" once an answer is locked in and its explanation shown
+       first 1/0, correctness of the FIRST attempt (never overwritten)
+       last  1/0, correctness of the most recent attempt
+       p     most recent pick (option index, or [text,"m"|"n"] for Drill 11)
+       t     time of the most recent attempt
+   Nothing else in localStorage is read or written. Stage 3 keys are untouched.
+   HIGHLIGHT CONTRACT (see the reader script): saved highlights are offsets over the ORIGINAL text of the lesson. Every piece of
+   legacy text that is hidden or removed is replaced by an empty element data-hl-gap="N" (N = its original length); all new UI text
+   sits under data-hl-skip and counts as zero length. Revealed text is the original text nodes, so it lands exactly in the gap.
+   ANSWERS: the answer key (which option is correct) and the explanation nodes live only in this closure until a drill is locked in.
+   They are NOT in the DOM, in a <template>, in data-* attributes or in ARIA text before reveal. They are still inspectable through
+   JavaScript, browser memory/devtools, the cached vault (localStorage vault_cache) and Spark retrieval. This is not secure storage. */
+(function(){
+  var LG=function(k){try{return localStorage.getItem(k)}catch(e){return null}};
+  var saveFail=false;
+  var LSET=function(k,v){try{localStorage.setItem(k,v);return true}catch(e){saveFail=true;return false}};
+  var D=window.paosDrills={failures:[]}, mem={}, memOnly={}, INST={};   // mem is used ONLY for a record whose write to localStorage failed
+  var pad=function(n){return(n<10?"0":"")+n};
+  var norm=function(s){return String(s==null?"":s).replace(/\s+/g," ").trim()};
+  var txt=function(n){return norm(n.textContent)};
+  var lc=function(s){return norm(s).toLowerCase()};
+
+  /* ---------- authored options (student positions). Correct flag and source bullet live here, in the closure only.
+     s = start of the vault's own "Why other answers fail" bullet that becomes this option's verbatim feedback; w = source is the Why paragraph.
+     Every option was checked against the drill's scenario and the vault text; conditional wording ("only if", "may be", "provided") is kept. */
+  var CFG={
+    1:{q:"How should the market context be classified before evaluating a short?",o:[
+      {t:"The market is bullish, because the 15M chart is printing higher highs.",s:"Calling the entire market bullish"},
+      {t:"The Daily context remains bearish; the 15M move is an internal upward pullback.",ok:1},
+      {t:"The pullback is a confirmed higher-timeframe reversal.",s:"Calling the pullback a confirmed reversal"}]},
+    2:{q:"Which location should be treated as the qualified reference?",o:[
+      {t:"The nearby candle, because it looks like an order block.",s:"Selecting the nearest candle"},
+      {t:"Both areas together, without a specific reason to combine them.",s:"Combining both areas"},
+      {t:"The pre-identified zone, only if it remains valid under the applicable setup rules.",ok:1},
+      {t:"The pre-identified zone, because every marked zone is valid.",s:"Treating every marked zone"}]},
+    3:{q:"How should the event be classified?",o:[
+      {t:"A possible sweep and reclaim under the applicable Module 03 conditions, not a candle close beyond the level.",ok:1},
+      {t:"A confirmed breakout.",s:"Calling it a confirmed breakout"},
+      {t:"A PA.OS BOS.",s:"Calling it a PA.OS BOS"}]},
+    4:{q:"Is this a confirmed major bullish reversal?",o:[
+      {t:"Yes, the close above the internal swing high is a PA.OS bullish BOS.",s:"Calling every internal break"},
+      {t:"No, it may be a bullish CHoCH, depending on the exact internal swing classification.",ok:1},
+      {t:"No, it is a bullish Continuation Break.",s:"Calling it a continuation break"}]},
+    5:{q:"Should the trader chase the move?",o:[
+      {t:"No, the required retest and confirmation have not occurred.",ok:1},
+      {t:"Yes, enter on the break.",s:"Entering on the break"},
+      {t:"Yes, the absence of a retest means the break is already confirmed.",s:"Treating the absence of a retest"},
+      {t:"No, move to a different setup without checking its own requirements.",s:"Moving to another setup"}]},
+    6:{q:"Can the trader treat it as completed confirmation?",o:[
+      {t:"Yes, enter now on the candle that is still forming.",s:"Entering early"},
+      {t:"No, the candle is incomplete; wait for the close, then apply the exact Module 04 and Module 05 confirmation conditions.",ok:1},
+      {t:"Yes, the current body percentage will stay above 50%.",s:"Assuming the current percentage"}]},
+    7:{q:"Can the student label the current movement a Second-Entry Continuation?",o:[
+      {t:"Yes, any second-looking dip counts as a second entry.",s:"Calling any second-looking dip"},
+      {t:"Not yet, the student must establish the correct pullback sequence and trend-direction confirmation under Module 05.",ok:1},
+      {t:"Yes, because Setup One's retest rule applies here.",s:"Borrowing Setup One"},
+      {t:"Yes, the trend is strong enough to qualify.",s:"Entering because the trend is strong"}]},
+    8:{q:"What should the trader do?",o:[
+      {t:"Add more indicators to support the long.",s:"Adding more indicators"},
+      {t:"Rely on a high Scorecard grade.",s:"A high Scorecard grade"},
+      {t:"Enter with a smaller size.",s:"Entering with smaller size"},
+      {t:"Reject or defer the opportunity.",ok:1}]},
+    9:{q:"Should the student score and execute it?",o:[
+      {t:"No, the setup has failed qualification; the Scorecard is applied only after T.L.S. and the selected setup qualify.",ok:1},
+      {t:"Yes, score it first, then decide.",s:"Scoring first"},
+      {t:"Yes, the high score is permission to execute.",s:"Treating a high score"},
+      {t:"Yes, but with reduced risk.",s:"Reducing risk"}]},
+    10:{q:"Is the stop acceptable?",o:[
+      {t:"Yes, the closer stop gives a more attractive R:R.",w:1},
+      {t:"Yes, a high Scorecard grade supports it.",s:"A high Scorecard grade"},
+      {t:"No, the stop does not reflect structural invalidation; use the approved structural stop placement and recalculate the R:R.",ok:1},
+      {t:"Yes, a smaller position size offsets it.",s:"A smaller position"}]},
+    11:{q:"Does the trade meet the minimum planned 1:2 requirement?",calc:{target:1.8,tol:0.005,verdict:"n",roundTo:2,roundTol:0.005,roundSrc:"Rounding 1.8"}},
+    12:{q:"How should the trade be classified?",o:[
+      {t:"An execution error.",s:"Calling every loss"},
+      {t:"A valid loss, provided the full approved requirements and all applicable restrictions were genuinely satisfied.",ok:1},
+      {t:"An invalid setup.",s:"Calling it an invalid setup"}]}
+  };
+  var TOTAL=Object.keys(CFG).length;
+
+  /* ---------- storage ---------- */
+  function key(id){return"paos_dr_"+id}
+  function read(id){
+    var r=null;try{r=JSON.parse(LG(key(id))||"null")}catch(e){r=null}
+    if(!r||typeof r!=="object"||Array.isArray(r))return memOnly[id]?(mem[id]||null):null;
+    var n=parseInt(r.n);var ct=Number(r.ct);
+    return{n:isNaN(n)||n<0?0:n,ct:isFinite(ct)&&ct>0?ct:0,first:(r.first===0||r.first===1)?r.first:null,last:(r.last===0||r.last===1)?r.last:null,p:r.p,t:Number(r.t)||0};
+  }
+  function write(id,rec){mem[id]=rec;var ok=LSET(key(id),JSON.stringify(rec));if(ok)delete memOnly[id];else memOnly[id]=true;return ok}
+  D.count=function(){
+    var o={done:0,attempted:0,firstCorrect:0,total:TOTAL};
+    for(var n=1;n<=TOTAL;n++){var r=read("d"+pad(n));if(!r)continue;if(r.n>0)o.attempted++;if(r.ct){o.done++;if(r.first===1)o.firstCorrect++}}
+    return o;
+  };
+  D.refresh=function(){
+    var c=D.count(),s=c.done+" / "+c.total+" completed"+(c.done?" · "+c.firstCorrect+" correct on first attempt":"");
+    Array.prototype.forEach.call(document.querySelectorAll("[data-dr-count]"),function(e){e.textContent=s});
+    Array.prototype.forEach.call(document.querySelectorAll("[data-dr-warn]"),function(e){e.hidden=!saveFail});
+  };
+
+  /* ---------- small DOM helpers (all UI text goes through textContent) ---------- */
+  function el(tag,cls,text){var e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e}
+  function skip(tag,cls,text){var e=el(tag,cls,text);e.setAttribute("data-hl-skip","");return e}
+  function gap(len,hidden){var g=el("span","dr-gap");g.setAttribute("data-hl-gap",String(len));if(hidden)g.setAttribute("data-hl-hidden","1");return g}
+  function parse(h){return new DOMParser().parseFromString("<!doctype html><html><body>"+h+"</body></html>","text/html").body}
+  function clear(n){while(n.firstChild)n.removeChild(n.firstChild)}
+
+  /* Drill 11 input: "1.8", "1.80" or "1:1.8" (tolerance only for parsing/rounding of the typed value) */
+  function parseNum(s){var m=/^(?:1\s*:\s*)?(\d{1,3}(?:\.\d{1,6})?)$/.exec(String(s==null?"":s).trim());return m?parseFloat(m[1]):null}
+  function near(v,t,tol){return Math.abs(v-t)<=tol+1e-9}
+
+  /* ---------- parsing the vault lesson ---------- */
+  var TITLE_RE=/^Drill\s+(\d+)\s*[—–-]\s*/;
+  function isJunk(n){return n.nodeName==="P"&&txt(n)==="---"}
+  function isCompletion(n){return n.nodeName==="P"&&lc(n.textContent).indexOf("drill completion target")===0}
+  function isLatexOpen(n){return n.nodeName==="P"&&norm(n.textContent)==="\\["}
+  function isLatexClose(n){return n.nodeName==="P"&&norm(n.textContent)==="\\]"}
+  function latexPlain(s){return norm(s).replace(/\\frac\{([^{}]+)\}\{([^{}]+)\}/g,"$1 ÷ $2").replace(/\s*=\s*/g," = ")}
+
+  function analyse(cur){
+    var cfg=CFG[cur.n];if(!cfg)throw new Error("no configuration for drill "+cur.n);
+    if(!cur.details)throw new Error("reveal block missing");
+    var iS=-1,iD=-1;
+    cur.pre.forEach(function(n,i){if(n.nodeName==="H4"){var t=txt(n);if(t==="Scenario"&&iS<0)iS=i;else if(t==="Decision"&&iD<0)iD=i}});
+    if(iS<0||iD<0||iD<iS)throw new Error("Scenario/Decision headings missing");
+    var dec=cur.pre.slice(iD+1).filter(function(n){return n.nodeName==="P"});
+    if(dec.length!==1||txt(dec[0])!==cfg.q)throw new Error("decision text differs from the configured question");
+    var kids=[].slice.call(cur.details.childNodes),sum=kids[0];
+    if(!sum||sum.nodeName!=="SUMMARY")throw new Error("summary missing");
+    var rest=kids.slice(1),tail=[];
+    while(rest.length&&(isJunk(rest[rest.length-1])||isCompletion(rest[rest.length-1])))tail.unshift(rest.pop());
+    var iW=-1,iF=-1,iR=-1;
+    rest.forEach(function(n,i){if(n.nodeName==="H4"){var t=txt(n);if(t==="Why"&&iW<0)iW=i;else if(t==="Why other answers fail"&&iF<0)iF=i}
+      if(n.nodeName==="P"&&lc(n.textContent).indexOf("reference:")===0)iR=i});
+    if(!(iW>0&&iF>iW&&iR>iF))throw new Error("explanation structure not recognised");
+    var whyP=rest[iW+1],ul=rest[iF+1];
+    if(!whyP||whyP.nodeName!=="P"||!ul||ul.nodeName!=="UL"||ul.children.length<1)throw new Error("Why / Why-other-answers-fail blocks malformed");
+    var bl=[].slice.call(ul.children).map(function(li){return lc(li.textContent)});
+    function findB(prefix){var p=lc(prefix);for(var i=0;i<bl.length;i++)if(bl[i].indexOf(p)===0)return i;throw new Error("source bullet not found: "+prefix)}
+    var opts=null,calc=null,okN=0;
+    if(cfg.o){
+      opts=cfg.o.map(function(o){var r={t:o.t,ok:!!o.ok,li:-1,why:!!o.w};if(o.ok)okN++;if(o.s)r.li=findB(o.s);return r});
+      if(okN!==1)throw new Error("exactly one correct option is required");
+    }else{calc=Object.assign({},cfg.calc);calc.liRound=findB(cfg.calc.roundSrc)}
+    return{n:cur.n,id:"d"+pad(cur.n),cfg:cfg,sum:sum,rest:rest,tail:tail,whyP:whyP,ul:ul,opts:opts,calc:calc};
+  }
+
+  /* item list in ORIGINAL text order: l label (summary text, always removed), c content, f latex block, t completion paragraph, j stray separator */
+  function items(a){
+    var out=[{k:"l",len:a.sum.textContent.length}],r=a.rest;
+    for(var i=0;i<r.length;i++){
+      var n=r[i];
+      if(isLatexOpen(n)){
+        var j=i+1;while(j<r.length&&j<i+4&&!isLatexClose(r[j]))j++;
+        if(j<r.length&&isLatexClose(r[j])){
+          var len=0,mid=[];for(var k=i;k<=j;k++){len+=r[k].textContent.length;if(k>i&&k<j)mid.push(r[k].textContent)}
+          out.push({k:"f",len:len,plain:latexPlain(mid.join(" "))});i=j;continue;
+        }
+      }
+      out.push({k:"c",node:n});
+    }
+    a.tail.forEach(function(n){out.push(isJunk(n)?{k:"j",len:n.textContent.length}:{k:"t",node:n})});
+    return out;
+  }
+  function itemLen(it){return it.k==="c"?it.node.textContent.length:it.len}
+
+  /* ---------- building one drill ---------- */
+  function build(cur){
+    var a=analyse(cur),inst={n:a.n,id:a.id,a:a,items:items(a),done:false,markLi:-1,markWhy:false};
+    var h3=document.importNode(cur.h3,true),pre=cur.pre.map(function(n){return document.importNode(n,true)});
+    var box=skip("div","dr-box");box.setAttribute("data-dr",a.id);inst.box=box;
+    var fs=el("fieldset","dr-fs"),lg=el("legend","dr-sr",a.calc?"Enter your calculation":"Choose one answer");fs.appendChild(lg);
+    if(a.opts){
+      a.opts.forEach(function(o,i){
+        var lab=el("label","dr-opt"),inp=el("input");inp.type="radio";inp.name="dr_"+a.id;inp.value=String(i);
+        lab.appendChild(inp);lab.appendChild(el("b",null,String.fromCharCode(65+i)));lab.appendChild(el("span","dr-t",o.t));fs.appendChild(lab)});
+    }else{
+      var row=el("label","dr-num"),cap=el("span","dr-cap","Planned reward-to-risk (reward ÷ risk)"),inp2=el("input","dr-in");
+      inp2.type="text";inp2.setAttribute("inputmode","decimal");inp2.setAttribute("autocomplete","off");inp2.setAttribute("autocapitalize","off");inp2.setAttribute("spellcheck","false");inp2.maxLength=12;inp2.placeholder="e.g. 1.8";
+      row.appendChild(cap);row.appendChild(inp2);fs.appendChild(row);inst.input=inp2;
+      [["m","Meets the 1:2 minimum"],["n","Does not meet the 1:2 minimum"]].forEach(function(v,i){
+        var lab=el("label","dr-opt"),r=el("input");r.type="radio";r.name="dr_"+a.id;r.value=v[0];lab.appendChild(r);lab.appendChild(el("b",null,String.fromCharCode(65+i)));lab.appendChild(el("span","dr-t",v[1]));fs.appendChild(lab)});
+    }
+    box.appendChild(fs);
+    var act=el("div","dr-act");inst.lock=el("button","pj-b dr-lock","Lock in answer");inst.lock.type="button";inst.lock.disabled=true;inst.msg=el("span","dr-msg");inst.msg.setAttribute("role","status");
+    act.appendChild(inst.lock);act.appendChild(inst.msg);box.appendChild(act);
+    inst.res=el("div","dr-res");inst.res.hidden=true;inst.res.tabIndex=-1;inst.res.setAttribute("role","status");box.appendChild(inst.res);
+    inst.retry=el("button","pj-b dr-retry","Try this drill again");inst.retry.type="button";inst.retry.hidden=true;box.appendChild(inst.retry);
+    var slot=el("div","dr-slot");inst.slot=slot;slot.appendChild(hiddenGap(inst));
+    var tailNodes=[];
+    inst.items.forEach(function(it){if(it.k==="t")tailNodes.push(document.importNode(it.node,true));else if(it.k==="j")tailNodes.push(gap(it.len))});
+    return{inst:inst,nodes:[h3].concat(pre,[box,slot],tailNodes)};
+  }
+  function hiddenGap(inst){var len=0;inst.items.forEach(function(it){if(it.k==="l"||it.k==="c"||it.k==="f")len+=itemLen(it)});return gap(len,true)}
+  function mark(e){e.classList.add("dr-picked");e.appendChild(skip("span","dr-pick"," Your pick"))}
+  function region(inst){
+    var reg=el("div","dr-rev");reg.appendChild(skip("div","dr-lbl","Answer"));
+    inst.items.forEach(function(it){
+      if(it.k==="l")reg.appendChild(gap(it.len));
+      else if(it.k==="f"){reg.appendChild(gap(it.len));reg.appendChild(skip("p","dr-formula",it.plain))}
+      else if(it.k==="c"){
+        var c=document.importNode(it.node,true);
+        if(it.node===inst.a.ul&&inst.markLi>=0&&c.children[inst.markLi])mark(c.children[inst.markLi]);
+        if(it.node===inst.a.whyP&&inst.markWhy)mark(c);
+        reg.appendChild(c);
+      }
+    });
+    return reg;
+  }
+
+  /* ---------- evaluation (answer key lives here) ---------- */
+  function readPick(inst){
+    var chk=inst.box.querySelector("input[type=radio]:checked");
+    if(inst.a.opts)return chk?{i:parseInt(chk.value)}:null;
+    var t=inst.input.value;if(!norm(t)||!chk)return null;return{txt:norm(t),m:chk.value};
+  }
+  function evaluate(inst,pick){
+    if(inst.a.opts){var o=inst.a.opts[pick.i];return{ok:!!(o&&o.ok),numOK:true,verdictOK:true}}
+    var c=inst.a.calc,v=pick.num;if(v==null)v=parseNum(pick.txt);
+    var numOK=v!=null&&near(v,c.target,c.tol),verdictOK=pick.m===c.verdict;
+    return{ok:numOK&&verdictOK,numOK:numOK,verdictOK:verdictOK,rounded:v!=null&&near(v,c.roundTo,c.roundTol)};
+  }
+
+  function sr(lab,text){lab.appendChild(skip("span","dr-sr"," "+text))}
+  function setDone(inst,pick,res,restored){
+    inst.done=true;inst.markLi=-1;inst.markWhy=false;
+    var a=inst.a,labs=[].slice.call(inst.box.querySelectorAll("label.dr-opt"));
+    [].forEach.call(inst.box.querySelectorAll("input"),function(i){i.disabled=true});
+    labs.forEach(function(l){l.classList.remove("ok","bad");[].forEach.call(l.querySelectorAll(".dr-sr"),function(x){x.remove()})});
+    if(a.opts){
+      a.opts.forEach(function(o,i){
+        if(o.ok){labs[i].classList.add("ok");sr(labs[i],"Correct answer.")}
+        if(pick&&pick.i===i){labs[i].querySelector("input").checked=true;if(!o.ok){labs[i].classList.add("bad");sr(labs[i],"Your answer, not correct.");if(o.why)inst.markWhy=true;else if(o.li>=0)inst.markLi=o.li}else sr(labs[i],"Your answer.")}
+      });
+    }else if(pick){
+      inst.input.value=pick.txt||"";
+      var rad=inst.box.querySelector("input[type=radio][value="+(pick.m==="m"?"m":"n")+"]");if(rad)rad.checked=true;
+      inst.input.classList.toggle("ok",!!res.numOK);inst.input.classList.toggle("bad",!res.numOK);
+      labs.forEach(function(l){var v=l.querySelector("input").value;if(v===a.calc.verdict)l.classList.add("ok");else if(pick.m===v)l.classList.add("bad")});
+      if(res.rounded&&!res.numOK)inst.markLi=a.calc.liRound;
+    }
+    var T=restored?(res.ok?"Correct on your last attempt.":"Not quite on your last attempt."):(res.ok?"Correct.":"Not quite.");
+    if(a.opts&&pick&&!res.ok&&!restored)T+=" Your answer: "+String.fromCharCode(65+pick.i)+".";
+    if(a.calc&&pick&&!res.ok&&!restored)T+=(res.numOK?"":" The reward-to-risk value is not right.")+(res.verdictOK?"":" The Meets / Does not meet choice is not right.");
+    T+=" Read the explanation below and record the rule.";
+    inst.res.textContent=T;inst.res.hidden=false;inst.res.className="dr-res "+(res.ok?"ok":"bad");
+    inst.msg.textContent="";inst.lock.hidden=true;inst.retry.hidden=false;
+    clear(inst.slot);inst.slot.appendChild(region(inst));
+  }
+  function setOpen(inst){
+    inst.done=false;inst.markLi=-1;inst.markWhy=false;
+    [].forEach.call(inst.box.querySelectorAll("input"),function(i){i.disabled=false;if(i.type==="radio")i.checked=false});
+    if(inst.input){inst.input.value="";inst.input.classList.remove("ok","bad")}
+    [].forEach.call(inst.box.querySelectorAll("label.dr-opt"),function(l){l.classList.remove("ok","bad");[].forEach.call(l.querySelectorAll(".dr-sr"),function(x){x.remove()})});
+    inst.res.hidden=true;inst.res.textContent="";inst.res.className="dr-res";inst.msg.textContent="";
+    inst.lock.hidden=false;inst.lock.disabled=true;inst.retry.hidden=true;
+    clear(inst.slot);inst.slot.appendChild(hiddenGap(inst));
+  }
+  function syncLock(inst){inst.msg.textContent="";inst.lock.disabled=!readPick(inst)}
+  function lock(inst){
+    if(inst.done)return;
+    var pick=readPick(inst);if(!pick){inst.msg.textContent=inst.a.opts?"Choose an answer first.":"Enter a number and choose Meets or Does not meet.";return}
+    if(inst.a.calc){var v=parseNum(pick.txt);if(v===null){inst.msg.textContent="Enter the ratio as a number, for example 1.8 or 1:1.8.";inst.input.focus();return}pick.num=v}
+    var res=evaluate(inst,pick),rec=read(inst.id)||{},now=Date.now();
+    var nr={n:(rec.n||0)+1,ct:rec.ct||now,first:(rec.first===0||rec.first===1)?rec.first:(res.ok?1:0),last:res.ok?1:0,p:inst.a.opts?pick.i:[pick.txt,pick.m],t:now};
+    write(inst.id,nr);
+    setDone(inst,pick,res,false);
+    D.refresh();if(window.paosReapplyHL)try{paosReapplyHL()}catch(e){}
+    try{inst.res.focus({preventScroll:true})}catch(e){}
+  }
+  function restore(inst){
+    var rec=read(inst.id);if(!rec||!rec.ct)return;
+    var pick=null,p=rec.p;
+    if(inst.a.opts){if(typeof p==="number"&&p>=0&&p<inst.a.opts.length&&p%1===0)pick={i:p}}
+    else if(Array.isArray(p)&&typeof p[0]==="string"&&(p[1]==="m"||p[1]==="n")&&parseNum(p[0])!==null)pick={txt:norm(p[0]),m:p[1],num:parseNum(p[0])};
+    var res=pick?evaluate(inst,pick):{ok:rec.last===1,numOK:true,verdictOK:true};
+    if(pick&&rec.last!==null)res.ok=(rec.last===1);
+    setDone(inst,pick,res,true);
+  }
+
+  /* ---------- lesson builder / mount ---------- */
+  function errCard(msg){var e=skip("div","dr-err",msg);e.setAttribute("role","alert");return e}
+  function fail(mi,li,n,why){var f={module:modules[mi]&&modules[mi].num,lesson:modules[mi]&&modules[mi].lessons[li]&&modules[mi].lessons[li].t,drill:n,reason:String(why)};D.failures.push(f);try{console.error("[paos drills] parse failure",f)}catch(e){}}
+  function buildLesson(body,mi,li){
+    var root=parse(body),out=[],cur=null,seen={},insts=[];
+    function flush(){
+      if(!cur)return;var c=cur;cur=null;
+      try{
+        if(seen[c.n])throw new Error("duplicate drill number");
+        var r=build(c);seen[c.n]=1;insts.push(r.inst);r.nodes.forEach(function(n){out.push(n)});
+      }catch(e){
+        fail(mi,li,c.n,e&&e.message||e);
+        out.push(document.importNode(c.h3,true));c.pre.forEach(function(n){out.push(document.importNode(n,true))});
+        out.push(errCard("Drill "+c.n+" could not be loaded. Refresh the page; if this continues, contact support."));
+        if(c.details)out.push(gap(c.details.textContent.length,true));
+      }
+      c.post.forEach(function(n){out.push(document.importNode(n,true))});
+    }
+    [].slice.call(root.childNodes).forEach(function(n){
+      var m=n.nodeName==="H3"?TITLE_RE.exec(norm(n.textContent)):null;
+      if(m){flush();cur={n:parseInt(m[1]),h3:n,pre:[],details:null,post:[],dup:false};return}
+      if(n.nodeName==="H3"){flush();out.push(document.importNode(n,true));return}
+      if(n.nodeType===1&&n.matches("details.rd-reveal,details")){
+        if(cur&&!cur.details){cur.details=n;return}
+        fail(mi,li,cur?cur.n:0,"reveal block outside a drill or duplicated");
+        if(cur){cur.post.push(errCard("A second reveal block was not loaded."));cur.post.push(gap(n.textContent.length,true))}
+        else{out.push(errCard("A reveal block could not be loaded."));out.push(gap(n.textContent.length,true))}
+        return}
+      if(cur){if(cur.details)cur.post.push(n);else cur.pre.push(n)}else out.push(document.importNode(n,true));
+    });
+    flush();
+    if(insts.length){
+      var c=D.count(),st=skip("div","dr-strip");
+      st.appendChild(el("b",null,"Decision drills: "));st.appendChild(el("span",null,"decide first, then lock in your answer to see the explanation. "));
+      var cnt=el("b","dr-count");cnt.setAttribute("data-dr-count","");cnt.textContent=c.done+" / "+c.total+" completed";st.appendChild(cnt);
+      var w=el("div","dr-warn","Progress could not be saved in this browser. It will be lost when you refresh.");w.setAttribute("data-dr-warn","");w.hidden=!saveFail;st.appendChild(w);
+      out.unshift(st);
+    }
+    return{nodes:out,insts:insts};
+  }
+  D.isDrillBody=function(b){return typeof b==="string"&&/rd-reveal/.test(b)};
+  D.placeholder=function(b,li){var len=0;try{len=parse(b).textContent.length}catch(e){}return'<div data-dr-host data-dr-li="'+(+li||0)+'" data-hl-gap="'+len+'"></div>'};
+  D.listenHTML=function(b){var r=parse(b);[].forEach.call(r.querySelectorAll("details"),function(d){d.remove()});return r.innerHTML};
+  D.mount=function(content,mi){
+    INST={};
+    [].forEach.call(content.querySelectorAll("[data-dr-host]"),function(host){
+      var li=+host.getAttribute("data-dr-li"),l=modules[mi]&&modules[mi].lessons[li];
+      try{
+        var r=buildLesson(l.body,mi,li);
+        r.insts.forEach(function(inst){INST[inst.id]=inst});
+        host.replaceWith.apply(host,r.nodes);
+        r.insts.forEach(restore);
+      }catch(e){fail(mi,li,0,e&&e.message||e);host.appendChild(errCard("The decision drills could not be loaded. Refresh the page; if this continues, contact support."))}
+    });
+    D.refresh();
+  };
+
+  /* ---------- events (delegated on the reader content) ---------- */
+  var content=document.getElementById("rdContent");
+  function instOf(t){var b=t.closest&&t.closest(".dr-box");return b?INST[b.getAttribute("data-dr")]:null}
+  content.addEventListener("change",function(e){var i=instOf(e.target);if(i&&!i.done)syncLock(i)});
+  content.addEventListener("input",function(e){var i=instOf(e.target);if(i&&!i.done)syncLock(i)});
+  content.addEventListener("click",function(e){
+    var b=e.target.closest&&e.target.closest(".dr-lock,.dr-retry");if(!b)return;var i=instOf(b);if(!i)return;
+    if(b.classList.contains("dr-lock"))lock(i);else{setOpen(i);try{i.box.querySelector("input:not([type=hidden])").focus({preventScroll:true})}catch(_e){}}
+  });
+  content.addEventListener("keydown",function(e){if(e.key==="Enter"&&e.target.classList&&e.target.classList.contains("dr-in")){e.preventDefault();var i=instOf(e.target);if(i)lock(i)}});
+
+  /* ---------- Lab link: open the actual Module 12 lesson ---------- */
+  D.locate=function(){for(var mi=0;mi<modules.length;mi++)for(var li=0;li<modules[mi].lessons.length;li++)if(D.isDrillBody(modules[mi].lessons[li].body))return{mi:mi,li:li};return null};
+  D.open=function(opener){
+    var p=D.locate();if(!p||!window.openReader)return;window.openReader(p.mi,opener);
+    var sc=document.getElementById("rdScroll");
+    requestAnimationFrame(function(){requestAnimationFrame(function(){
+      var sec=content.querySelectorAll("section.rd-block")[p.li];if(!sec||!sc)return;
+      sc.style.scrollBehavior="auto";sc.scrollTop+=sec.getBoundingClientRect().top-sc.getBoundingClientRect().top-12;sc.style.scrollBehavior="";
+    })});
+  };
+  document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("[data-open-drills]");if(!b)return;e.preventDefault();D.open(b)});
+  window.addEventListener("storage",function(e){if(!e.key||e.key.indexOf("paos_dr_")===0)D.refresh()});
+  D.refresh();
 })();
 </script>
 </body>
